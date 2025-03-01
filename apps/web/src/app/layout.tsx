@@ -2,9 +2,8 @@ import { LocalDbProvider } from "@/providers/local-db-provider";
 import "./globals.css";
 import "@repo/ui/styles.css";
 import type { Metadata } from "next";
-import { Inter } from "next/font/google";
-
-const inter = Inter({ subsets: ["latin"] });
+import { fontVariables } from "./font";
+import { ThemeProvider } from "@/providers/theme-provider";
 
 export const metadata: Metadata = {
   title: "Create Turborepo",
@@ -18,8 +17,10 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body className={inter.className}>
-        <LocalDbProvider>{children}</LocalDbProvider>
+      <body className={fontVariables}>
+        <ThemeProvider>
+          <LocalDbProvider>{children}</LocalDbProvider>
+        </ThemeProvider>
       </body>
     </html>
   );
