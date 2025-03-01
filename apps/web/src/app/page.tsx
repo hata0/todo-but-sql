@@ -1,6 +1,7 @@
 "use client";
 
 import { usersTable } from "@/db/schema";
+import { Top } from "@/features/top/components/top";
 import { useLocalDbContext } from "@/providers/local-db-provider";
 import { useEffect } from "react";
 
@@ -15,11 +16,5 @@ export default function TopPage() {
     })();
   }, [db, isLoading]);
 
-  return (
-    <div>
-      <main>
-        <div>hello</div>
-      </main>
-    </div>
-  );
+  return <Top />;
 }
