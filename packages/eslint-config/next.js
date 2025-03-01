@@ -25,6 +25,9 @@ export const nextJsConfig = [
         ...globals.serviceworker,
       },
     },
+    rules: {
+      "react/prop-types": "off",
+    },
   },
   {
     plugins: {
