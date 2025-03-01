@@ -4,9 +4,13 @@
   "scripts": {
     "build": "turbo run build",
     "dev": "turbo run dev",
-    "lint": "turbo run lint",
     "check-types": "turbo run check-types",
-    "format": "prettier --write \"**/*.{ts,tsx,md}\""
+    "lint": "pnpm lint:eslint && pnpm lint:prettier",
+    "lint:eslint": "turbo run lint:eslint",
+    "lint:prettier": "prettier --check \"**/*.{js,ts,jsx,tsx,mdx,md}\"",
+    "fix": "pnpm fix:eslint && pnpm fix:prettier",
+    "fix:eslint": "turbo run fix:eslint",
+    "fix:prettier": "prettier --write \"**/*.{js,ts,jsx,tsx,mdx,md}\""
   },
   "devDependencies": {
     "prettier": "^3.5.0",
