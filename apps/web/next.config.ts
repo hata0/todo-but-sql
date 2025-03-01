@@ -7,6 +7,7 @@ const nextConfig: NextConfig = {
   eslint: {
     ignoreDuringBuilds: true,
   },
+  transpilePackages: ["@electric-sql/pglite-react", "@electric-sql/pglite"],
 };
 
 export default nextConfig;
