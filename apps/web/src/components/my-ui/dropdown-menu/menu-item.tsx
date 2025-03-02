@@ -1,11 +1,11 @@
 "use client";
 
-import { font } from "@/config/font";
-import { cn } from "@/lib/utils";
 import { cva } from "class-variance-authority";
 import type { ComponentProps, ReactNode } from "react";
 import { Slot } from "../core/slot";
 import type { DropdownMenuItemRole } from "./menu-item.container";
+import { cn } from "@/lib/utils";
+import { font } from "@/config/font";
 
 type Props = {
   leadingIcon?: (props: { className: string; selected: boolean }) => ReactNode;

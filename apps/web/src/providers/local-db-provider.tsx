@@ -1,6 +1,5 @@
 "use client";
 
-import { DB, initializeDb, PG, PGliteWithLive } from "@/db/db";
 import { makePGliteProvider } from "@electric-sql/pglite-react";
 import {
   createContext,
@@ -9,6 +8,7 @@ import {
   useEffect,
   useState,
 } from "react";
+import { DB, initializeDb, PG, PGliteWithLive } from "@/db/db";
 
 const { PGliteProvider: PGliteProviderPrimitive, usePGlite } =
   makePGliteProvider<PGliteWithLive>();

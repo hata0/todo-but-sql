@@ -1,7 +1,7 @@
-import { fontVariables } from "@/app/font";
-import { ThemeProvider } from "@/providers/theme-provider";
 import type { Decorator } from "@storybook/react";
 import { useEffect } from "react";
+import { fontVariables } from "@/app/font";
+import { ThemeProvider } from "@/providers/theme-provider";
 
 export const DefaultDecorator: Decorator = (Story) => {
   // フォントを追加

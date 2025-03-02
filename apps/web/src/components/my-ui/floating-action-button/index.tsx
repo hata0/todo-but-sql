@@ -1,7 +1,7 @@
-import { cn } from "@/lib/utils";
 import { cva } from "class-variance-authority";
 import type { ComponentProps, ReactNode } from "react";
 import { Slot } from "../core/slot";
+import { cn } from "@/lib/utils";
 
 type IconProps = {
   className: string;

@@ -1,5 +1,3 @@
-import { useRingBufferIndex } from "@/hooks/use-ring-buffer-index";
-import { cn } from "@/lib/utils";
 import {
   AnimatePresence,
   type HTMLMotionProps,
@@ -7,6 +5,8 @@ import {
   usePresenceData,
 } from "motion/react";
 import { type PropsWithChildren, type ReactNode, useState } from "react";
+import { useRingBufferIndex } from "@/hooks/use-ring-buffer-index";
+import { cn } from "@/lib/utils";
 
 type Props<T> = {
   items: T[];

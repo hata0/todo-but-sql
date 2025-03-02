@@ -1,8 +1,8 @@
-import { cn } from "@/lib/utils";
-import { omit } from "@/utils/object";
 import { cva } from "class-variance-authority";
 import type { ComponentProps, PropsWithChildren, ReactNode } from "react";
 import { Slot } from "../core/slot";
+import { cn } from "@/lib/utils";
+import { omit } from "@/utils/object";
 
 type Props = {
   color: "elevated" | "filled" | "outlined";

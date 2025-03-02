@@ -1,5 +1,5 @@
-import { readMigrationFiles } from "drizzle-orm/migrator";
 import fs from "node:fs/promises";
+import { readMigrationFiles } from "drizzle-orm/migrator";
 
 // pnpm db:generateでここが実行
 (async () => {

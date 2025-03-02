@@ -1,7 +1,7 @@
-import { cn } from "@/lib/utils";
 import type { Meta, StoryObj } from "@storybook/react";
 import Image from "next/image";
 import { CenterAlignedHeroCarousel } from "./carousel";
+import { cn } from "@/lib/utils";
 
 type Story = StoryObj<typeof CenterAlignedHeroCarousel>;
 

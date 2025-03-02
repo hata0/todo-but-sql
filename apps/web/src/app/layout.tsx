@@ -1,8 +1,8 @@
-import { LocalDbProvider } from "@/providers/local-db-provider";
 import "./globals.css";
 import "@repo/ui/styles.css";
 import type { Metadata } from "next";
 import { fontVariables } from "./font";
+import { LocalDbProvider } from "@/providers/local-db-provider";
 import { ThemeProvider } from "@/providers/theme-provider";
 
 export const metadata: Metadata = {

@@ -1,8 +1,8 @@
 import { PGlite, PGliteInterfaceExtensions } from "@electric-sql/pglite";
 import { drizzle } from "drizzle-orm/pglite";
-import migrations from "./migrations.json";
 import { PGliteWorker } from "@electric-sql/pglite/worker";
 import { live } from "@electric-sql/pglite/live";
+import migrations from "./migrations.json";
 
 export type PGliteWithLive = PGlite &
   PGliteInterfaceExtensions<{ live: typeof live }>;

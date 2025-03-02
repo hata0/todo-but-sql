@@ -1,7 +1,7 @@
-import { cn } from "@/lib/utils";
 import type { Meta, StoryObj } from "@storybook/react";
 import Image from "next/image";
 import { UncontainedCarouselItem } from "./carousel-item";
+import { cn } from "@/lib/utils";
 
 type Story = StoryObj<typeof UncontainedCarouselItem>;
 

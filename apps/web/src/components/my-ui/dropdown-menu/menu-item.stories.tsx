@@ -1,8 +1,8 @@
-import { cn } from "@/lib/utils";
 import type { Meta, StoryObj } from "@storybook/react";
 import { Command, Scissors } from "lucide-react";
 import NextLink from "next/link";
 import { DropdownMenuItem } from "./menu-item";
+import { cn } from "@/lib/utils";
 
 type Story = StoryObj<typeof DropdownMenuItem>;
 

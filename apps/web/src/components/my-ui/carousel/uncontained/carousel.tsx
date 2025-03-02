@@ -1,12 +1,12 @@
 "use client";
 
-import { cn } from "@/lib/utils";
 import AutoScroll, {
   type AutoScrollOptionsType,
 } from "embla-carousel-auto-scroll";
 import useEmblaCarousel from "embla-carousel-react";
 import type { ComponentProps, PropsWithChildren, ReactNode } from "react";
 import { Slot } from "../../core/slot";
+import { cn } from "@/lib/utils";
 
 type Props = {
   className: string;

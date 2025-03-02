@@ -1,6 +1,6 @@
+import { ComponentProps } from "react";
 import { font } from "@/config/font";
 import { cn } from "@/lib/utils";
-import { ComponentProps } from "react";
 
 type Props = {
   type: "email" | "password" | "tel" | "text";
