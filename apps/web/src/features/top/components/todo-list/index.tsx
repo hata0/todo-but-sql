@@ -13,7 +13,6 @@ type Props = {
   tasks: Task[];
 };
 export const TodoList = ({ tasks }: Props) => {
-  console.log(tasks);
   return (
     <div className="size-full flex flex-col items-center gap-spacer-normal">
       <h2 className={font.heading}>タスク一覧</h2>

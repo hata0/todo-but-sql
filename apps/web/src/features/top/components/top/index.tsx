@@ -31,8 +31,7 @@ export const Top = () => {
         <TodoList tasks={tasks} />
         <TodoForm
           onSubmit={async ({ text }) => {
-            const res = await pg.query(text);
-            console.log(res);
+            await pg.query(text);
           }}
         />
       </Main>
