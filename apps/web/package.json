@@ -18,6 +18,7 @@
     "@electric-sql/pglite": "^0.2.17",
     "@electric-sql/pglite-react": "^0.2.17",
     "@floating-ui/react": "^0.27.5",
+    "@hookform/resolvers": "^4.1.2",
     "@repo/ui": "workspace:*",
     "class-variance-authority": "^0.7.1",
     "clsx": "^2.1.1",
@@ -30,8 +31,10 @@
     "next-themes": "^0.4.4",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
+    "react-hook-form": "^7.54.2",
     "tailwind-merge": "^2.6.0",
-    "ts-pattern": "^5.6.2"
+    "ts-pattern": "^5.6.2",
+    "zod": "^3.24.2"
   },
   "devDependencies": {
     "@chromatic-com/storybook": "^3.2.5",
