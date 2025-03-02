@@ -25,12 +25,14 @@ export const TodoForm = ({ onSubmit }: Props) => {
     <FormProvider {...form}>
       <form
         onSubmit={form.handleSubmit(onSubmit)}
-        className="flex items-center justify-center gap-padding-8"
+        className="flex items-center justify-center gap-padding-8 w-full"
       >
         <Controller
           control={form.control}
           name="text"
-          render={({ field }) => <TextField {...field} type="text" />}
+          render={({ field }) => (
+            <TextField {...field} type="text" className="w-full" />
+          )}
         ></Controller>
         <IconButton type="submit">
           {(props) => <ArrowUp {...props} />}

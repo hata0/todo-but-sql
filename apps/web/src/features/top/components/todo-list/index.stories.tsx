@@ -11,11 +11,11 @@ export default {
   component: TodoList,
   args: {
     tasks: Array.from({ length: 10 }).map(() => ({
-      id: faker.string.uuid(),
+      id: faker.number.int(),
       title: faker.word.noun(),
       isCompleted: faker.datatype.boolean(),
-      createdAt: faker.date.anytime().toISOString(),
-      updatedAt: faker.date.anytime().toISOString(),
+      createdAt: faker.date.anytime(),
+      updatedAt: faker.date.anytime(),
     })),
   },
 } satisfies Meta<typeof TodoList>;

@@ -26,7 +26,7 @@ export const IconButton = ({
 };
 
 const buttonVariant = cva(
-  "flex items-center justify-center size-[40px] rounded-radius-full bg-primary disabled:opacity-disabled aria-disabled:opacity-disabled",
+  "flex items-center justify-center min-w-[40px] min-h-[40px] rounded-radius-full bg-primary disabled:opacity-disabled aria-disabled:opacity-disabled",
   {
     variants: {
       disabled: {
