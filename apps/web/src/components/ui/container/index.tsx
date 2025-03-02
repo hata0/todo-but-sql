@@ -9,7 +9,7 @@ export const Container = ({
   return (
     <div
       className={cn(
-        "bg-surface-container-lowest text-on-surface transition duration-500 ease-in-out",
+        "bg-surface text-on-surface transition duration-500 ease-in-out",
         className,
       )}
       {...props}

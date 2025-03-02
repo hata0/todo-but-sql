@@ -1,7 +1,9 @@
 import { z } from "zod";
 import { Controller, FormProvider, useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { ArrowUp } from "lucide-react";
 import { TextField } from "@/components/my-ui/text-field";
+import { IconButton } from "@/components/my-ui/icon-button";
 
 const todoInputSchema = z.object({
   text: z.string().min(1),
@@ -21,12 +23,18 @@ export const TodoForm = ({ onSubmit }: Props) => {
 
   return (
     <FormProvider {...form}>
-      <form onSubmit={form.handleSubmit(onSubmit)}>
+      <form
+        onSubmit={form.handleSubmit(onSubmit)}
+        className="flex items-center justify-center gap-padding-8"
+      >
         <Controller
           control={form.control}
           name="text"
           render={({ field }) => <TextField {...field} type="text" />}
         ></Controller>
+        <IconButton type="submit">
+          {(props) => <ArrowUp {...props} />}
+        </IconButton>
       </form>
     </FormProvider>
   );

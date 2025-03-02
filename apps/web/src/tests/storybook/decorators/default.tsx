@@ -2,6 +2,7 @@ import type { Decorator } from "@storybook/react";
 import { useEffect } from "react";
 import { fontVariables } from "@/app/font";
 import { ThemeProvider } from "@/providers/theme-provider";
+import { Container } from "@/components/ui/container";
 
 export const DefaultDecorator: Decorator = (Story) => {
   // フォントを追加
@@ -19,7 +20,9 @@ export const DefaultDecorator: Decorator = (Story) => {
 
   return (
     <ThemeProvider>
-      <Story />
+      <Container className="w-screen h-screen">
+        <Story />
+      </Container>
     </ThemeProvider>
   );
 };
