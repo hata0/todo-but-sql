@@ -17,7 +17,8 @@ export const Top = () => {
       <Main>
         <TodoForm
           onSubmit={async ({ text }) => {
-            pg.query(text);
+            const res = await pg.query(text);
+            console.log(res);
           }}
         />
       </Main>
