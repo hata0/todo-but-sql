@@ -13,6 +13,7 @@ type Props = {
   tasks: Task[];
 };
 export const TodoList = ({ tasks }: Props) => {
+  console.log(tasks);
   return (
     <div className="size-full flex flex-col items-center gap-spacer-normal">
       <h2 className={font.heading}>タスク一覧</h2>
@@ -20,11 +21,8 @@ export const TodoList = ({ tasks }: Props) => {
         <ul>
           {tasks.map(({ id, title }) => (
             <ListItem
-              headline={(props) => (
-                <div key={id} {...props}>
-                  {title}
-                </div>
-              )}
+              key={id}
+              headline={(props) => <div {...props}>{title}</div>}
             />
           ))}
         </ul>

@@ -1,5 +1,5 @@
 {
-  "id": "09889603-9de3-4ad7-b4d4-52702932421c",
+  "id": "38a0d21e-0cc1-49c4-b997-7d8891dba933",
   "prevId": "00000000-0000-0000-0000-000000000000",
   "version": "7",
   "dialect": "postgresql",
@@ -20,20 +20,20 @@
           "primaryKey": false,
           "notNull": true
         },
-        "isCompleted": {
-          "name": "isCompleted",
+        "is_completed": {
+          "name": "is_completed",
           "type": "boolean",
           "primaryKey": false,
           "notNull": true
         },
-        "createdAt": {
-          "name": "createdAt",
+        "created_at": {
+          "name": "created_at",
           "type": "timestamp (3)",
           "primaryKey": false,
           "notNull": true
         },
-        "updatedAt": {
-          "name": "updatedAt",
+        "updated_at": {
+          "name": "updated_at",
           "type": "timestamp (3)",
           "primaryKey": false,
           "notNull": true
