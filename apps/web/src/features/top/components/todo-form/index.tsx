@@ -8,7 +8,7 @@ import { IconButton } from "@/components/my-ui/icon-button";
 const todoInputSchema = z.object({
   text: z.string().min(1),
 });
-type TodoInput = z.infer<typeof todoInputSchema>;
+export type TodoInput = z.infer<typeof todoInputSchema>;
 
 type Props = {
   onSubmit: (values: TodoInput) => Promise<void>;

@@ -1,5 +1,5 @@
 import { Meta, StoryObj } from "@storybook/react";
-import { Top } from ".";
+import { Top } from "./top";
 
 type Story = StoryObj<typeof Top>;
 

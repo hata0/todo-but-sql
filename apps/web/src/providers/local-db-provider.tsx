@@ -14,17 +14,7 @@ const { PGliteProvider: PGliteProviderPrimitive, usePGlite } =
   makePGliteProvider<PGliteWithLive>();
 export { usePGlite };
 
-type ContextProps =
-  | {
-      isLoading: true;
-      db?: undefined;
-      pg?: undefined;
-    }
-  | {
-      isLoading: false;
-      db: DB;
-      pg: PG;
-    };
+type ContextProps = undefined | { db: DB; pg: PG };
 const LocalDbContext = createContext<ContextProps | null>(null);
 export const useLocalDbContext = () => {
   const context = useContext(LocalDbContext);
@@ -39,21 +29,21 @@ export const useLocalDbContext = () => {
 };
 
 export const LocalDbProvider = ({ children }: PropsWithChildren) => {
-  const [state, setState] = useState<ContextProps>({ isLoading: true });
+  const [state, setState] = useState<ContextProps>(undefined);
 
   useEffect(() => {
     (async () => {
       // dbの変更を検知できるようにする拡張を追加
       const { db, pg } = await initializeDb();
 
-      setState({ isLoading: false, db, pg });
+      setState({ db, pg });
     })();
   }, []);
 
   return (
     <LocalDbContext.Provider value={state}>
       <PGliteProviderPrimitive
-        db={state.pg as unknown as PGliteWithLive | undefined}
+        db={state?.pg as unknown as PGliteWithLive | undefined}
       >
         {children}
       </PGliteProviderPrimitive>
