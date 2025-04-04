@@ -18,7 +18,7 @@ export const ListItem = ({
   return (
     <li
       className={cn(
-        font.body,
+        font.bodyLarge,
         "px-padding-16 py-padding-8 h-[56px] flex items-center bg-surface text-on-surface gap-padding-16",
         className,
       )}

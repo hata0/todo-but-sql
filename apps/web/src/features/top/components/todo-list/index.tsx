@@ -14,7 +14,7 @@ type Props = {
 };
 export const TodoList = ({ tasks }: Props) => {
   return (
-    <div className="size-full flex flex-col items-center gap-spacer-normal">
+    <div className="size-full flex flex-col items-center gap-spacer-normal overflow-auto">
       <h2 className={font.heading}>タスク一覧</h2>
       {tasks.length !== 0 ? (
         <ul>

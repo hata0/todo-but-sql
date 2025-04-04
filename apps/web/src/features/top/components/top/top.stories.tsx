@@ -1,8 +1,9 @@
 import { Meta, StoryObj } from "@storybook/react";
+import { fn } from "@storybook/test";
 import { taskMock } from "../../tests/task-mock";
-import { TodoList } from ".";
+import { Top } from "./top";
 
-type Story = StoryObj<typeof TodoList>;
+type Story = StoryObj<typeof Top>;
 
 export const Default: Story = {};
 
@@ -13,9 +14,11 @@ export const Empty: Story = {
 };
 
 export default {
-  title: "features/top/todo-list",
-  component: TodoList,
+  title: "features/top/top",
+  component: Top,
   args: {
+    isLoading: false,
     tasks: Array.from({ length: 10 }).map(() => taskMock()),
+    onSubmit: fn(),
   },
-} satisfies Meta<typeof TodoList>;
+} satisfies Meta<typeof Top>;
