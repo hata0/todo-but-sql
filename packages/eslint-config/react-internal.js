@@ -24,6 +24,9 @@ export const config = [
         ...globals.browser,
       },
     },
+    rules: {
+      "react/prop-types": "off",
+    },
   },
   {
     plugins: {
