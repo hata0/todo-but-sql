@@ -2,12 +2,12 @@ import { colors } from ".";
 
 type Colors = keyof typeof colors;
 
-type BackgroundColor = Exclude<
+export type BackgroundColor = Exclude<
   Colors,
   "foreground" | "border" | "input" | "ring" | "chart"
 >;
 
-type TextColor = Exclude<
+export type TextColor = Exclude<
   Colors,
   "background" | "border" | "input" | "ring" | "chart"
 >;
