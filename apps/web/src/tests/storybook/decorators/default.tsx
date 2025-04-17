@@ -20,7 +20,7 @@ export const DefaultDecorator: Decorator = (Story) => {
 
   return (
     <ThemeProvider>
-      <Container className="w-screen h-screen">
+      <Container className="h-screen w-screen">
         <Story />
       </Container>
     </ThemeProvider>

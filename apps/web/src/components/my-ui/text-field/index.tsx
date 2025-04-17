@@ -11,7 +11,7 @@ export const TextField = ({ type, className, ...props }: Props) => {
       type={type}
       className={cn(
         font.bodyLarge,
-        "bg-surface-container-highest rounded-t-radius-xs text-on-surface border-b-[1px] border-on-surface-variant caret-primary h-[56px] py-padding-8 px-padding-16 hover:border-on-surface hover:brightness-hover-focus focus:border-primary focus:border-b-[2px] outline-none",
+        "bg-surface-container-highest rounded-t-radius-xs text-on-surface border-on-surface-variant caret-primary py-padding-8 px-padding-16 hover:border-on-surface hover:brightness-hover-focus focus:border-primary h-[56px] border-b-[1px] outline-none focus:border-b-[2px]",
         className,
       )}
       {...props}

@@ -226,7 +226,7 @@ export const DropdownMenu = memo(
                     ref={refs.setFloating}
                     style={floatingStyles}
                     {...getFloatingProps()}
-                    className="z-level2 flex min-w-[112px] max-w-[280px] flex-col overflow-y-auto rounded-radius-xs bg-surface-container py-padding-8 outline-0"
+                    className="z-level2 rounded-radius-xs bg-surface-container py-padding-8 flex min-w-[112px] max-w-[280px] flex-col overflow-y-auto outline-0"
                   >
                     {children}
                   </ul>

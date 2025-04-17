@@ -24,7 +24,7 @@ export const UncontainedCarouselItem = ({
       className={cn(
         // min-w-0 shrink-0 grow-0を組み合わせて要素のサイズを固定し、勝手に広がったり縮んだりしないようにする
         // gapで指定するとうまくいかないためこちらにplを指定
-        "min-w-0 shrink-0 grow-0 pl-padding-8",
+        "pl-padding-8 min-w-0 shrink-0 grow-0",
         className,
       )}
     >

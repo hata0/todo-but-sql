@@ -25,7 +25,7 @@ export const TodoForm = ({ onSubmit }: Props) => {
     <FormProvider {...form}>
       <form
         onSubmit={form.handleSubmit(onSubmit)}
-        className="flex items-center justify-center gap-padding-8 w-full"
+        className="gap-padding-8 flex w-full items-center justify-center"
       >
         <Controller
           control={form.control}

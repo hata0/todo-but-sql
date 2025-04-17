@@ -3,9 +3,11 @@
 import type { Config } from "tailwindcss";
 import sharedConfig from "@repo/tailwind-config";
 
-const config: Pick<Config, "content" | "presets"> = {
+const config: Config = {
+  darkMode: ["class"],
   content: ["./src/**/*.{js,ts,jsx,tsx,mdx}"],
   presets: [sharedConfig],
+  plugins: [require("tailwindcss-animate")],
 };
 
 export default config;

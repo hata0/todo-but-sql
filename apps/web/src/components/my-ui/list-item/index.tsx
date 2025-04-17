@@ -19,7 +19,7 @@ export const ListItem = ({
     <li
       className={cn(
         font.bodyLarge,
-        "px-padding-16 py-padding-8 h-[56px] flex items-center bg-surface text-on-surface gap-padding-16",
+        "px-padding-16 py-padding-8 bg-surface text-on-surface gap-padding-16 flex h-[56px] items-center",
         className,
       )}
       {...props}

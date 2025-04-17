@@ -32,7 +32,7 @@ export const CenterAlignedHeroCarousel = <T,>({
   return (
     <section
       className={cn(
-        "grid grid-cols-[40px_1fr_40px] grid-rows-1 gap-padding-8 px-padding-16 py-padding-8 sm:grid-cols-[minmax(40px,56px)_1fr_minmax(40px,56px)]",
+        "gap-padding-8 px-padding-16 py-padding-8 grid grid-cols-[40px_1fr_40px] grid-rows-1 sm:grid-cols-[minmax(40px,56px)_1fr_minmax(40px,56px)]",
         className,
       )}
     >
@@ -96,7 +96,7 @@ const LargeItem = ({ children }: PropsWithChildren) => {
         },
       }}
       exit={{ opacity: 0, x: direction === "right" ? 50 : -50 }}
-      className="h-full rounded-radius-xl border-[1px] border-outline bg-surface shadow-flat hover:brightness-hover-focus focus:brightness-hover-focus active:brightness-press"
+      className="rounded-radius-xl border-outline bg-surface shadow-flat hover:brightness-hover-focus focus:brightness-hover-focus active:brightness-press h-full border-[1px]"
     >
       {children}
     </motion.div>
@@ -128,7 +128,7 @@ const SmallItem = ({
       }}
       exit={{ opacity: 0, x: direction === "left" ? -50 : 50 }}
       className={cn(
-        "h-full rounded-radius-xl border-[1px] border-outline bg-surface shadow-flat hover:brightness-hover-focus focus:brightness-hover-focus active:brightness-press",
+        "rounded-radius-xl border-outline bg-surface shadow-flat hover:brightness-hover-focus focus:brightness-hover-focus active:brightness-press h-full border-[1px]",
         className,
       )}
       {...props}
