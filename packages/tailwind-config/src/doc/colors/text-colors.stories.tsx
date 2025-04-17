@@ -29,17 +29,11 @@ const ColorBox = ({
 const TextColorsComponent = () => {
   return (
     <div className="flex flex-col gap-y-24">
-      {textList.map((text) =>
-        text === "foreground" ? (
-          <ColorBox key={text} className={`text-${text}`}>
-            {text}
-          </ColorBox>
-        ) : (
-          <ColorBox key={text} className={`text-${text}-foreground`}>
-            {text}
-          </ColorBox>
-        ),
-      )}
+      {textList.map((text) => (
+        <ColorBox key={text} className={`text-${text}`}>
+          {text}
+        </ColorBox>
+      ))}
     </div>
   );
 };

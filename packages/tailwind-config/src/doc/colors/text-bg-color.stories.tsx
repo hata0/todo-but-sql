@@ -1,27 +1,17 @@
 import { Meta, StoryObj } from "@storybook/react";
-import { BackgroundColor, bgList, TextColor, textList } from "./category-list";
+import { bgList, textList } from "./category-list";
 
 type Props = {
-  bgColorClassname: BackgroundColor;
-  textColorClassname: TextColor;
+  bgColorClassname: (typeof bgList)[number];
+  textColorClassname: (typeof textList)[number];
 };
 
 const TextBgColorComponent = ({
   bgColorClassname,
   textColorClassname,
 }: Props) => {
-  if (textColorClassname === "foreground") {
-    return (
-      <div className={`text-${textColorClassname} bg-${bgColorClassname}`}>
-        Sample Text
-      </div>
-    );
-  }
-
   return (
-    <div
-      className={`text-${textColorClassname}-foreground bg-${bgColorClassname}`}
-    >
+    <div className={`text-${textColorClassname} bg-${bgColorClassname}`}>
       Sample Text
     </div>
   );

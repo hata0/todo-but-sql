@@ -1,20 +1,4 @@
-import { colors } from ".";
-
-type Colors = keyof typeof colors;
-
-export type BackgroundColor = Exclude<
-  Colors,
-  "foreground" | "border" | "input" | "ring" | "chart"
->;
-
-export type TextColor = Exclude<
-  Colors,
-  "background" | "border" | "input" | "ring" | "chart"
->;
-
-type DesignColor = Extract<Colors, "border" | "input" | "ring" | "chart">;
-
-export const bgList: BackgroundColor[] = [
+export const bgList = [
   "background",
   "card",
   "popover",
@@ -23,22 +7,22 @@ export const bgList: BackgroundColor[] = [
   "muted",
   "accent",
   "destructive",
+  "chart-1",
+  "chart-2",
+  "chart-3",
+  "chart-4",
+  "chart-5",
 ] as const;
 
-export const textList: TextColor[] = [
+export const textList = [
   "foreground",
-  "card",
-  "popover",
-  "primary",
-  "secondary",
-  "muted",
-  "accent",
-  "destructive",
+  "card-foreground",
+  "popover-foreground",
+  "primary-foreground",
+  "secondary-foreground",
+  "muted-foreground",
+  "accent-foreground",
+  "destructive-foreground",
 ] as const;
 
-export const designList: DesignColor[] = [
-  "border",
-  "input",
-  "ring",
-  "chart",
-] as const;
+export const designList = ["border", "input", "ring"] as const;
