@@ -5,15 +5,15 @@ const ColorBox = ({ className }: { className: string }) => {
   return (
     <div>
       <span>{className}</span>
-      <div className={cn("border-border h-40 w-full border", className)} />
+      <div className={cn("h-10 w-full border", className)} />
     </div>
   );
 };
 
 const BgColorsComponent = () => {
   return (
-    <div className="flex flex-col gap-y-24">
-      <div className="text-20 grid grid-cols-3 font-bold">
+    <div className="flex flex-col gap-y-6">
+      <div className="grid grid-cols-3 text-xl font-bold">
         <div>default</div>
         <div>hover</div>
         <div>focus</div>
@@ -21,7 +21,7 @@ const BgColorsComponent = () => {
       <div className="grid grid-cols-3">
         <ColorBox className="bg-background" />
         <ColorBox className="bg-accent" />
-        <ColorBox className="bg-background opacity-disabled" />
+        <ColorBox className="bg-background opacity-50" />
       </div>
       <div className="grid">
         <ColorBox className="bg-card" />
@@ -32,12 +32,12 @@ const BgColorsComponent = () => {
       <div className="grid grid-cols-3">
         <ColorBox className="bg-primary" />
         <ColorBox className="bg-primary/90" />
-        <ColorBox className="bg-primary opacity-disabled" />
+        <ColorBox className="bg-primary opacity-50" />
       </div>
       <div className="grid grid-cols-3">
         <ColorBox className="bg-secondary" />
         <ColorBox className="bg-secondary/80" />
-        <ColorBox className="bg-secondary opacity-disabled" />
+        <ColorBox className="bg-secondary opacity-50" />
       </div>
       <div className="grid">
         <ColorBox className="bg-muted" />
@@ -45,7 +45,7 @@ const BgColorsComponent = () => {
       <div className="grid grid-cols-3">
         <ColorBox className="bg-destructive" />
         <ColorBox className="bg-destructive/90" />
-        <ColorBox className="bg-destructive opacity-disabled" />
+        <ColorBox className="bg-destructive opacity-50" />
       </div>
       <div className="grid">
         <ColorBox className="bg-chart-1" />

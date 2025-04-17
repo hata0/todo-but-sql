@@ -11,14 +11,10 @@ const ColorBox = ({
     <div>
       <span>{children}</span>
       <div className="grid grid-cols-2">
-        <div
-          className={cn("border-border h-40 w-full border bg-white", className)}
-        >
+        <div className={cn("h-10 w-full border bg-white", className)}>
           Sample Text
         </div>
-        <div
-          className={cn("border-border h-40 w-full border bg-black", className)}
-        >
+        <div className={cn("h-10 w-full border bg-black", className)}>
           Sample Text
         </div>
       </div>
@@ -28,9 +24,9 @@ const ColorBox = ({
 
 const TextColorsComponent = () => {
   return (
-    <div className="flex flex-col gap-y-24">
+    <div className="flex flex-col gap-y-6">
       {textList.map((text) => (
-        <ColorBox key={text} className={`text-${text}`}>
+        <ColorBox key={text} className={text}>
           {text}
         </ColorBox>
       ))}

@@ -11,7 +11,7 @@ const TextBgColorComponent = ({
   textColorClassname,
 }: Props) => {
   return (
-    <div className={`text-${textColorClassname} bg-${bgColorClassname}`}>
+    <div className={`${textColorClassname} ${bgColorClassname}`}>
       Sample Text
     </div>
   );
