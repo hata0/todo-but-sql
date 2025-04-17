@@ -47,6 +47,21 @@ const BgColorsComponent = () => {
         <ColorBox className="bg-destructive/90" />
         <ColorBox className="bg-destructive opacity-disabled" />
       </div>
+      <div className="grid">
+        <ColorBox className="bg-chart-1" />
+      </div>
+      <div className="grid">
+        <ColorBox className="bg-chart-2" />
+      </div>
+      <div className="grid">
+        <ColorBox className="bg-chart-3" />
+      </div>
+      <div className="grid">
+        <ColorBox className="bg-chart-4" />
+      </div>
+      <div className="grid">
+        <ColorBox className="bg-chart-5" />
+      </div>
     </div>
   );
 };
