@@ -14,12 +14,12 @@ const { PGliteProvider: PGliteProviderPrimitive, usePGlite } =
   makePGliteProvider<PGliteWithLive>();
 export { usePGlite };
 
-type ContextProps = undefined | { db: DB; pg: PG };
+type ContextProps = { db?: DB; pg?: PG };
 const LocalDbContext = createContext<ContextProps | null>(null);
 export const useLocalDbContext = () => {
   const context = useContext(LocalDbContext);
 
-  if (!context) {
+  if (context === null) {
     throw new Error(
       "useLocalDbContext must be used within a <LocalDbProvider />",
     );
@@ -29,7 +29,7 @@ export const useLocalDbContext = () => {
 };
 
 export const LocalDbProvider = ({ children }: PropsWithChildren) => {
-  const [state, setState] = useState<ContextProps>(undefined);
+  const [state, setState] = useState<ContextProps>({});
 
   useEffect(() => {
     (async () => {

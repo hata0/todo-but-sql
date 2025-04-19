@@ -1,3 +1,5 @@
+"use client";
+
 import Link from "next/link";
 import { useState } from "react";
 import { match } from "ts-pattern";
@@ -20,7 +22,7 @@ import { heading } from "@/typography/heading";
 type Props = {
   isLoading: boolean;
   tasks: Task[];
-  onQueryExecute: (values: QueryInput) => Promise<Result<undefined, string>>;
+  onQueryExecute: (values: QueryInput) => Promise<Result<string, string>>;
 };
 export const Top = ({ isLoading, tasks, onQueryExecute }: Props) => {
   const [isOpen, setIsOpen] = useState(false);
@@ -47,7 +49,7 @@ export const Top = ({ isLoading, tasks, onQueryExecute }: Props) => {
           onQueryExecute={async (values) => {
             const result = await onQueryExecute(values);
             if (result.isOk()) {
-              toast.success("Success");
+              toast.success(result.value);
             } else {
               toast.error(result.error);
             }

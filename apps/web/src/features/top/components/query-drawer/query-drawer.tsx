@@ -1,3 +1,5 @@
+"use client";
+
 import { Database } from "lucide-react";
 import { Dispatch, SetStateAction } from "react";
 import { useForm } from "react-hook-form";

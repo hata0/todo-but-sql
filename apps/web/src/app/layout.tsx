@@ -1,5 +1,4 @@
 import "./globals.css";
-import "@repo/ui/styles.css";
 import type { Metadata } from "next";
 import { fontVariables } from "./font";
 import { LocalDbProvider } from "@/providers/local-db-provider";
@@ -21,8 +20,10 @@ export default function RootLayout({
       <body className={fontVariables}>
         <ThemeProvider>
           <LocalDbProvider>
-            {children}
-            <Toaster />
+            <div>
+              {children}
+              <Toaster />
+            </div>
           </LocalDbProvider>
         </ThemeProvider>
       </body>
