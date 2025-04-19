@@ -14,11 +14,10 @@ export const Empty: Story = {
 };
 
 export default {
-  title: "features/top/top",
+  title: "Features/top/Top",
   component: Top,
   args: {
     isLoading: false,
     tasks: Array.from({ length: 10 }).map(() => taskMock()),
-    onTaskCompletedChange: fn(),
   },
 } satisfies Meta<typeof Top>;
