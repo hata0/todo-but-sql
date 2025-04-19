@@ -20,10 +20,8 @@ export default function RootLayout({
       <body className={fontVariables}>
         <ThemeProvider>
           <LocalDbProvider>
-            <div>
-              {children}
-              <Toaster />
-            </div>
+            {children}
+            <Toaster />
           </LocalDbProvider>
         </ThemeProvider>
       </body>

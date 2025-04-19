@@ -1,6 +1,7 @@
 import { Meta, StoryObj } from "@storybook/react";
 import { fn, Mock } from "@storybook/test";
 import { err, ok } from "neverthrow";
+import { faker } from "@faker-js/faker";
 import { taskMock } from "../../tests/task-mock";
 import { Top } from "./top";
 
@@ -23,7 +24,9 @@ export const Loading: Story = {
 
 export const QueryExecuteError: Story = {
   beforeEach: () => {
-    (meta.args?.onQueryExecute as Mock).mockResolvedValue(err("Error"));
+    (meta.args?.onQueryExecute as Mock).mockResolvedValue(
+      err(faker.lorem.lines(30)),
+    );
   },
 };
 
@@ -36,7 +39,9 @@ const meta: Meta<typeof Top> = {
     onQueryExecute: fn(),
   },
   beforeEach: () => {
-    (meta.args?.onQueryExecute as Mock).mockResolvedValue(ok(undefined));
+    (meta.args?.onQueryExecute as Mock).mockResolvedValue(
+      ok(faker.lorem.lines(30)),
+    );
   },
 };
 export default meta;

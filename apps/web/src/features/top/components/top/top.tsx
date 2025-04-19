@@ -5,7 +5,6 @@ import { useState } from "react";
 import { match } from "ts-pattern";
 import { ClipboardList, Database, LoaderCircle } from "lucide-react";
 import { Result } from "neverthrow";
-import { toast } from "sonner";
 import { QueryInput, Task } from "../../types/task";
 import { QueryDrawer } from "../query-drawer";
 import { Button } from "@/components/shadcn-ui/button";
@@ -18,6 +17,15 @@ import {
   TabsTrigger,
 } from "@/components/shadcn-ui/tabs";
 import { heading } from "@/typography/heading";
+import {
+  AlertDialog,
+  AlertDialogAction,
+  AlertDialogContent,
+  AlertDialogDescription,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogTitle,
+} from "@/components/shadcn-ui/alert-dialog";
 
 type Props = {
   isLoading: boolean;
@@ -25,8 +33,11 @@ type Props = {
   onQueryExecute: (values: QueryInput) => Promise<Result<string, string>>;
 };
 export const Top = ({ isLoading, tasks, onQueryExecute }: Props) => {
-  const [isOpen, setIsOpen] = useState(false);
+  const [isQueryDrawerOpen, setIsQueryDrawerOpen] = useState(false);
   const [activeTab, setActiveTab] = useState("all");
+  const [title, setTitle] = useState("");
+  const [description, setDescription] = useState("");
+  const [isAlertDialogOpen, setIsAlertDialogOpen] = useState(false);
 
   const filteredTasks = tasks.filter((task) =>
     match(activeTab)
@@ -44,15 +55,18 @@ export const Top = ({ isLoading, tasks, onQueryExecute }: Props) => {
           </Link>
         </Button>
         <QueryDrawer
-          isOpen={isOpen}
-          setIsOpen={setIsOpen}
+          isOpen={isQueryDrawerOpen}
+          setIsOpen={setIsQueryDrawerOpen}
           onQueryExecute={async (values) => {
             const result = await onQueryExecute(values);
             if (result.isOk()) {
-              toast.success(result.value);
+              setTitle("Success");
+              setDescription(result.value);
             } else {
-              toast.error(result.error);
+              setTitle("Error");
+              setDescription(result.error);
             }
+            setIsAlertDialogOpen(true);
           }}
         />
       </header>
@@ -88,7 +102,7 @@ export const Top = ({ isLoading, tasks, onQueryExecute }: Props) => {
                 </p>
                 <Button
                   className="cursor-pointer"
-                  onClick={() => setIsOpen(true)}
+                  onClick={() => setIsQueryDrawerOpen(true)}
                 >
                   <Database className="mr-2 size-4" />
                   Write SQL
@@ -110,6 +124,19 @@ export const Top = ({ isLoading, tasks, onQueryExecute }: Props) => {
           </Tabs>
         </div>
       </main>
+      <AlertDialog open={isAlertDialogOpen} onOpenChange={setIsAlertDialogOpen}>
+        <AlertDialogContent>
+          <AlertDialogHeader>
+            <AlertDialogTitle>{title}</AlertDialogTitle>
+            <AlertDialogDescription className="max-h-80 overflow-auto whitespace-pre-wrap text-start">
+              {description}
+            </AlertDialogDescription>
+          </AlertDialogHeader>
+          <AlertDialogFooter>
+            <AlertDialogAction>Continue</AlertDialogAction>
+          </AlertDialogFooter>
+        </AlertDialogContent>
+      </AlertDialog>
     </div>
   );
 };
