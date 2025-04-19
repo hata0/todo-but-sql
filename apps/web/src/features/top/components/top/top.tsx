@@ -28,6 +28,7 @@ import {
   AlertDialogTitle,
 } from "@/components/shadcn-ui/alert-dialog";
 import { ModeToggle } from "@/components/shadcn-ui/mode-toggle";
+import { AnimatedBackground } from "@/components/motion-primitives/animated-background";
 
 type Props = {
   isLoading: boolean;
@@ -79,16 +80,38 @@ export const Top = ({ isLoading, tasks, onQueryExecute }: Props) => {
       <main>
         <div className="px-3 py-2">
           <Tabs defaultValue="all" onValueChange={setActiveTab}>
-            <TabsList className="grid w-full grid-cols-3">
-              <TabsTrigger value="all" className="cursor-pointer">
-                All
-              </TabsTrigger>
-              <TabsTrigger value="incomplete" className="cursor-pointer">
-                Incomplete
-              </TabsTrigger>
-              <TabsTrigger value="completed" className="cursor-pointer">
-                Completed
-              </TabsTrigger>
+            <TabsList className="w-full">
+              <AnimatedBackground
+                defaultValue="all"
+                className="bg-background rounded-md"
+                transition={{
+                  type: "spring",
+                  bounce: 0.2,
+                  duration: 0.3,
+                }}
+              >
+                <TabsTrigger
+                  value="all"
+                  className="cursor-pointer"
+                  data-id="all"
+                >
+                  All
+                </TabsTrigger>
+                <TabsTrigger
+                  value="incomplete"
+                  className="cursor-pointer"
+                  data-id="incomplete"
+                >
+                  Incomplete
+                </TabsTrigger>
+                <TabsTrigger
+                  value="completed"
+                  className="cursor-pointer"
+                  data-id="completed"
+                >
+                  Completed
+                </TabsTrigger>
+              </AnimatedBackground>
             </TabsList>
             {isLoading ? (
               <div className="flex w-full items-center justify-center pt-4">
