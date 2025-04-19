@@ -1,5 +1,5 @@
 import { Database } from "lucide-react";
-import { useState } from "react";
+import { Dispatch, SetStateAction } from "react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { QueryInput } from "../../types/task";
@@ -18,27 +18,29 @@ import {
   DrawerTrigger,
 } from "@/components/shadcn-ui/drawer";
 
-type Props = Pick<QueryFormProps, "onQueryExecute">;
-export const QueryDrawer = ({ onQueryExecute }: Props) => {
+export type Props = {
+  isOpen: boolean;
+  setIsOpen: Dispatch<SetStateAction<boolean>>;
+} & Pick<QueryFormProps, "onQueryExecute">;
+export const QueryDrawer = ({ onQueryExecute, isOpen, setIsOpen }: Props) => {
   const form = useForm<QueryInput>({
     resolver: zodResolver(queryInputSchema),
     defaultValues: {
       query: "",
     },
   });
-  const [isOpen, setIsOpen] = useState(false);
 
   return (
     <Drawer open={isOpen} onOpenChange={setIsOpen}>
       <DrawerTrigger asChild>
-        <Button variant="ghost" size="icon">
+        <Button variant="ghost" size="icon" className="cursor-pointer">
           <Database />
         </Button>
       </DrawerTrigger>
       <DrawerContent>
         <DrawerHeader className="text-left">
-          <DrawerTitle>Execute Query</DrawerTitle>
-          <DrawerDescription>Enter PostgreSQL query here.</DrawerDescription>
+          <DrawerTitle>Write SQL</DrawerTitle>
+          <DrawerDescription>Write PostgreSQL query here.</DrawerDescription>
         </DrawerHeader>
         <QueryForm
           form={form}

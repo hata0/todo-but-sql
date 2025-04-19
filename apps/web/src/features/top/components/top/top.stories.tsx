@@ -13,11 +13,19 @@ export const Empty: Story = {
   },
 };
 
+export const Loading: Story = {
+  args: {
+    isLoading: true,
+    tasks: [],
+  },
+};
+
 export default {
   title: "Features/top/Top",
   component: Top,
   args: {
     isLoading: false,
     tasks: Array.from({ length: 10 }).map(() => taskMock()),
+    onQueryExecute: fn(),
   },
 } satisfies Meta<typeof Top>;
