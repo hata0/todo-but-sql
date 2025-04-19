@@ -19,6 +19,6 @@ export default {
   args: {
     isLoading: false,
     tasks: Array.from({ length: 10 }).map(() => taskMock()),
-    onSubmit: fn(),
+    onTaskCompletedChange: fn(),
   },
 } satisfies Meta<typeof Top>;
