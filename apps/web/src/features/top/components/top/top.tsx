@@ -29,6 +29,7 @@ import {
 } from "@/components/shadcn-ui/alert-dialog";
 import { ModeToggle } from "@/components/shadcn-ui/mode-toggle";
 import { AnimatedBackground } from "@/components/motion-primitives/animated-background";
+import { TextRevealButton } from "@/components/syntax-ui/text-reveal-button";
 
 type Props = {
   isLoading: boolean;
@@ -55,7 +56,9 @@ export const Top = ({ isLoading, tasks, onQueryExecute }: Props) => {
         <Button asChild variant="ghost" size="lg">
           <Link href="/" className={text.large.className}>
             <Image src="/logo.png" alt="logo" width={32} height={32} />
-            <span>Todo but SQL</span>
+            <span className="animate-text-gradient bg-gradient-to-r from-red-500 via-yellow-500 to-green-500 bg-clip-text text-transparent">
+              Todo but SQL
+            </span>
           </Link>
         </Button>
         <div className="flex items-center gap-2">
@@ -129,13 +132,12 @@ export const Top = ({ isLoading, tasks, onQueryExecute }: Props) => {
                 <p className={cn(text.muted.className, "mb-4 max-w-sm")}>
                   Add new tasks to keep track of <br /> what you have to do.
                 </p>
-                <Button
-                  className="cursor-pointer"
+                <TextRevealButton
+                  icon={<Database className="size-4" />}
                   onClick={() => setIsQueryDrawerOpen(true)}
                 >
-                  <Database className="mr-2 size-4" />
                   Write SQL
-                </Button>
+                </TextRevealButton>
               </div>
             ) : (
               <>

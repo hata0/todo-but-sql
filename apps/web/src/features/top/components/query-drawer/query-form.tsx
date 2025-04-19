@@ -11,6 +11,7 @@ import {
 import { Textarea } from "@/components/shadcn-ui/textarea";
 import { Button } from "@/components/shadcn-ui/button";
 import { cn } from "@/lib/utils";
+import { ShimmerButton } from "@/components/magic-ui/shimmer-button";
 
 export type Props = {
   form: UseFormReturn<QueryInput>;

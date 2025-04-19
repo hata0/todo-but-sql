@@ -35,7 +35,11 @@ export const QueryDrawer = ({ onQueryExecute, isOpen, setIsOpen }: Props) => {
   return (
     <Drawer open={isOpen} onOpenChange={setIsOpen}>
       <DrawerTrigger asChild>
-        <Button variant="ghost" size="icon" className="cursor-pointer">
+        <Button
+          variant="ghost"
+          size="icon"
+          className="hover:animate-hover-jiggle cursor-pointer"
+        >
           <Database />
         </Button>
       </DrawerTrigger>
