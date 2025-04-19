@@ -34,7 +34,7 @@ export const QueryForm = ({ form, onQueryExecute, className }: Props) => {
             <FormItem>
               <FormLabel>Query</FormLabel>
               <FormControl>
-                <Textarea {...field} className="max-h-50" />
+                <Textarea {...field} className="h-50 resize-none" />
               </FormControl>
               <FormMessage />
             </FormItem>
