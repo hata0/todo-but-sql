@@ -2,9 +2,10 @@ import Link from "next/link";
 import { useState } from "react";
 import { match } from "ts-pattern";
 import { ClipboardList, Database, LoaderCircle } from "lucide-react";
-import { Task } from "../../types/task";
+import { Result } from "neverthrow";
+import { toast } from "sonner";
+import { QueryInput, Task } from "../../types/task";
 import { QueryDrawer } from "../query-drawer";
-import { Props as QueryFormProps } from "../query-drawer/query-form";
 import { Button } from "@/components/shadcn-ui/button";
 import { cn } from "@/lib/utils";
 import { text } from "@/typography/text";
@@ -19,7 +20,8 @@ import { heading } from "@/typography/heading";
 type Props = {
   isLoading: boolean;
   tasks: Task[];
-} & Pick<QueryFormProps, "onQueryExecute">;
+  onQueryExecute: (values: QueryInput) => Promise<Result<undefined, string>>;
+};
 export const Top = ({ isLoading, tasks, onQueryExecute }: Props) => {
   const [isOpen, setIsOpen] = useState(false);
   const [activeTab, setActiveTab] = useState("all");
@@ -42,7 +44,14 @@ export const Top = ({ isLoading, tasks, onQueryExecute }: Props) => {
         <QueryDrawer
           isOpen={isOpen}
           setIsOpen={setIsOpen}
-          onQueryExecute={onQueryExecute}
+          onQueryExecute={async (values) => {
+            const result = await onQueryExecute(values);
+            if (result.isOk()) {
+              toast.success("Success");
+            } else {
+              toast.error(result.error);
+            }
+          }}
         />
       </header>
       <main>

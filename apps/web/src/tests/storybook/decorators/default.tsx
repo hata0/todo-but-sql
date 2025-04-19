@@ -2,6 +2,7 @@ import type { Decorator } from "@storybook/react";
 import { useEffect } from "react";
 import { fontVariables } from "@/app/font";
 import { ThemeProvider } from "@/providers/theme-provider";
+import { Toaster } from "@/components/shadcn-ui/sonner";
 
 export const DefaultDecorator: Decorator = (Story) => {
   // フォントを追加
@@ -20,6 +21,7 @@ export const DefaultDecorator: Decorator = (Story) => {
   return (
     <ThemeProvider>
       <Story />
+      <Toaster />
     </ThemeProvider>
   );
 };

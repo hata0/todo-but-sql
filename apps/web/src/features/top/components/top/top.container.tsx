@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { Task } from "../todo-list";
+import { Task } from "../../types/task";
 import { Top as Presenter } from "./top";
 import { useLocalDbContext } from "@/providers/local-db-provider";
 import { tasksTable } from "@/db/schema";
@@ -25,8 +25,8 @@ export const Top = () => {
     <Presenter
       isLoading={isLoading}
       tasks={tasks}
-      onSubmit={async ({ text }) => {
-        await pg?.query(text);
+      onQueryExecute={async ({ query }) => {
+        await pg?.query(query);
       }}
     />
   );

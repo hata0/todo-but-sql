@@ -1,5 +1,6 @@
 import { Meta, StoryObj } from "@storybook/react";
-import { fn } from "@storybook/test";
+import { fn, Mock } from "@storybook/test";
+import { err, ok } from "neverthrow";
 import { taskMock } from "../../tests/task-mock";
 import { Top } from "./top";
 
@@ -20,7 +21,13 @@ export const Loading: Story = {
   },
 };
 
-export default {
+export const QueryExecuteError: Story = {
+  beforeEach: () => {
+    (meta.args?.onQueryExecute as Mock).mockResolvedValue(err("Error"));
+  },
+};
+
+const meta: Meta<typeof Top> = {
   title: "Features/top/Top",
   component: Top,
   args: {
@@ -28,4 +35,8 @@ export default {
     tasks: Array.from({ length: 10 }).map(() => taskMock()),
     onQueryExecute: fn(),
   },
-} satisfies Meta<typeof Top>;
+  beforeEach: () => {
+    (meta.args?.onQueryExecute as Mock).mockResolvedValue(ok(undefined));
+  },
+};
+export default meta;

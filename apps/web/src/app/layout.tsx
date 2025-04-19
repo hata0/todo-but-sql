@@ -4,6 +4,7 @@ import type { Metadata } from "next";
 import { fontVariables } from "./font";
 import { LocalDbProvider } from "@/providers/local-db-provider";
 import { ThemeProvider } from "@/providers/theme-provider";
+import { Toaster } from "@/components/shadcn-ui/sonner";
 
 export const metadata: Metadata = {
   title: "Create Turborepo",
@@ -19,7 +20,10 @@ export default function RootLayout({
     <html lang="en" suppressHydrationWarning>
       <body className={fontVariables}>
         <ThemeProvider>
-          <LocalDbProvider>{children}</LocalDbProvider>
+          <LocalDbProvider>
+            {children}
+            <Toaster />
+          </LocalDbProvider>
         </ThemeProvider>
       </body>
     </html>

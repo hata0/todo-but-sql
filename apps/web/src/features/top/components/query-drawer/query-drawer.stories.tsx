@@ -19,10 +19,11 @@ type Story = StoryObj<typeof Example>;
 
 export const Default: Story = {};
 
-export default {
+const meta: Meta<typeof Example> = {
   title: "Features/top/QueryDrawer",
   component: Example,
   args: {
     onQueryExecute: fn(),
   },
-} satisfies Meta<typeof Example>;
+};
+export default meta;
