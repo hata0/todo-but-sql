@@ -27,6 +27,7 @@ import {
   AlertDialogHeader,
   AlertDialogTitle,
 } from "@/components/shadcn-ui/alert-dialog";
+import { ModeToggle } from "@/components/shadcn-ui/mode-toggle";
 
 type Props = {
   isLoading: boolean;
@@ -56,21 +57,24 @@ export const Top = ({ isLoading, tasks, onQueryExecute }: Props) => {
             <span>Todo but SQL</span>
           </Link>
         </Button>
-        <QueryDrawer
-          isOpen={isQueryDrawerOpen}
-          setIsOpen={setIsQueryDrawerOpen}
-          onQueryExecute={async (values) => {
-            const result = await onQueryExecute(values);
-            if (result.isOk()) {
-              setTitle("Success");
-              setDescription(result.value);
-            } else {
-              setTitle("Error");
-              setDescription(result.error);
-            }
-            setIsAlertDialogOpen(true);
-          }}
-        />
+        <div className="flex items-center gap-2">
+          <QueryDrawer
+            isOpen={isQueryDrawerOpen}
+            setIsOpen={setIsQueryDrawerOpen}
+            onQueryExecute={async (values) => {
+              const result = await onQueryExecute(values);
+              if (result.isOk()) {
+                setTitle("Success");
+                setDescription(result.value);
+              } else {
+                setTitle("Error");
+                setDescription(result.error);
+              }
+              setIsAlertDialogOpen(true);
+            }}
+          />
+          <ModeToggle />
+        </div>
       </header>
       <main>
         <div className="px-3 py-2">
