@@ -5,6 +5,7 @@ import { useState } from "react";
 import { match } from "ts-pattern";
 import { ClipboardList, Database, LoaderCircle } from "lucide-react";
 import { Result } from "neverthrow";
+import Image from "next/image";
 import { QueryInput, Task } from "../../types/task";
 import { QueryDrawer } from "../query-drawer";
 import { Button } from "@/components/shadcn-ui/button";
@@ -49,9 +50,10 @@ export const Top = ({ isLoading, tasks, onQueryExecute }: Props) => {
   return (
     <div>
       <header className="bg-background/95 supports-[backdrop-filter]:bg-background/60 sticky top-0 flex h-14 items-center justify-between gap-2 border-b border-dashed px-2 backdrop-blur">
-        <Button asChild variant="ghost">
+        <Button asChild variant="ghost" size="lg">
           <Link href="/" className={text.large.className}>
-            Todo but SQL
+            <Image src="/logo.png" alt="logo" width={32} height={32} />
+            <span>Todo but SQL</span>
           </Link>
         </Button>
         <QueryDrawer
