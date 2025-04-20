@@ -39,6 +39,9 @@
 }
 
 @layer base {
+  * {
+    @apply font-serif;
+  }
   body {
     @apply transition duration-500 ease-in-out;
   }
