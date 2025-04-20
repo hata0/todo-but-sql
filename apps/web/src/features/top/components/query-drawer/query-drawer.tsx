@@ -19,6 +19,7 @@ import {
   DrawerTitle,
   DrawerTrigger,
 } from "@/components/shadcn-ui/drawer";
+import { ScrollArea } from "@/components/shadcn-ui/scroll-area";
 
 export type Props = {
   isOpen: boolean;
@@ -44,23 +45,25 @@ export const QueryDrawer = ({ onQueryExecute, isOpen, setIsOpen }: Props) => {
         </Button>
       </DrawerTrigger>
       <DrawerContent>
-        <DrawerHeader className="text-left">
-          <DrawerTitle>Write SQL</DrawerTitle>
-          <DrawerDescription>Write PostgreSQL query here.</DrawerDescription>
-        </DrawerHeader>
-        <QueryForm
-          form={form}
-          onQueryExecute={async (values) => {
-            setIsOpen(false);
-            await onQueryExecute(values);
-          }}
-          className="px-4"
-        />
-        <DrawerFooter className="pt-2">
-          <DrawerClose asChild>
-            <Button variant="outline">Cancel</Button>
-          </DrawerClose>
-        </DrawerFooter>
+        <ScrollArea className="w-full overflow-auto">
+          <DrawerHeader className="text-left">
+            <DrawerTitle>Write SQL</DrawerTitle>
+            <DrawerDescription>Write PostgreSQL query here.</DrawerDescription>
+          </DrawerHeader>
+          <QueryForm
+            form={form}
+            onQueryExecute={async (values) => {
+              setIsOpen(false);
+              await onQueryExecute(values);
+            }}
+            className="px-4"
+          />
+          <DrawerFooter className="pt-2">
+            <DrawerClose asChild>
+              <Button variant="outline">Cancel</Button>
+            </DrawerClose>
+          </DrawerFooter>
+        </ScrollArea>
       </DrawerContent>
     </Drawer>
   );
