@@ -1,9 +1,15 @@
 "use client";
 
 import Link from "next/link";
-import { useState } from "react";
+import { Dispatch, SetStateAction, useState } from "react";
 import { match } from "ts-pattern";
-import { ClipboardList, Database, LoaderCircle } from "lucide-react";
+import {
+  ClipboardList,
+  Database,
+  LoaderCircle,
+  Pencil,
+  Trash2,
+} from "lucide-react";
 import { Result } from "neverthrow";
 import Image from "next/image";
 import { QueryInput, Task } from "../../types/task";
@@ -142,13 +148,22 @@ export const Top = ({ isLoading, tasks, onQueryExecute }: Props) => {
             ) : (
               <>
                 <TabsContent value="all" className="mt-0">
-                  <TaskItems tasks={filteredTasks} />
+                  <TaskItems
+                    tasks={filteredTasks}
+                    setIsQueryDrawerOpen={setIsQueryDrawerOpen}
+                  />
                 </TabsContent>
                 <TabsContent value="incomplete" className="mt-0">
-                  <TaskItems tasks={filteredTasks} />
+                  <TaskItems
+                    tasks={filteredTasks}
+                    setIsQueryDrawerOpen={setIsQueryDrawerOpen}
+                  />
                 </TabsContent>
                 <TabsContent value="completed" className="mt-0">
-                  <TaskItems tasks={filteredTasks} />
+                  <TaskItems
+                    tasks={filteredTasks}
+                    setIsQueryDrawerOpen={setIsQueryDrawerOpen}
+                  />
                 </TabsContent>
               </>
             )}
@@ -174,8 +189,9 @@ export const Top = ({ isLoading, tasks, onQueryExecute }: Props) => {
 
 type TaskItemsProps = {
   tasks: Task[];
+  setIsQueryDrawerOpen: Dispatch<SetStateAction<boolean>>;
 };
-const TaskItems = ({ tasks }: TaskItemsProps) => {
+const TaskItems = ({ tasks, setIsQueryDrawerOpen }: TaskItemsProps) => {
   return (
     <ul className="flex flex-col gap-y-3 md:p-6">
       {tasks.map((task) => {
@@ -185,7 +201,7 @@ const TaskItems = ({ tasks }: TaskItemsProps) => {
             className={cn(
               "bg-card rounded-xl border p-3",
               "flex items-center justify-between",
-              { "bg-muted": task.isCompleted },
+              { "bg-muted/50": task.isCompleted },
             )}
           >
             <div
@@ -195,6 +211,22 @@ const TaskItems = ({ tasks }: TaskItemsProps) => {
               )}
             >
               {task.title}
+            </div>
+            <div className="flex items-center">
+              <Button
+                variant="ghost"
+                size="icon"
+                onClick={() => setIsQueryDrawerOpen(true)}
+              >
+                <Pencil />
+              </Button>
+              <Button
+                variant="ghost"
+                size="icon"
+                onClick={() => setIsQueryDrawerOpen(true)}
+              >
+                <Trash2 />
+              </Button>
             </div>
           </li>
         );
