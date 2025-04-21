@@ -35,7 +35,6 @@ import {
 } from "@/components/shadcn-ui/alert-dialog";
 import { ModeToggle } from "@/components/shadcn-ui/mode-toggle";
 import { AnimatedBackground } from "@/components/motion-primitives/animated-background";
-import { TextRevealButton } from "@/components/syntax-ui/text-reveal-button";
 
 type Props = {
   isLoading: boolean;

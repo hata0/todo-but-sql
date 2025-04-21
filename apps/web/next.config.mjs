@@ -11,7 +11,7 @@ const nextConfig = {
   transpilePackages: ["@electric-sql/pglite-react", "@electric-sql/pglite"],
 };
 
-// eslint-disable-next-line turbo/no-undeclared-env-vars
+// eslint-disable-next-line turbo/no-undeclared-env-vars, no-undef
 if (process.env.NODE_ENV === "development") {
   await setupDevPlatform();
 }
