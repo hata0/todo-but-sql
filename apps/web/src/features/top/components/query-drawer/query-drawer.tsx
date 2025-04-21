@@ -54,7 +54,7 @@ export const QueryDrawer = ({ onQueryExecute, isOpen, setIsOpen }: Props) => {
             form={form}
             onQueryExecute={async (values) => {
               setIsOpen(false);
-              await onQueryExecute(values);
+              return await onQueryExecute(values);
             }}
             className="px-4"
           />

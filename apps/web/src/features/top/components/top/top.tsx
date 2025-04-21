@@ -10,10 +10,10 @@ import {
   Pencil,
   Trash2,
 } from "lucide-react";
-import { Result } from "neverthrow";
 import Image from "next/image";
-import { QueryInput, Task } from "../../types/task";
+import { Task } from "../../types/task";
 import { QueryDrawer } from "../query-drawer";
+import { Props as QueryFormProps } from "../query-drawer/query-form";
 import { Button } from "@/components/shadcn-ui/button";
 import { cn } from "@/lib/utils";
 import { text } from "@/typography/text";
@@ -40,8 +40,7 @@ import { TextRevealButton } from "@/components/syntax-ui/text-reveal-button";
 type Props = {
   isLoading: boolean;
   tasks: Task[];
-  onQueryExecute: (values: QueryInput) => Promise<Result<string, string>>;
-};
+} & Pick<QueryFormProps, "onQueryExecute">;
 export const Top = ({ isLoading, tasks, onQueryExecute }: Props) => {
   const [isQueryDrawerOpen, setIsQueryDrawerOpen] = useState(false);
   const [activeTab, setActiveTab] = useState("all");
@@ -81,6 +80,7 @@ export const Top = ({ isLoading, tasks, onQueryExecute }: Props) => {
                 setDescription(result.error);
               }
               setIsAlertDialogOpen(true);
+              return result;
             }}
           />
           <ModeToggle />

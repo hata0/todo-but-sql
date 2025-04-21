@@ -1,4 +1,5 @@
 import { UseFormReturn } from "react-hook-form";
+import { Result } from "neverthrow";
 import { QueryInput } from "../../types/task";
 import {
   Form,
@@ -14,7 +15,7 @@ import { cn } from "@/lib/utils";
 
 export type Props = {
   form: UseFormReturn<QueryInput>;
-  onQueryExecute: (values: QueryInput) => Promise<void>;
+  onQueryExecute: (values: QueryInput) => Promise<Result<string, string>>;
   className?: string;
 };
 export const QueryForm = ({ form, onQueryExecute, className }: Props) => {
@@ -22,8 +23,10 @@ export const QueryForm = ({ form, onQueryExecute, className }: Props) => {
     <Form {...form}>
       <form
         onSubmit={form.handleSubmit(async (values) => {
-          await onQueryExecute(values);
-          form.reset();
+          const result = await onQueryExecute(values);
+          if (result.isOk()) {
+            form.reset();
+          }
         })}
         className={cn("flex flex-col gap-4", className)}
       >
