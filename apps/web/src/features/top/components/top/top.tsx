@@ -58,7 +58,7 @@ export const Top = ({ isLoading, tasks, onQueryExecute }: Props) => {
 
   return (
     <div>
-      <header className="bg-background/95 supports-[backdrop-filter]:bg-background/60 sticky top-0 flex h-14 items-center justify-between gap-2 border-b border-dashed px-2 backdrop-blur transition duration-500 ease-in-out">
+      <header className="z-2 bg-background/95 supports-[backdrop-filter]:bg-background/60 sticky top-0 flex h-14 items-center justify-between gap-2 border-b border-dashed px-2 backdrop-blur transition duration-500 ease-in-out">
         <Button asChild variant="ghost" size="lg">
           <Link href="/" className={text.large.className}>
             <Image src="/logo.png" alt="logo" width={32} height={32} />
