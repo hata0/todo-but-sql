@@ -39,7 +39,7 @@ export const QueryDrawer = ({ onQueryExecute, isOpen, setIsOpen }: Props) => {
         <Button
           variant="ghost"
           size="icon"
-          className="hover:animate-hover-jiggle cursor-pointer"
+          className="hover:animate-hover-jiggle"
         >
           <Database />
         </Button>

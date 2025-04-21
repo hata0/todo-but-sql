@@ -99,25 +99,13 @@ export const Top = ({ isLoading, tasks, onQueryExecute }: Props) => {
                   duration: 0.3,
                 }}
               >
-                <TabsTrigger
-                  value="all"
-                  className="cursor-pointer"
-                  data-id="all"
-                >
+                <TabsTrigger value="all" data-id="all">
                   All
                 </TabsTrigger>
-                <TabsTrigger
-                  value="incomplete"
-                  className="cursor-pointer"
-                  data-id="incomplete"
-                >
+                <TabsTrigger value="incomplete" data-id="incomplete">
                   Incomplete
                 </TabsTrigger>
-                <TabsTrigger
-                  value="completed"
-                  className="cursor-pointer"
-                  data-id="completed"
-                >
+                <TabsTrigger value="completed" data-id="completed">
                   Completed
                 </TabsTrigger>
               </AnimatedBackground>
