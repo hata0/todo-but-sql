@@ -138,12 +138,13 @@ export const Top = ({ isLoading, tasks, onQueryExecute }: Props) => {
                 <p className={cn(text.muted.className, "mb-4 max-w-sm")}>
                   Add new tasks to keep track of <br /> what you have to do.
                 </p>
-                <TextRevealButton
-                  icon={<Database className="size-4" />}
+                <Button
+                  className="animate-bounce"
                   onClick={() => setIsQueryDrawerOpen(true)}
                 >
-                  Write SQL
-                </TextRevealButton>
+                  <Database />
+                  <span>Write SQL</span>
+                </Button>
               </div>
             ) : (
               <>

@@ -1,5 +1,6 @@
 import { UseFormReturn } from "react-hook-form";
 import { Result } from "neverthrow";
+import { Database } from "lucide-react";
 import { QueryInput } from "../../types/task";
 import {
   Form,
@@ -37,13 +38,20 @@ export const QueryForm = ({ form, onQueryExecute, className }: Props) => {
             <FormItem>
               <FormLabel>Query</FormLabel>
               <FormControl>
-                <Textarea {...field} className="h-50 resize-none" />
+                <Textarea
+                  {...field}
+                  className="h-50 resize-none"
+                  placeholder="Write your query here. For example, “SELECT * FROM tasks;”."
+                />
               </FormControl>
               <FormMessage />
             </FormItem>
           )}
         />
-        <Button type="submit">Submit</Button>
+        <Button type="submit" className="flex items-center">
+          <Database />
+          <span>Execute Query</span>
+        </Button>
       </form>
     </Form>
   );
