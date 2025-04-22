@@ -50,9 +50,11 @@ export const Top = ({
 }: Props) => {
   const [isQueryDrawerOpen, setIsQueryDrawerOpen] = useState(false);
   const [activeTab, setActiveTab] = useState("all");
-  const [title, setTitle] = useState("");
-  const [description, setDescription] = useState("");
-  const [isAlertDialogOpen, setIsAlertDialogOpen] = useState(false);
+  const [alertDialog, setAlertDialog] = useState<{
+    isOpen: boolean;
+    status: "success" | "error";
+    description: string;
+  }>({ isOpen: false, status: "success", description: "" });
 
   const filteredTasks = tasks.filter((task) =>
     match(activeTab)
@@ -79,13 +81,18 @@ export const Top = ({
             onQueryExecute={async (values) => {
               const result = await onQueryExecute(values);
               if (result.isOk()) {
-                setTitle("Success");
-                setDescription(result.value);
+                setAlertDialog({
+                  isOpen: true,
+                  status: "success",
+                  description: result.value,
+                });
               } else {
-                setTitle("Error");
-                setDescription(result.error);
+                setAlertDialog({
+                  isOpen: true,
+                  status: "error",
+                  description: result.error,
+                });
               }
-              setIsAlertDialogOpen(true);
               return result;
             }}
           />
@@ -188,12 +195,23 @@ export const Top = ({
           </Tabs>
         </div>
       </main>
-      <AlertDialog open={isAlertDialogOpen} onOpenChange={setIsAlertDialogOpen}>
+      <AlertDialog
+        open={alertDialog.isOpen}
+        onOpenChange={(isOpen) => {
+          setAlertDialog((prev) => ({ ...prev, isOpen }));
+        }}
+      >
         <AlertDialogContent>
           <AlertDialogHeader>
-            <AlertDialogTitle>{title}</AlertDialogTitle>
+            <AlertDialogTitle
+              className={
+                alertDialog.status === "error" ? "text-destructive" : ""
+              }
+            >
+              {alertDialog.status === "success" ? "Success" : "Error"}
+            </AlertDialogTitle>
             <AlertDialogDescription className="max-h-80 overflow-auto whitespace-pre-wrap text-start">
-              {description}
+              {alertDialog.description}
             </AlertDialogDescription>
           </AlertDialogHeader>
           <AlertDialogFooter>
