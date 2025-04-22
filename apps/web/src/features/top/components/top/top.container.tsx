@@ -17,16 +17,19 @@ export const Top = () => {
   useEffect(() => {
     (async () => {
       if (db) {
-        const result = await fromPromise(db.select().from(tasksTable), (e) => {
-          if (e instanceof Error) {
-            return e.message;
-          }
-          return "Something went wrong";
-        });
-        if (result.isOk()) {
-          setTasks(result.value);
+        const tasksOrError = await fromPromise(
+          db.select().from(tasksTable),
+          (e) => {
+            if (e instanceof Error) {
+              return e.message;
+            }
+            return "Something went wrong";
+          },
+        );
+        if (tasksOrError.isOk()) {
+          setTasks(tasksOrError.value);
         } else {
-          setErrorMessage(result.error);
+          setErrorMessage(tasksOrError.error);
         }
         setIsLoading(false);
       }
@@ -44,23 +47,35 @@ export const Top = () => {
         return await deleteDatabaseAsync("/pglite/test");
       }}
       onQueryExecute={async ({ query }) => {
-        if (!pg) {
+        if (!pg || !db) {
           return err("Database not initialized");
         }
 
-        const result = await fromPromise(pg.query(query), (e) => {
+        const queryResult = await fromPromise(pg.query(query), (e) => {
           if (e instanceof Error) {
             return e.message;
           }
           return "Something went wrong";
         });
 
-        if (result.isOk()) {
-          const tasks = (await db?.select().from(tasksTable)) ?? [];
-          setTasks(tasks);
-          return ok(JSON.stringify(result.value, null, 2));
+        if (queryResult.isOk()) {
+          const tasksOrError = await fromPromise(
+            db.select().from(tasksTable),
+            (e) => {
+              if (e instanceof Error) {
+                return e.message;
+              }
+              return "Something went wrong";
+            },
+          );
+          if (tasksOrError.isOk()) {
+            setTasks(tasksOrError.value);
+          } else {
+            setErrorMessage(tasksOrError.error);
+          }
+          return ok(JSON.stringify(queryResult.value, null, 2));
         } else {
-          return err(result.error);
+          return err(queryResult.error);
         }
       }}
     />
