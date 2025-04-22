@@ -4,6 +4,7 @@ import Link from "next/link";
 import { Dispatch, SetStateAction, useState } from "react";
 import { match } from "ts-pattern";
 import {
+  Braces,
   ClipboardList,
   Database,
   LoaderCircle,
@@ -39,8 +40,14 @@ import { AnimatedBackground } from "@/components/motion-primitives/animated-back
 type Props = {
   isLoading: boolean;
   tasks: Task[];
+  errorMessage: string | null;
 } & Pick<QueryFormProps, "onQueryExecute">;
-export const Top = ({ isLoading, tasks, onQueryExecute }: Props) => {
+export const Top = ({
+  isLoading,
+  tasks,
+  errorMessage,
+  onQueryExecute,
+}: Props) => {
   const [isQueryDrawerOpen, setIsQueryDrawerOpen] = useState(false);
   const [activeTab, setActiveTab] = useState("all");
   const [title, setTitle] = useState("");
@@ -112,6 +119,29 @@ export const Top = ({ isLoading, tasks, onQueryExecute }: Props) => {
             {isLoading ? (
               <div className="flex w-full items-center justify-center pt-4">
                 <LoaderCircle className="size-8 animate-spin text-sky-400" />
+              </div>
+            ) : errorMessage ? (
+              <div className="flex flex-col items-center justify-center py-12 text-center">
+                {/* 装飾用アイコン */}
+                <div className="bg-muted mb-4 rounded-full p-3">
+                  <Braces className="text-muted-foreground size-10" />
+                </div>
+                <h4 className={cn(heading.h4.className, "mb-1")}>
+                  Failed to get tasks
+                </h4>
+                <p className={cn(text.muted.className, "mb-4 max-w-sm")}>
+                  {errorMessage}
+                </p>
+                <Button
+                  variant="destructive"
+                  onClick={() => {
+                    indexedDB.deleteDatabase("/pglite/test");
+                    window.location.reload();
+                  }}
+                >
+                  <Database />
+                  <span>Reset Database</span>
+                </Button>
               </div>
             ) : tasks.length === 0 ? (
               <div className="flex flex-col items-center justify-center py-12 text-center">

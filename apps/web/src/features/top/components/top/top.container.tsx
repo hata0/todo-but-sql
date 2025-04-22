@@ -11,12 +11,22 @@ export const Top = () => {
   const { pg, db } = useLocalDbContext();
   const [tasks, setTasks] = useState<Task[]>([]);
   const [isLoading, setIsLoading] = useState(true);
+  const [errorMessage, setErrorMessage] = useState<string | null>(null);
 
   useEffect(() => {
     (async () => {
       if (db) {
-        const tasks = await db.select().from(tasksTable);
-        setTasks(tasks);
+        const result = await fromPromise(db.select().from(tasksTable), (e) => {
+          if (e instanceof Error) {
+            return e.message;
+          }
+          return "Something went wrong";
+        });
+        if (result.isOk()) {
+          setTasks(result.value);
+        } else {
+          setErrorMessage(result.error);
+        }
         setIsLoading(false);
       }
     })();
@@ -26,6 +36,7 @@ export const Top = () => {
     <Presenter
       isLoading={isLoading}
       tasks={tasks}
+      errorMessage={errorMessage}
       onQueryExecute={async ({ query }) => {
         if (!pg) {
           return err("Database not initialized");
