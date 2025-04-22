@@ -30,12 +30,41 @@ export const QueryExecuteError: Story = {
   },
 };
 
+export const ResetDatabaseSuccess: Story = {
+  beforeEach: () => {
+    (meta.args?.onResetDatabase as Mock).mockResolvedValue("success");
+  },
+  args: {
+    errorMessage: faker.lorem.sentence(),
+  },
+};
+
+export const ResetDatabaseError: Story = {
+  beforeEach: () => {
+    (meta.args?.onResetDatabase as Mock).mockResolvedValue("error");
+  },
+  args: {
+    errorMessage: faker.lorem.sentence(),
+  },
+};
+
+export const ResetDatabaseBlocked: Story = {
+  beforeEach: () => {
+    (meta.args?.onResetDatabase as Mock).mockResolvedValue("blocked");
+  },
+  args: {
+    errorMessage: faker.lorem.sentence(),
+  },
+};
+
 const meta: Meta<typeof Top> = {
   title: "Features/top/Top",
   component: Top,
   args: {
     isLoading: false,
     tasks: Array.from({ length: 10 }).map(() => taskMock()),
+    errorMessage: null,
+    onResetDatabase: fn(),
     onQueryExecute: fn(),
   },
   beforeEach: () => {

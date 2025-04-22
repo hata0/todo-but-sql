@@ -12,6 +12,7 @@ import {
   Trash2,
 } from "lucide-react";
 import Image from "next/image";
+import { toast } from "sonner";
 import { Task } from "../../types/task";
 import { QueryDrawer } from "../query-drawer";
 import { Props as QueryFormProps } from "../query-drawer/query-form";
@@ -36,16 +37,19 @@ import {
 } from "@/components/shadcn-ui/alert-dialog";
 import { ModeToggle } from "@/components/shadcn-ui/mode-toggle";
 import { AnimatedBackground } from "@/components/motion-primitives/animated-background";
+import { DeleteDatabaseResult } from "@/utils/indexed-db";
 
 type Props = {
   isLoading: boolean;
   tasks: Task[];
   errorMessage: string | null;
+  onResetDatabase: () => Promise<DeleteDatabaseResult>;
 } & Pick<QueryFormProps, "onQueryExecute">;
 export const Top = ({
   isLoading,
   tasks,
   errorMessage,
+  onResetDatabase,
   onQueryExecute,
 }: Props) => {
   const [isQueryDrawerOpen, setIsQueryDrawerOpen] = useState(false);
@@ -141,9 +145,20 @@ export const Top = ({
                 </p>
                 <Button
                   variant="destructive"
-                  onClick={() => {
-                    indexedDB.deleteDatabase("/pglite/test");
-                    window.location.reload();
+                  onClick={async () => {
+                    const res = await onResetDatabase();
+                    match(res)
+                      .with("success", () => {
+                        window.location.reload();
+                      })
+                      .with("error", () => {
+                        toast.error("Database deletion failed");
+                      })
+                      .with("blocked", () => {
+                        toast.error(
+                          "Database deletion blocked. Database may be in use now.",
+                        );
+                      });
                   }}
                 >
                   <Database />

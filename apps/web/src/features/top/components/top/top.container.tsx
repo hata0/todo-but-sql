@@ -6,6 +6,7 @@ import { Task } from "../../types/task";
 import { Top as Presenter } from "./top";
 import { useLocalDbContext } from "@/providers/local-db-provider";
 import { tasksTable } from "@/db/schema";
+import { deleteDatabaseAsync } from "@/utils/indexed-db";
 
 export const Top = () => {
   const { pg, db } = useLocalDbContext();
@@ -37,6 +38,11 @@ export const Top = () => {
       isLoading={isLoading}
       tasks={tasks}
       errorMessage={errorMessage}
+      onResetDatabase={async () => {
+        // pg?.close()しておかないと、onblockedで弾かれる
+        await pg?.close();
+        return await deleteDatabaseAsync("/pglite/test");
+      }}
       onQueryExecute={async ({ query }) => {
         if (!pg) {
           return err("Database not initialized");
