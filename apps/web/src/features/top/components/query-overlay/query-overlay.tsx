@@ -9,33 +9,35 @@ import { queryInputSchema } from "../../schema";
 import { QueryForm } from "./query-form";
 import { Props as QueryFormProps } from "./query-form";
 import { Button } from "@/components/shadcn-ui/button";
-import {
-  Drawer,
-  DrawerClose,
-  DrawerContent,
-  DrawerDescription,
-  DrawerFooter,
-  DrawerHeader,
-  DrawerTitle,
-  DrawerTrigger,
-} from "@/components/shadcn-ui/drawer";
 import { ScrollArea } from "@/components/shadcn-ui/scroll-area";
+import {
+  Sheet,
+  SheetClose,
+  SheetContent,
+  SheetDescription,
+  SheetFooter,
+  SheetHeader,
+  SheetTitle,
+  SheetTrigger,
+} from "@/components/shadcn-ui/sheet";
+import { useMediaQuery } from "@/hooks/use-media-query";
 
 export type Props = {
   isOpen: boolean;
   setIsOpen: Dispatch<SetStateAction<boolean>>;
 } & Pick<QueryFormProps, "onQueryExecute">;
-export const QueryDrawer = ({ onQueryExecute, isOpen, setIsOpen }: Props) => {
+export const QueryOverlay = ({ onQueryExecute, isOpen, setIsOpen }: Props) => {
   const form = useForm<QueryInput>({
     resolver: zodResolver(queryInputSchema),
     defaultValues: {
       query: "",
     },
   });
+  const isMobile = !useMediaQuery("(min-width: 640px)");
 
   return (
-    <Drawer open={isOpen} onOpenChange={setIsOpen}>
-      <DrawerTrigger asChild>
+    <Sheet open={isOpen} onOpenChange={setIsOpen}>
+      <SheetTrigger asChild>
         <Button
           variant="ghost"
           size="icon"
@@ -43,13 +45,16 @@ export const QueryDrawer = ({ onQueryExecute, isOpen, setIsOpen }: Props) => {
         >
           <Database />
         </Button>
-      </DrawerTrigger>
-      <DrawerContent>
+      </SheetTrigger>
+      <SheetContent
+        side={isMobile ? "bottom" : "right"}
+        className={isMobile ? "rounded-t-xl" : ""}
+      >
         <ScrollArea className="w-full overflow-auto">
-          <DrawerHeader className="text-left">
-            <DrawerTitle>Write SQL</DrawerTitle>
-            <DrawerDescription>Write PostgreSQL query here.</DrawerDescription>
-          </DrawerHeader>
+          <SheetHeader className="text-left">
+            <SheetTitle>Write SQL</SheetTitle>
+            <SheetDescription>Write PostgreSQL query here.</SheetDescription>
+          </SheetHeader>
           <QueryForm
             form={form}
             onQueryExecute={async (values) => {
@@ -58,13 +63,13 @@ export const QueryDrawer = ({ onQueryExecute, isOpen, setIsOpen }: Props) => {
             }}
             className="px-4"
           />
-          <DrawerFooter className="pt-2">
-            <DrawerClose asChild>
+          <SheetFooter className="pt-2">
+            <SheetClose asChild>
               <Button variant="outline">Cancel</Button>
-            </DrawerClose>
-          </DrawerFooter>
+            </SheetClose>
+          </SheetFooter>
         </ScrollArea>
-      </DrawerContent>
-    </Drawer>
+      </SheetContent>
+    </Sheet>
   );
 };

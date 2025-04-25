@@ -14,8 +14,8 @@ import {
 import Image from "next/image";
 import { toast } from "sonner";
 import { Task } from "../../types/task";
-import { QueryDrawer } from "../query-drawer";
-import { Props as QueryFormProps } from "../query-drawer/query-form";
+import { QueryOverlay } from "../query-overlay";
+import { Props as QueryFormProps } from "../query-overlay/query-form";
 import { Button } from "@/components/shadcn-ui/button";
 import { cn } from "@/lib/utils";
 import { text } from "@/typography/text";
@@ -79,7 +79,7 @@ export const Top = ({
           </Link>
         </Button>
         <div className="flex items-center gap-2">
-          <QueryDrawer
+          <QueryOverlay
             isOpen={isQueryDrawerOpen}
             setIsOpen={setIsQueryDrawerOpen}
             onQueryExecute={async (values) => {
