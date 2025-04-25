@@ -244,7 +244,7 @@ type TaskItemsProps = {
 };
 const TaskItems = ({ tasks, setIsQueryDrawerOpen }: TaskItemsProps) => {
   return (
-    <ul className="flex flex-col gap-y-3 md:p-6">
+    <ul className="grid gap-3 lg:grid-cols-2">
       {tasks.map((task) => {
         return (
           <li

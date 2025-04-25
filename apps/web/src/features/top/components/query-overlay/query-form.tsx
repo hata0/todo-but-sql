@@ -1,6 +1,6 @@
 import { UseFormReturn } from "react-hook-form";
 import { Result } from "neverthrow";
-import { Database } from "lucide-react";
+import { ArrowRight, Database } from "lucide-react";
 import { QueryInput } from "../../types/task";
 import {
   Form,
@@ -48,7 +48,11 @@ export const QueryForm = ({ form, onQueryExecute, className }: Props) => {
             </FormItem>
           )}
         />
-        <Button type="submit" className="flex items-center">
+        <Button
+          type="submit"
+          className="flex items-center"
+          rightIcon={<ArrowRight />}
+        >
           <Database />
           <span>Execute Query</span>
         </Button>

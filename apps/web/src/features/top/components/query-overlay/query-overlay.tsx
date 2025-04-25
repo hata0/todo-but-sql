@@ -1,6 +1,6 @@
 "use client";
 
-import { Database } from "lucide-react";
+import { ArrowRight, Database } from "lucide-react";
 import { Dispatch, SetStateAction } from "react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -65,7 +65,9 @@ export const QueryOverlay = ({ onQueryExecute, isOpen, setIsOpen }: Props) => {
           />
           <SheetFooter className="pt-2">
             <SheetClose asChild>
-              <Button variant="outline">Cancel</Button>
+              <Button variant="outline" rightIcon={<ArrowRight />}>
+                Cancel
+              </Button>
             </SheetClose>
           </SheetFooter>
         </ScrollArea>
