@@ -4,7 +4,7 @@ import { TasksError } from "./error";
 import { TasksFilter } from "./filter";
 import { TasksLoading } from "./loading";
 import { TasksEmpty } from "./empty";
-import { TaskList } from "./list";
+import { TasksList } from "./list";
 import { DeleteDatabaseResult } from "@/utils/indexed-db";
 
 type Props = {
@@ -41,7 +41,7 @@ export const Tasks = ({
   return (
     <TasksFilter tasks={tasks}>
       {(filteredTasks) => (
-        <TaskList
+        <TasksList
           tasks={filteredTasks}
           setIsQueryOverlayOpen={setIsQueryOverlayOpen}
         />

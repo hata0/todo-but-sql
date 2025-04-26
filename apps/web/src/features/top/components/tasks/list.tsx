@@ -9,7 +9,7 @@ type Props = {
   tasks: Task[];
   setIsQueryOverlayOpen: Dispatch<SetStateAction<boolean>>;
 };
-export const TaskList = ({ tasks, setIsQueryOverlayOpen }: Props) => {
+export const TasksList = ({ tasks, setIsQueryOverlayOpen }: Props) => {
   return (
     <ul className="grid gap-3 lg:grid-cols-2">
       {tasks.map((task) => {
