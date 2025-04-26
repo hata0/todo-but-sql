@@ -15,7 +15,7 @@ type TabWithLabel = {
 };
 const TABS = [
   { value: "all", label: "All" },
-  { value: "incomplete", label: "Incomplete" },
+  { value: "uncompleted", label: "Uncompleted" },
   { value: "completed", label: "Completed" },
 ] as const satisfies TabWithLabel[];
 type Tab = (typeof TABS)[number]["value"];
@@ -30,7 +30,7 @@ export const TasksFilter = ({ tasks, children }: Props) => {
   const filteredTasks = tasks.filter((task) =>
     match(activeTab)
       .with("all", () => true)
-      .with("incomplete", () => !task.isCompleted)
+      .with("uncompleted", () => !task.isCompleted)
       .otherwise(() => task.isCompleted),
   );
 
