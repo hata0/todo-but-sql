@@ -11,8 +11,7 @@ export const deleteDatabaseAsync = (
     req.onerror = () => {
       resolve("error");
     };
-    req.onblocked = (e) => {
-      console.log(e);
+    req.onblocked = () => {
       resolve("blocked");
     };
   });
