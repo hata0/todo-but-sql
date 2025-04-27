@@ -1,3 +1,5 @@
+import { eq } from "drizzle-orm";
+import { match, P } from "ts-pattern";
 import { ClientWithQuery } from "../types";
 import { mapToTask } from "../utils";
 import {
@@ -10,15 +12,28 @@ import {
   ValidationError,
 } from "@/core/result";
 import { Task } from "@/domain/entities/task";
-import { tasksTable } from "@/db/schema";
+import { tasks } from "@/db/schema";
+
+type Query = {
+  isCompleted?: boolean;
+};
 
 export const listPgliteTasks = async ({
+  query,
   client,
-}: ClientWithQuery): Promise<Result<Task[], ValidationError | SystemError>> => {
-  const result = await fromPromise(
-    client.select().from(tasksTable),
-    toSystemError,
-  );
+}: ClientWithQuery<Query>): Promise<
+  Result<Task[], ValidationError | SystemError>
+> => {
+  const selectQuery = match(query)
+    .with({ isCompleted: P.boolean }, ({ isCompleted }) => {
+      return client
+        .select()
+        .from(tasks)
+        .where(eq(tasks.isCompleted, isCompleted));
+    })
+    .otherwise(() => client.select().from(tasks));
+
+  const result = await fromPromise(selectQuery, toSystemError);
   if (result.isErr()) {
     return err(result.error);
   }
