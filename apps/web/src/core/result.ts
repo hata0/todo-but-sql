@@ -1,5 +1,6 @@
 import { Err, err, fromPromise, Ok, ok, Result } from "neverthrow";
 import {} from "@electric-sql/pglite";
+import { match } from "ts-pattern";
 
 export { Err, err, Ok, ok, Result, fromPromise };
 
@@ -33,11 +34,13 @@ export class SystemError extends BaseError {
   }
 }
 
-export const toSystemError = (e: unknown) => {
-  if (e instanceof Error) {
-    return new SystemError(e.message);
-  }
-  return new SystemError("An unexpected error occurred");
+export const toSystemError = (e: unknown): SystemError => {
+  return match(e)
+    .when(
+      (e) => e instanceof Error,
+      (e) => new SystemError(e.message),
+    )
+    .otherwise(() => new SystemError("An unexpected error occurred"));
 };
 
 // 便利なヘルパー関数

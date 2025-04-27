@@ -35,19 +35,22 @@ export const TopHeader = ({
           setIsOpen={setIsQueryOverlayOpen}
           onQueryExecute={async (values) => {
             const result = await onQueryExecute(values);
-            if (result.isOk()) {
-              setQueryResult({
-                isOpen: true,
-                status: "success",
-                description: result.value,
-              });
-            } else {
-              setQueryResult({
-                isOpen: true,
-                status: "error",
-                description: result.error,
-              });
-            }
+
+            setQueryResult(
+              result.match(
+                (description) => ({
+                  isOpen: true,
+                  status: "success",
+                  description,
+                }),
+                (description) => ({
+                  isOpen: true,
+                  status: "error",
+                  description,
+                }),
+              ),
+            );
+
             return result;
           }}
         />
