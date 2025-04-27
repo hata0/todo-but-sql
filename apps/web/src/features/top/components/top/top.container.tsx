@@ -1,40 +1,35 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { err, fromPromise, ok } from "neverthrow";
 import { Task } from "../../types/task";
 import { Top as Presenter } from "./top";
 import { useLocalDbContext } from "@/providers/local-db-provider";
-import { tasksTable } from "@/db/schema";
 import { deleteDatabaseAsync } from "@/utils/indexed-db";
+import { usePgliteQuery } from "@/hooks/use-pglite-query";
+import { listPgliteTasks } from "@/infrastructure/queries/list-pglite-tasks";
+import { err, fromPromise, ok } from "@/core/result";
 
 export const Top = () => {
-  const { pg, db } = useLocalDbContext();
+  const { pg } = useLocalDbContext();
+  const listTasks = usePgliteQuery(listPgliteTasks);
   const [tasks, setTasks] = useState<Task[]>([]);
   const [isLoading, setIsLoading] = useState(true);
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
 
   useEffect(() => {
     (async () => {
-      if (db) {
-        const tasksOrError = await fromPromise(
-          db.select().from(tasksTable),
-          (e) => {
-            if (e instanceof Error) {
-              return e.message;
-            }
-            return "Something went wrong";
-          },
-        );
-        if (tasksOrError.isOk()) {
-          setTasks(tasksOrError.value);
-        } else {
-          setErrorMessage(tasksOrError.error);
-        }
-        setIsLoading(false);
-      }
+      (await listTasks()).match(
+        (tasks) => {
+          setTasks(tasks);
+        },
+        ({ message }) => {
+          setErrorMessage(message);
+        },
+      );
+
+      setIsLoading(false);
     })();
-  }, [db]);
+  }, [listTasks]);
 
   return (
     <Presenter
@@ -47,7 +42,7 @@ export const Top = () => {
         return await deleteDatabaseAsync("/pglite/test");
       }}
       onQueryExecute={async ({ query }) => {
-        if (!pg || !db) {
+        if (!pg) {
           return err("Database not initialized");
         }
 
@@ -59,20 +54,15 @@ export const Top = () => {
         });
 
         if (queryResult.isOk()) {
-          const tasksOrError = await fromPromise(
-            db.select().from(tasksTable),
-            (e) => {
-              if (e instanceof Error) {
-                return e.message;
-              }
-              return "Something went wrong";
+          (await listTasks()).match(
+            (tasks) => {
+              setTasks(tasks);
+            },
+            ({ message }) => {
+              setErrorMessage(message);
             },
           );
-          if (tasksOrError.isOk()) {
-            setTasks(tasksOrError.value);
-          } else {
-            setErrorMessage(tasksOrError.error);
-          }
+
           return ok(JSON.stringify(queryResult.value, null, 2));
         } else {
           return err(queryResult.error);

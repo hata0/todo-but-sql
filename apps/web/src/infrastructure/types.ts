@@ -5,3 +5,8 @@ export type Client<
   T extends Record<string, unknown> = Record<string, never>,
   U extends PGlite = PGlite,
 > = ReturnType<typeof drizzle<T, U>>;
+
+export type ClientWithQuery<T = undefined> = {
+  query?: T;
+  client: Client;
+};

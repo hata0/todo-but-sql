@@ -1,4 +1,4 @@
-import { Client } from "../types";
+import { ClientWithQuery } from "../types";
 import { mapToTask } from "../utils";
 import {
   err,
@@ -12,9 +12,9 @@ import {
 import { Task } from "@/domain/entities/task";
 import { tasksTable } from "@/db/schema";
 
-export const listPgliteTasks = async (
-  client: Client,
-): Promise<Result<Task[], ValidationError | SystemError>> => {
+export const listPgliteTasks = async ({
+  client,
+}: ClientWithQuery): Promise<Result<Task[], ValidationError | SystemError>> => {
   const result = await fromPromise(
     client.select().from(tasksTable),
     toSystemError,

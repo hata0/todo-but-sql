@@ -1,5 +1,5 @@
 import { eq } from "drizzle-orm";
-import { Client } from "../types";
+import { ClientWithQuery } from "../types";
 import { mapToTask } from "../utils";
 import {
   err,
@@ -13,9 +13,9 @@ import {
 import { Task } from "@/domain/entities/task";
 import { tasksTable } from "@/db/schema";
 
-export const listPgliteCompletedTasks = async (
-  client: Client,
-): Promise<Result<Task[], ValidationError | SystemError>> => {
+export const listPgliteCompletedTasks = async ({
+  client,
+}: ClientWithQuery): Promise<Result<Task[], ValidationError | SystemError>> => {
   const result = await fromPromise(
     client.select().from(tasksTable).where(eq(tasksTable.isCompleted, true)),
     toSystemError,

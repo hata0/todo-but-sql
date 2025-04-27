@@ -8,13 +8,13 @@ import {
   useEffect,
   useState,
 } from "react";
-import { DB, initializeDb, PG, PGliteWithLive } from "@/db/db";
+import { Client, initializeClient, PG, PGliteWithLive } from "@/db/db";
 
 const { PGliteProvider: PGliteProviderPrimitive, usePGlite } =
   makePGliteProvider<PGliteWithLive>();
 export { usePGlite };
 
-type ContextProps = { db?: DB; pg?: PG };
+type ContextProps = { client?: Client; pg?: PG };
 const LocalDbContext = createContext<ContextProps | null>(null);
 export const useLocalDbContext = () => {
   const context = useContext(LocalDbContext);
@@ -34,9 +34,9 @@ export const LocalDbProvider = ({ children }: PropsWithChildren) => {
   useEffect(() => {
     (async () => {
       // dbの変更を検知できるようにする拡張を追加
-      const { db, pg } = await initializeDb();
+      const { client, pg } = await initializeClient();
 
-      setState({ db, pg });
+      setState({ client, pg });
     })();
   }, []);
 

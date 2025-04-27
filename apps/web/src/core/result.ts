@@ -3,12 +3,21 @@ import {} from "@electric-sql/pglite";
 
 export { Err, err, Ok, ok, Result, fromPromise };
 
-export type AppError = ValidationError | SystemError;
+export type AppError =
+  | DatabaseNotInitializedError
+  | ValidationError
+  | SystemError;
 
 export class BaseError extends Error {
   constructor(message: string) {
     super(message);
     this.name = this.constructor.name;
+  }
+}
+
+export class DatabaseNotInitializedError extends BaseError {
+  constructor() {
+    super("Database not initialized Error");
   }
 }
 

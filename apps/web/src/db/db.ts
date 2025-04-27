@@ -6,11 +6,11 @@ import migrations from "./migrations.json";
 
 export type PGliteWithLive = PGlite &
   PGliteInterfaceExtensions<{ live: typeof live }>;
-export type PG = Awaited<ReturnType<typeof initializeDb>>["pg"];
+export type PG = Awaited<ReturnType<typeof initializeClient>>["pg"];
 // 非同期型の取得はAwaitedを使う
-export type DB = Awaited<ReturnType<typeof initializeDb>>["db"];
+export type Client = Awaited<ReturnType<typeof initializeClient>>["client"];
 
-export const initializeDb = async () => {
+export const initializeClient = async () => {
   // PGliteは単一の接続のみであるため、複数のブラウザータブを単一のPGliteインスタンスにプロキシする必要がある場合があるのでWorkerを使う
   const pg = await PGliteWorker.create(
     new Worker(new URL("./pglite.worker.ts", import.meta.url), {
@@ -23,7 +23,7 @@ export const initializeDb = async () => {
       },
     },
   );
-  const db = drizzle(pg as unknown as PGliteWithLive);
+  const client = drizzle(pg as unknown as PGliteWithLive);
 
   // https://github.com/drizzle-team/drizzle-orm/blob/main/drizzle-orm/src/pglite/migrator.ts
   // https://github.com/drizzle-team/drizzle-orm/blob/main/drizzle-orm/src/pg-core/dialect.ts
@@ -31,7 +31,12 @@ export const initializeDb = async () => {
   // dialectとsession存在しないように見えるが存在する
   // 第３引数はstring | MigrationConfigらしいのでこう
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  await (db as any).dialect.migrate(migrations, (db as any).session, {});
+  await (client as any).dialect.migrate(
+    migrations,
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    (client as any).session,
+    {},
+  );
 
-  return { db, pg };
+  return { client, pg };
 };
