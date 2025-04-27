@@ -1,9 +1,9 @@
 import { Meta, StoryObj } from "@storybook/react";
 import { fn, Mock } from "@storybook/test";
-import { err, ok } from "neverthrow";
 import { faker } from "@faker-js/faker";
 import { taskMock } from "../../tests/task-mock";
 import { Top } from "./top";
+import { err, ok } from "@/core/result";
 
 type Story = StoryObj<typeof Top>;
 

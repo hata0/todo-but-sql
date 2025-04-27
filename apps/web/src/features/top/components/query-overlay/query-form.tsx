@@ -1,7 +1,7 @@
 import { UseFormReturn } from "react-hook-form";
-import { Result } from "neverthrow";
 import { ArrowRight, Database } from "lucide-react";
 import { z } from "zod";
+import { Result } from "@/core/result";
 import {
   Form,
   FormControl,
