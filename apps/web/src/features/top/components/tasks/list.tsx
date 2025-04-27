@@ -1,9 +1,9 @@
 import { Dispatch, SetStateAction } from "react";
 import { Pencil, Trash2 } from "lucide-react";
-import { Task } from "../../types/task";
 import { cn } from "@/lib/utils";
 import { text } from "@/typography/text";
 import { Button } from "@/components/shadcn-ui/button";
+import { Task } from "@/domain/entities/task";
 
 type Props = {
   tasks: Task[];
@@ -12,23 +12,23 @@ type Props = {
 export const TasksList = ({ tasks, setIsQueryOverlayOpen }: Props) => {
   return (
     <ul className="grid gap-3 lg:grid-cols-2">
-      {tasks.map((task) => {
+      {tasks.map(({ id, title, isCompleted }) => {
         return (
           <li
-            key={task.id}
+            key={id}
             className={cn(
               "bg-card rounded-xl border p-3",
               "flex items-center justify-between",
-              { "bg-muted/50": task.isCompleted },
+              { "bg-muted/50": isCompleted },
             )}
           >
             <div
               className={cn(
                 text.medium.className,
-                task.isCompleted ? "text-muted-foreground line-through" : "",
+                isCompleted ? "text-muted-foreground line-through" : "",
               )}
             >
-              {task.title}
+              {title}
             </div>
             <div className="flex items-center">
               <Button

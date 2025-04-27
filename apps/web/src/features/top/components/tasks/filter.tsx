@@ -1,6 +1,5 @@
 import { ReactNode, useState } from "react";
 import { match } from "ts-pattern";
-import { Task } from "../../types/task";
 import { AnimatedBackground } from "@/components/motion-primitives/animated-background";
 import {
   Tabs,
@@ -8,6 +7,7 @@ import {
   TabsList,
   TabsTrigger,
 } from "@/components/shadcn-ui/tabs";
+import { Task } from "@/domain/entities/task";
 
 type TabWithLabel = {
   value: string;

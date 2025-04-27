@@ -1,13 +1,13 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { Task } from "../../types/task";
 import { Top as Presenter } from "./top";
 import { useLocalDbContext } from "@/providers/local-db-provider";
 import { deleteDatabaseAsync } from "@/utils/indexed-db";
 import { usePgliteQuery } from "@/hooks/use-pglite-query";
 import { listPgliteTasks } from "@/infrastructure/queries/list-pglite-tasks";
 import { err, fromPromise, ok } from "@/core/result";
+import { Task } from "@/domain/entities/task";
 
 export const Top = () => {
   const { pg } = useLocalDbContext();

@@ -1,12 +1,12 @@
 "use client";
 
 import { useState } from "react";
-import { Task } from "../../types/task";
 import { Props as QueryFormProps } from "../query-overlay/query-form";
 import { TopHeader } from "../top-header";
 import { QueryResult, QueryResultOverlay } from "../query-result-overlay";
 import { Tasks } from "../tasks";
 import { DeleteDatabaseResult } from "@/utils/indexed-db";
+import { Task } from "@/domain/entities/task";
 
 type Props = {
   isLoading: boolean;

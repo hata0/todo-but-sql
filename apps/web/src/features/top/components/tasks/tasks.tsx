@@ -1,11 +1,11 @@
 import { Dispatch, SetStateAction } from "react";
-import { Task } from "../../types/task";
 import { TasksError } from "./error";
 import { TasksFilter } from "./filter";
 import { TasksLoading } from "./loading";
 import { TasksEmpty } from "./empty";
 import { TasksList } from "./list";
 import { DeleteDatabaseResult } from "@/utils/indexed-db";
+import { Task } from "@/domain/entities/task";
 
 type Props = {
   isLoading: boolean;
@@ -34,7 +34,7 @@ export const Tasks = ({
     );
   }
 
-  if (tasks.length === 0) {
+  if (!tasks.length) {
     return <TasksEmpty setIsQueryOverlayOpen={setIsQueryOverlayOpen} />;
   }
 

@@ -17,5 +17,5 @@ export const validateTaskId = (
     return err(new ValidationError("Task ID is invalid"));
   }
 
-  return ok(result.data as TaskId);
+  return ok(result.data satisfies number as TaskId);
 };
