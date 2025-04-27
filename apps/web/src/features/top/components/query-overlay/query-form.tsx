@@ -1,7 +1,7 @@
 import { UseFormReturn } from "react-hook-form";
 import { Result } from "neverthrow";
 import { ArrowRight, Database } from "lucide-react";
-import { QueryInput } from "../../types/task";
+import { z } from "zod";
 import {
   Form,
   FormControl,
@@ -13,6 +13,12 @@ import {
 import { Textarea } from "@/components/shadcn-ui/textarea";
 import { Button } from "@/components/shadcn-ui/button";
 import { cn } from "@/lib/utils";
+
+export const queryInputSchema = z.object({
+  query: z.string().min(1, "Query is required"),
+});
+
+export type QueryInput = z.infer<typeof queryInputSchema>;
 
 export type Props = {
   form: UseFormReturn<QueryInput>;

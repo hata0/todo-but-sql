@@ -9,7 +9,7 @@ import { DeleteDatabaseResult } from "@/utils/indexed-db";
 
 type Props = {
   errorMessage: string;
-  onResetDatabase: () => Promise<DeleteDatabaseResult>;
+  onResetDatabase: () => Promise<DeleteDatabaseResult | "uninitialized">;
 };
 export const TasksError = ({ errorMessage, onResetDatabase }: Props) => {
   return (
@@ -37,6 +37,9 @@ export const TasksError = ({ errorMessage, onResetDatabase }: Props) => {
               toast.error(
                 "Database deletion blocked. Database may be in use now.",
               );
+            })
+            .with("uninitialized", () => {
+              toast.error("Database is not initialized");
             })
             .exhaustive();
         }}

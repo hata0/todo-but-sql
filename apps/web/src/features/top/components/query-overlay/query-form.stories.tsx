@@ -2,9 +2,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { Meta, StoryObj } from "@storybook/react";
 import { useForm } from "react-hook-form";
 import { fn } from "@storybook/test";
-import { queryInputSchema } from "../../schema";
-import { QueryInput } from "../../types/task";
-import { Props, QueryForm } from "./query-form";
+import { Props, QueryForm, QueryInput, queryInputSchema } from "./query-form";
 
 const Example = (props: Omit<Props, "form">) => {
   const form = useForm<QueryInput>({

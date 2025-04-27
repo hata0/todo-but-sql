@@ -12,7 +12,7 @@ type Props = {
   isLoading: boolean;
   tasks: Task[];
   errorMessage: string | null;
-  onResetDatabase: () => Promise<DeleteDatabaseResult>;
+  onResetDatabase: () => Promise<DeleteDatabaseResult | "uninitialized">;
 } & Pick<QueryFormProps, "onQueryExecute">;
 export const Top = ({
   isLoading,

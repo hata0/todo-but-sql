@@ -11,7 +11,7 @@ type Props = {
   isLoading: boolean;
   errorMessage: string | null;
   tasks: Task[];
-  onResetDatabase: () => Promise<DeleteDatabaseResult>;
+  onResetDatabase: () => Promise<DeleteDatabaseResult | "uninitialized">;
   setIsQueryOverlayOpen: Dispatch<SetStateAction<boolean>>;
 };
 export const Tasks = ({
