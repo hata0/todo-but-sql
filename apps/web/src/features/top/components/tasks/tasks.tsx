@@ -1,51 +1,27 @@
-import { Dispatch, SetStateAction } from "react";
+import { Dispatch, SetStateAction, Suspense } from "react";
+import { ErrorBoundary } from "react-error-boundary";
 import { TasksError } from "./error";
 import { TasksFilter } from "./filter";
 import { TasksLoading } from "./loading";
-import { TasksEmpty } from "./empty";
 import { TasksList } from "./list";
 import { DeleteDatabaseResult } from "@/utils/indexed-db";
-import { Task } from "@/domain/entities/task";
 
 type Props = {
-  isLoading: boolean;
-  errorMessage: string | null;
-  tasks: Task[];
   onResetDatabase: () => Promise<DeleteDatabaseResult | "uninitialized">;
   setIsQueryOverlayOpen: Dispatch<SetStateAction<boolean>>;
 };
-export const Tasks = ({
-  isLoading,
-  errorMessage,
-  tasks,
-  onResetDatabase,
-  setIsQueryOverlayOpen,
-}: Props) => {
-  if (isLoading) {
-    return <TasksLoading />;
-  }
-
-  if (errorMessage) {
-    return (
-      <TasksError
-        errorMessage={errorMessage}
-        onResetDatabase={onResetDatabase}
-      />
-    );
-  }
-
-  if (!tasks.length) {
-    return <TasksEmpty setIsQueryOverlayOpen={setIsQueryOverlayOpen} />;
-  }
-
+export const Tasks = ({ onResetDatabase, setIsQueryOverlayOpen }: Props) => {
   return (
-    <TasksFilter tasks={tasks}>
-      {(filteredTasks) => (
-        <TasksList
-          tasks={filteredTasks}
-          setIsQueryOverlayOpen={setIsQueryOverlayOpen}
-        />
-      )}
+    <TasksFilter>
+      <ErrorBoundary
+        FallbackComponent={({ error }) => (
+          <TasksError error={error} onResetDatabase={onResetDatabase} />
+        )}
+      >
+        <Suspense fallback={<TasksLoading />}>
+          <TasksList setIsQueryOverlayOpen={setIsQueryOverlayOpen} />
+        </Suspense>
+      </ErrorBoundary>
     </TasksFilter>
   );
 };
