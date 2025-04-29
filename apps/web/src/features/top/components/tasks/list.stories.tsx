@@ -1,11 +1,12 @@
 import { Meta, StoryObj } from "@storybook/react";
 import { fn } from "@storybook/test";
-import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+import { QueryClient } from "@tanstack/react-query";
 import { TasksList } from "./list";
 import { getQueryKey } from "@/store/get-tasks";
 import { GetTasksQueryDto } from "@/infrastructure/queries/get-tasks";
 import { generateRandomArray } from "@/utils/array";
 import { taskMock } from "@/tests/mocks";
+import { QueryProviderMock } from "@/providers/query-provider";
 
 type Story = StoryObj<typeof TasksList>;
 
@@ -20,9 +21,9 @@ export const Empty: Story = {
       } satisfies GetTasksQueryDto);
 
       return (
-        <QueryClientProvider client={client}>
+        <QueryProviderMock client={client}>
           <Story />
-        </QueryClientProvider>
+        </QueryProviderMock>
       );
     },
   ],
@@ -42,9 +43,9 @@ const meta: Meta<typeof TasksList> = {
       } satisfies GetTasksQueryDto);
 
       return (
-        <QueryClientProvider client={client}>
+        <QueryProviderMock client={client}>
           <Story />
-        </QueryClientProvider>
+        </QueryProviderMock>
       );
     },
   ],
