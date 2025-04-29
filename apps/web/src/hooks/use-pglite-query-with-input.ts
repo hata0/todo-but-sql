@@ -1,19 +1,15 @@
 import { useCallback } from "react";
-import {
-  AppError,
-  DatabaseNotInitializedError,
-  err,
-  Result,
-} from "@/core/result";
+import { AppError, Result } from "@/core/result";
 import { ClientWithQueryInput } from "@/infrastructure/types";
 import { useLocalDbContext } from "@/providers/local-db-provider";
+import { waitUntil } from "@/utils/delay";
 
 type QueryFn<TInput, TSuccess, TError extends AppError> = (
   props: ClientWithQueryInput<TInput>,
 ) => Promise<Result<TSuccess, TError>>;
 type QueryFnWithoutClient<TInput, TSuccess, TError extends AppError> = (
   input: ClientWithQueryInput<TInput>["input"],
-) => Promise<Result<TSuccess, TError | DatabaseNotInitializedError>>;
+) => Promise<Result<TSuccess, TError>>;
 
 export const usePgliteQueryWithInput = <
   TInput,
@@ -26,11 +22,9 @@ export const usePgliteQueryWithInput = <
 
   return useCallback(
     async (input) => {
-      if (!client) {
-        return err(new DatabaseNotInitializedError());
-      }
+      await waitUntil(() => !!client, Infinity);
 
-      return await queryFn({ input, client });
+      return await queryFn({ input, client: client! });
     },
     [client, queryFn],
   );
