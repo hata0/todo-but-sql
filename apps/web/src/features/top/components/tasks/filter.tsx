@@ -1,13 +1,6 @@
-import { ReactNode, useState } from "react";
-import { match } from "ts-pattern";
+import { PropsWithChildren } from "react";
 import { AnimatedBackground } from "@/components/motion-primitives/animated-background";
-import {
-  Tabs,
-  TabsContent,
-  TabsList,
-  TabsTrigger,
-} from "@/components/shadcn-ui/tabs";
-import { Task } from "@/domain/entities/task";
+import { Tabs, TabsList, TabsTrigger } from "@/components/shadcn-ui/tabs";
 
 type TabWithLabel = {
   value: string;
@@ -18,27 +11,10 @@ const TABS = [
   { value: "uncompleted", label: "Uncompleted" },
   { value: "completed", label: "Completed" },
 ] as const satisfies TabWithLabel[];
-type Tab = (typeof TABS)[number]["value"];
 
-type Props = {
-  tasks: Task[];
-  children: (filteredTasks: Task[]) => ReactNode;
-};
-export const TasksFilter = ({ tasks, children }: Props) => {
-  const [activeTab, setActiveTab] = useState<Tab>(TABS[0].value);
-
-  const filteredTasks = tasks.filter((task) =>
-    match(activeTab)
-      .with("all", () => true)
-      .with("uncompleted", () => !task.isCompleted)
-      .otherwise(() => task.isCompleted),
-  );
-
+export const TasksFilter = ({ children }: PropsWithChildren) => {
   return (
-    <Tabs
-      defaultValue={TABS[0].value}
-      onValueChange={(t) => setActiveTab(t as Tab)}
-    >
+    <Tabs defaultValue={TABS[0].value}>
       <TabsList className="w-full">
         <AnimatedBackground
           defaultValue={TABS[0].value}
@@ -56,11 +32,7 @@ export const TasksFilter = ({ tasks, children }: Props) => {
           ))}
         </AnimatedBackground>
       </TabsList>
-      {TABS.map((tab) => (
-        <TabsContent value={tab.value} className="mt-0" key={tab.value}>
-          {children(filteredTasks)}
-        </TabsContent>
-      ))}
+      {children}
     </Tabs>
   );
 };
