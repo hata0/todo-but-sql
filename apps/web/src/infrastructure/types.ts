@@ -6,7 +6,7 @@ export type Client<
   U extends PGlite = PGlite,
 > = ReturnType<typeof drizzle<T, U>>;
 
-export type ClientWithQuery<T = undefined> = {
-  query?: T;
+export type ClientWithQueryInput<TInput> = {
+  input: TInput;
   client: Client;
 };
