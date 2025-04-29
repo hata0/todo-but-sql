@@ -1,8 +1,7 @@
-import { Dispatch, SetStateAction, Suspense } from "react";
-import { ErrorBoundary } from "react-error-boundary";
-import { TasksError } from "./error";
+"use client";
+
+import { Dispatch, SetStateAction } from "react";
 import { TasksFilter } from "./filter";
-import { TasksLoading } from "./loading";
 import { TasksList } from "./list";
 import { DeleteDatabaseResult } from "@/utils/indexed-db";
 
@@ -13,15 +12,10 @@ type Props = {
 export const Tasks = ({ onResetDatabase, setIsQueryOverlayOpen }: Props) => {
   return (
     <TasksFilter>
-      <ErrorBoundary
-        FallbackComponent={({ error }) => (
-          <TasksError error={error} onResetDatabase={onResetDatabase} />
-        )}
-      >
-        <Suspense fallback={<TasksLoading />}>
-          <TasksList setIsQueryOverlayOpen={setIsQueryOverlayOpen} />
-        </Suspense>
-      </ErrorBoundary>
+      <TasksList
+        onResetDatabase={onResetDatabase}
+        setIsQueryOverlayOpen={setIsQueryOverlayOpen}
+      />
     </TasksFilter>
   );
 };

@@ -61,3 +61,11 @@ export function combine<T, E>(results: Result<T, E>[]): Result<T[], E> {
 export function sequence<T, E>(results: Result<T, E>[]): Result<T[], E> {
   return combine(results);
 }
+
+export const unwrap = <T, E>(result: Result<T, E>): T => {
+  if (result.isOk()) {
+    return result.value;
+  } else {
+    throw result.error;
+  }
+};

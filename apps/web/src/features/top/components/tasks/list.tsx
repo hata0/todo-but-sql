@@ -1,16 +1,33 @@
+"use client";
+
 import { Dispatch, SetStateAction } from "react";
 import { Pencil, Trash2 } from "lucide-react";
 import { TasksEmpty } from "./empty";
+import { TasksError } from "./error";
+import { TasksLoading } from "./loading";
 import { cn } from "@/lib/utils";
 import { text } from "@/typography/text";
 import { Button } from "@/components/shadcn-ui/button";
-import { useGetTasksSuspense } from "@/store/get-tasks";
+import { useGetTasks } from "@/store/get-tasks";
+import { DeleteDatabaseResult } from "@/utils/indexed-db";
 
 type Props = {
+  onResetDatabase: () => Promise<DeleteDatabaseResult | "uninitialized">;
   setIsQueryOverlayOpen: Dispatch<SetStateAction<boolean>>;
 };
-export const TasksList = ({ setIsQueryOverlayOpen }: Props) => {
-  const { data } = useGetTasksSuspense();
+export const TasksList = ({
+  onResetDatabase,
+  setIsQueryOverlayOpen,
+}: Props) => {
+  const { data, error, isLoading } = useGetTasks();
+
+  if (error) {
+    return <TasksError error={error} onResetDatabase={onResetDatabase} />;
+  }
+
+  if (isLoading || !data) {
+    return <TasksLoading />;
+  }
 
   if (!data.tasks.length) {
     return <TasksEmpty setIsQueryOverlayOpen={setIsQueryOverlayOpen} />;
