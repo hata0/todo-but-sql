@@ -6,12 +6,20 @@ import { cn } from "@/lib/utils";
 import { heading } from "@/typography/heading";
 import { text } from "@/typography/text";
 import { DeleteDatabaseResult } from "@/utils/indexed-db";
+import { BaseError } from "@/core/result";
 
 type Props = {
-  errorMessage: string;
+  error: unknown;
   onResetDatabase: () => Promise<DeleteDatabaseResult | "uninitialized">;
 };
-export const TasksError = ({ errorMessage, onResetDatabase }: Props) => {
+export const TasksError = ({ error, onResetDatabase }: Props) => {
+  const errorMessage = match(error)
+    .when(
+      (e) => e instanceof BaseError,
+      (e) => e.message,
+    )
+    .otherwise(() => "An unexpected error occurred");
+
   return (
     <div className="flex flex-col items-center justify-center py-12 text-center">
       {/* 装飾用アイコン */}
