@@ -1,25 +1,53 @@
-import { Meta, StoryObj } from "@storybook/react";
+import { Decorator, Meta, StoryObj } from "@storybook/react";
 import { fn, Mock } from "@storybook/test";
 import { faker } from "@faker-js/faker";
-import { taskMock } from "../../tests/task-mock";
+import { QueryClient } from "@tanstack/react-query";
 import { Top } from "./top";
-import { err, ok } from "@/core/result";
+import { taskMock } from "@/tests/mocks";
+import { err, ok, SystemError } from "@/core/result";
+import { getQueryKey } from "@/store/get-tasks";
+import { GetTasksQueryDto } from "@/infrastructure/queries/get-tasks";
+import { generateRandomArray } from "@/utils/array";
+import { QueryProviderMock } from "@/providers/query-provider";
+import { infiniteDelay } from "@/utils/delay";
 
 type Story = StoryObj<typeof Top>;
 
 export const Default: Story = {};
 
 export const Empty: Story = {
-  args: {
-    tasks: [],
-  },
+  decorators: [
+    (Story) => {
+      const client = new QueryClient();
+      client.setQueryData(getQueryKey(undefined), {
+        tasks: [],
+      } satisfies GetTasksQueryDto);
+
+      return (
+        <QueryProviderMock client={client}>
+          <Story />
+        </QueryProviderMock>
+      );
+    },
+  ],
 };
 
 export const Loading: Story = {
-  args: {
-    isLoading: true,
-    tasks: [],
-  },
+  decorators: [
+    (Story) => {
+      const client = new QueryClient();
+      client.fetchQuery({
+        queryKey: getQueryKey(undefined),
+        queryFn: infiniteDelay,
+      });
+
+      return (
+        <QueryProviderMock client={client}>
+          <Story />
+        </QueryProviderMock>
+      );
+    },
+  ],
 };
 
 export const QueryExecuteError: Story = {
@@ -30,43 +58,64 @@ export const QueryExecuteError: Story = {
   },
 };
 
+const ErrorDecorator: Decorator = (Story) => {
+  const client = new QueryClient();
+  client.fetchQuery({
+    queryKey: getQueryKey(undefined),
+    queryFn: () => {
+      throw new SystemError(faker.lorem.sentence());
+    },
+  });
+
+  return (
+    <QueryProviderMock client={client}>
+      <Story />
+    </QueryProviderMock>
+  );
+};
+
 export const ResetDatabaseSuccess: Story = {
   beforeEach: () => {
     (meta.args?.onResetDatabase as Mock).mockResolvedValue("success");
   },
-  args: {
-    errorMessage: faker.lorem.sentence(),
-  },
+  decorators: [ErrorDecorator],
 };
 
 export const ResetDatabaseError: Story = {
   beforeEach: () => {
     (meta.args?.onResetDatabase as Mock).mockResolvedValue("error");
   },
-  args: {
-    errorMessage: faker.lorem.sentence(),
-  },
+  decorators: [ErrorDecorator],
 };
 
 export const ResetDatabaseBlocked: Story = {
   beforeEach: () => {
     (meta.args?.onResetDatabase as Mock).mockResolvedValue("blocked");
   },
-  args: {
-    errorMessage: faker.lorem.sentence(),
-  },
+  decorators: [ErrorDecorator],
 };
 
 const meta: Meta<typeof Top> = {
   title: "Features/top/Top",
   component: Top,
   args: {
-    isLoading: false,
-    tasks: Array.from({ length: 10 }).map(() => taskMock()),
-    errorMessage: null,
     onResetDatabase: fn(),
     onQueryExecute: fn(),
   },
+  decorators: [
+    (Story) => {
+      const client = new QueryClient();
+      client.setQueryData(getQueryKey(undefined), {
+        tasks: generateRandomArray(() => taskMock(), { max: 20 }),
+      } satisfies GetTasksQueryDto);
+
+      return (
+        <QueryProviderMock client={client}>
+          <Story />
+        </QueryProviderMock>
+      );
+    },
+  ],
   beforeEach: () => {
     (meta.args?.onQueryExecute as Mock).mockResolvedValue(
       ok(faker.lorem.lines(30)),

@@ -6,21 +6,11 @@ import { TopHeader } from "../top-header";
 import { QueryResult, QueryResultOverlay } from "../query-result-overlay";
 import { Tasks } from "../tasks";
 import { DeleteDatabaseResult } from "@/utils/indexed-db";
-import { Task } from "@/domain/entities/task";
 
 type Props = {
-  isLoading: boolean;
-  tasks: Task[];
-  errorMessage: string | null;
   onResetDatabase: () => Promise<DeleteDatabaseResult | "uninitialized">;
 } & Pick<QueryFormProps, "onQueryExecute">;
-export const Top = ({
-  isLoading,
-  tasks,
-  errorMessage,
-  onResetDatabase,
-  onQueryExecute,
-}: Props) => {
+export const Top = ({ onResetDatabase, onQueryExecute }: Props) => {
   const [isQueryOverlayOpen, setIsQueryOverlayOpen] = useState(false);
   const [queryResult, setQueryResult] = useState<QueryResult>({
     isOpen: false,
@@ -39,9 +29,6 @@ export const Top = ({
       <main>
         <div className="px-3 py-2">
           <Tasks
-            isLoading={isLoading}
-            errorMessage={errorMessage}
-            tasks={tasks}
             onResetDatabase={onResetDatabase}
             setIsQueryOverlayOpen={setIsQueryOverlayOpen}
           />
