@@ -1,15 +1,17 @@
-import { useQuery } from "@tanstack/react-query";
+import { useSuspenseQuery } from "@tanstack/react-query";
 import { usePgliteQueryWithInput } from "@/hooks/use-pglite-query-with-input";
 import {
   getTasksPglite,
   GetTasksQueryInput,
 } from "@/infrastructure/queries/get-tasks";
 
-export const useGetTasks = (query: GetTasksQueryInput = undefined) => {
+export const getQueryKey = (query: GetTasksQueryInput) => ["get-tasks", query];
+
+export const useGetTasksSuspense = (query: GetTasksQueryInput = undefined) => {
   const getTasks = usePgliteQueryWithInput(getTasksPglite);
 
-  return useQuery({
-    queryKey: ["get-tasks", query],
+  return useSuspenseQuery({
+    queryKey: getQueryKey(query),
     queryFn: async () => (await getTasks(query))._unsafeUnwrap(),
   });
 };

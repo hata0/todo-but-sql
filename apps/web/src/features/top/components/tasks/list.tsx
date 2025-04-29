@@ -1,18 +1,24 @@
 import { Dispatch, SetStateAction } from "react";
 import { Pencil, Trash2 } from "lucide-react";
+import { TasksEmpty } from "./empty";
 import { cn } from "@/lib/utils";
 import { text } from "@/typography/text";
 import { Button } from "@/components/shadcn-ui/button";
-import { Task } from "@/domain/entities/task";
+import { useGetTasksSuspense } from "@/store/get-tasks";
 
 type Props = {
-  tasks: Task[];
   setIsQueryOverlayOpen: Dispatch<SetStateAction<boolean>>;
 };
-export const TasksList = ({ tasks, setIsQueryOverlayOpen }: Props) => {
+export const TasksList = ({ setIsQueryOverlayOpen }: Props) => {
+  const { data } = useGetTasksSuspense();
+
+  if (!data.tasks.length) {
+    return <TasksEmpty setIsQueryOverlayOpen={setIsQueryOverlayOpen} />;
+  }
+
   return (
     <ul className="grid gap-3 lg:grid-cols-2">
-      {tasks.map(({ id, title, isCompleted }) => {
+      {data.tasks.map(({ id, title, isCompleted }) => {
         return (
           <li
             key={id}

@@ -50,3 +50,13 @@ export const LocalDbProvider = ({ children }: PropsWithChildren) => {
     </LocalDbContext.Provider>
   );
 };
+
+export const LocalDbProviderMock = ({ children }: PropsWithChildren) => {
+  return (
+    <LocalDbContext.Provider value={{}}>
+      <PGliteProviderPrimitive db={undefined}>
+        {children}
+      </PGliteProviderPrimitive>
+    </LocalDbContext.Provider>
+  );
+};
