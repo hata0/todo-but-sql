@@ -1,5 +1,6 @@
 import { Meta, StoryObj } from "@storybook/react";
 import { fn } from "@storybook/test";
+import { faker } from "@faker-js/faker";
 import { TasksError } from "./error";
 import { SystemError } from "@/core/result";
 
@@ -17,7 +18,7 @@ const meta: Meta<typeof TasksError> = {
   title: "Features/top/TasksError",
   component: TasksError,
   args: {
-    error: new SystemError("Test error"),
+    error: new SystemError(faker.lorem.sentence()),
     onResetDatabase: fn(),
   },
 };

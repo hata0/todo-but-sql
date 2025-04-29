@@ -1,6 +1,7 @@
 import { Meta, StoryObj } from "@storybook/react";
 import { fn } from "@storybook/test";
 import { QueryClient } from "@tanstack/react-query";
+import { faker } from "@faker-js/faker";
 import { Tasks } from "./tasks";
 import { getQueryKey } from "@/store/get-tasks";
 import { QueryProviderMock } from "@/providers/query-provider";
@@ -18,7 +19,7 @@ export const Error: Story = {
       client.fetchQuery({
         queryKey: getQueryKey(undefined),
         queryFn: () => {
-          throw new SystemError("test error");
+          throw new SystemError(faker.lorem.sentence());
         },
       });
 
