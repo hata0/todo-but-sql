@@ -4,6 +4,7 @@ import { fontVariables } from "./font";
 import { LocalDbProvider } from "@/providers/local-db-provider";
 import { ThemeProvider } from "@/providers/theme-provider";
 import { Toaster } from "@/components/shadcn-ui/sonner";
+import { QueryProvider } from "@/providers/query-provider";
 
 export const metadata: Metadata = {
   title: "Todo but SQL",
@@ -18,12 +19,14 @@ export default function RootLayout({
   return (
     <html lang="en" suppressHydrationWarning>
       <body className={fontVariables}>
-        <ThemeProvider>
-          <LocalDbProvider>
-            {children}
-            <Toaster />
-          </LocalDbProvider>
-        </ThemeProvider>
+        <QueryProvider>
+          <ThemeProvider>
+            <LocalDbProvider>
+              {children}
+              <Toaster />
+            </LocalDbProvider>
+          </ThemeProvider>
+        </QueryProvider>
       </body>
     </html>
   );
