@@ -6,11 +6,13 @@ import { cn } from "@/lib/utils";
 import { heading } from "@/typography/heading";
 import { text } from "@/typography/text";
 import { DeleteDatabaseResult } from "@/utils/indexed-db";
-import { BaseError } from "@/core/result";
+import { BaseError, DatabaseNotInitializedError } from "@/core/result";
 
 type Props = {
   error: unknown;
-  onResetDatabase: () => Promise<DeleteDatabaseResult | "uninitialized">;
+  onResetDatabase: () => Promise<
+    DeleteDatabaseResult | DatabaseNotInitializedError
+  >;
 };
 export const TasksError = ({ error, onResetDatabase }: Props) => {
   const errorMessage = match(error)
@@ -46,10 +48,9 @@ export const TasksError = ({ error, onResetDatabase }: Props) => {
                 "Database deletion blocked. Database may be in use now.",
               );
             })
-            .with("uninitialized", () => {
+            .otherwise(() => {
               toast.error("Database is not initialized");
-            })
-            .exhaustive();
+            });
         }}
       >
         <Database />

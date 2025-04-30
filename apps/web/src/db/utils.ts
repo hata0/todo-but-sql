@@ -33,7 +33,7 @@ export const useDeleteDatabase = () => {
 
   return useCallback(async () => {
     if (!pg) {
-      return "uninitialized";
+      return new DatabaseNotInitializedError();
     }
 
     // pg?.close()しておかないと、onblockedで弾かれる

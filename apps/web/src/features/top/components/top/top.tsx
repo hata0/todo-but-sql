@@ -6,10 +6,12 @@ import { QueryResult, QueryResultOverlay } from "../query-result-overlay";
 import { TasksFilter, TasksList } from "../tasks";
 import { QueryInput, QueryOverlay } from "../query-overlay";
 import { DeleteDatabaseResult } from "@/utils/indexed-db";
-import { AppError, Result } from "@/core/result";
+import { AppError, DatabaseNotInitializedError, Result } from "@/core/result";
 
 type Props = {
-  onResetDatabase: () => Promise<DeleteDatabaseResult | "uninitialized">;
+  onResetDatabase: () => Promise<
+    DeleteDatabaseResult | DatabaseNotInitializedError
+  >;
   onQueryExecute: (values: QueryInput) => Promise<Result<string, AppError>>;
 };
 export const Top = ({ onResetDatabase, onQueryExecute }: Props) => {

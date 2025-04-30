@@ -10,9 +10,12 @@ import { text } from "@/typography/text";
 import { Button } from "@/components/shadcn-ui/button";
 import { useGetTasks } from "@/store/get-tasks";
 import { DeleteDatabaseResult } from "@/utils/indexed-db";
+import { DatabaseNotInitializedError } from "@/core/result";
 
 export type Props = {
-  onResetDatabase: () => Promise<DeleteDatabaseResult | "uninitialized">;
+  onResetDatabase: () => Promise<
+    DeleteDatabaseResult | DatabaseNotInitializedError
+  >;
 };
 export const TasksList = ({ onResetDatabase }: Props) => {
   const { data, error, isLoading } = useGetTasks();
