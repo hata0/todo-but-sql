@@ -1,17 +1,30 @@
 import { Meta, StoryObj } from "@storybook/react";
-import { fn } from "@storybook/test";
-import { useState } from "react";
-import { Props, QueryOverlay } from "./query-overlay";
+import { fn, Mock } from "@storybook/test";
+import { Database } from "lucide-react";
+import { faker } from "@faker-js/faker";
+import { Props, QueryOverlay, useQueryOverlayContext } from "./query-overlay";
+import { Button } from "@/components/shadcn-ui/button";
+import { ok } from "@/core/result";
 
-const Example = ({ onQueryExecute }: Omit<Props, "isOpen" | "setIsOpen">) => {
-  const [isOpen, setIsOpen] = useState(false);
+const Example = ({ onQueryExecute }: Props) => {
+  return (
+    <QueryOverlay onQueryExecute={onQueryExecute}>
+      <Children />
+    </QueryOverlay>
+  );
+};
+const Children = () => {
+  const { open } = useQueryOverlayContext();
 
   return (
-    <QueryOverlay
-      isOpen={isOpen}
-      setIsOpen={setIsOpen}
-      onQueryExecute={onQueryExecute}
-    />
+    <Button
+      variant="ghost"
+      size="icon"
+      className="hover:animate-hover-jiggle"
+      onClick={open}
+    >
+      <Database />
+    </Button>
   );
 };
 
@@ -24,6 +37,11 @@ const meta: Meta<typeof Example> = {
   component: Example,
   args: {
     onQueryExecute: fn(),
+  },
+  beforeEach: () => {
+    (meta.args?.onQueryExecute as Mock).mockResolvedValue(
+      ok(faker.lorem.lines(30)),
+    );
   },
 };
 export default meta;

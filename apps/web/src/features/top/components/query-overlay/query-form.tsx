@@ -1,7 +1,7 @@
 import { UseFormReturn } from "react-hook-form";
 import { ArrowRight, Database } from "lucide-react";
 import { z } from "zod";
-import { Result } from "@/core/result";
+import { AppError, Result } from "@/core/result";
 import {
   Form,
   FormControl,
@@ -22,7 +22,7 @@ export type QueryInput = z.infer<typeof queryInputSchema>;
 
 export type Props = {
   form: UseFormReturn<QueryInput>;
-  onQueryExecute: (values: QueryInput) => Promise<Result<string, string>>;
+  onQueryExecute: (values: QueryInput) => Promise<Result<string, AppError>>;
   className?: string;
 };
 export const QueryForm = ({ form, onQueryExecute, className }: Props) => {
