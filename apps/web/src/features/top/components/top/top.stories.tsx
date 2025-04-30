@@ -50,49 +50,32 @@ export const Loading: Story = {
   ],
 };
 
+export const Error: Story = {
+  decorators: [
+    (Story) => {
+      const client = new QueryClient();
+      client.fetchQuery({
+        queryKey: getQueryKey(undefined),
+        queryFn: () => {
+          throw new SystemError(faker.lorem.sentence());
+        },
+      });
+
+      return (
+        <QueryProviderMock client={client}>
+          <Story />
+        </QueryProviderMock>
+      );
+    },
+  ],
+};
+
 export const QueryExecuteError: Story = {
   beforeEach: () => {
     (meta.args?.onQueryExecute as Mock).mockResolvedValue(
       err(new SystemError(faker.lorem.lines(30))),
     );
   },
-};
-
-const ErrorDecorator: Decorator = (Story) => {
-  const client = new QueryClient();
-  client.fetchQuery({
-    queryKey: getQueryKey(undefined),
-    queryFn: () => {
-      throw new SystemError(faker.lorem.sentence());
-    },
-  });
-
-  return (
-    <QueryProviderMock client={client}>
-      <Story />
-    </QueryProviderMock>
-  );
-};
-
-export const ResetDatabaseSuccess: Story = {
-  beforeEach: () => {
-    (meta.args?.onResetDatabase as Mock).mockResolvedValue("success");
-  },
-  decorators: [ErrorDecorator],
-};
-
-export const ResetDatabaseError: Story = {
-  beforeEach: () => {
-    (meta.args?.onResetDatabase as Mock).mockResolvedValue("error");
-  },
-  decorators: [ErrorDecorator],
-};
-
-export const ResetDatabaseBlocked: Story = {
-  beforeEach: () => {
-    (meta.args?.onResetDatabase as Mock).mockResolvedValue("blocked");
-  },
-  decorators: [ErrorDecorator],
 };
 
 const meta: Meta<typeof Top> = {
