@@ -3,10 +3,15 @@ import { Meta, StoryObj } from "@storybook/react";
 import { useForm } from "react-hook-form";
 import { fn, Mock } from "@storybook/test";
 import { faker } from "@faker-js/faker";
-import { Props, QueryForm, QueryInput, queryInputSchema } from "./query-form";
+import {
+  QueryFormProps,
+  QueryForm,
+  QueryInput,
+  queryInputSchema,
+} from "./query-form";
 import { err, ok, SystemError } from "@/core/result";
 
-const Example = (props: Omit<Props, "form">) => {
+const Example = (props: Omit<QueryFormProps, "form">) => {
   const form = useForm<QueryInput>({
     resolver: zodResolver(queryInputSchema),
     defaultValues: {

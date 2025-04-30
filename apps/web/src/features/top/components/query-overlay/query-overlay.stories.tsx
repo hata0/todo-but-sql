@@ -2,11 +2,15 @@ import { Meta, StoryObj } from "@storybook/react";
 import { fn, Mock } from "@storybook/test";
 import { Database } from "lucide-react";
 import { faker } from "@faker-js/faker";
-import { Props, QueryOverlay, useQueryOverlayContext } from "./query-overlay";
+import {
+  QueryOverlayProps,
+  QueryOverlay,
+  useQueryOverlayContext,
+} from "./query-overlay";
 import { Button } from "@/components/shadcn-ui/button";
 import { ok } from "@/core/result";
 
-const Example = ({ onQueryExecute }: Props) => {
+const Example = ({ onQueryExecute }: QueryOverlayProps) => {
   return (
     <QueryOverlay onQueryExecute={onQueryExecute}>
       <Children />

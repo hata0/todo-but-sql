@@ -1,7 +1,7 @@
 "use client";
 
-import { Dispatch, SetStateAction } from "react";
 import { Pencil, Trash2 } from "lucide-react";
+import { useQueryOverlayContext } from "../query-overlay";
 import { TasksEmpty } from "./empty";
 import { TasksError } from "./error";
 import { TasksLoading } from "./loading";
@@ -11,15 +11,12 @@ import { Button } from "@/components/shadcn-ui/button";
 import { useGetTasks } from "@/store/get-tasks";
 import { DeleteDatabaseResult } from "@/utils/indexed-db";
 
-type Props = {
+export type Props = {
   onResetDatabase: () => Promise<DeleteDatabaseResult | "uninitialized">;
-  setIsQueryOverlayOpen: Dispatch<SetStateAction<boolean>>;
 };
-export const TasksList = ({
-  onResetDatabase,
-  setIsQueryOverlayOpen,
-}: Props) => {
+export const TasksList = ({ onResetDatabase }: Props) => {
   const { data, error, isLoading } = useGetTasks();
+  const { open } = useQueryOverlayContext();
 
   if (error) {
     return <TasksError error={error} onResetDatabase={onResetDatabase} />;
@@ -30,7 +27,7 @@ export const TasksList = ({
   }
 
   if (!data.tasks.length) {
-    return <TasksEmpty setIsQueryOverlayOpen={setIsQueryOverlayOpen} />;
+    return <TasksEmpty />;
   }
 
   return (
@@ -54,18 +51,10 @@ export const TasksList = ({
               {title}
             </div>
             <div className="flex items-center">
-              <Button
-                variant="ghost"
-                size="icon"
-                onClick={() => setIsQueryOverlayOpen(true)}
-              >
+              <Button variant="ghost" size="icon" onClick={open}>
                 <Pencil />
               </Button>
-              <Button
-                variant="ghost"
-                size="icon"
-                onClick={() => setIsQueryOverlayOpen(true)}
-              >
+              <Button variant="ghost" size="icon" onClick={open}>
                 <Trash2 />
               </Button>
             </div>

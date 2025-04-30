@@ -53,7 +53,7 @@ export const Loading: Story = {
 export const QueryExecuteError: Story = {
   beforeEach: () => {
     (meta.args?.onQueryExecute as Mock).mockResolvedValue(
-      err(faker.lorem.lines(30)),
+      err(new SystemError(faker.lorem.lines(30))),
     );
   },
 };

@@ -1,17 +1,18 @@
 "use client";
 
 import { useState } from "react";
-import { Props as QueryFormProps } from "../query-overlay/query-form";
 import { TopHeader } from "../top-header";
 import { QueryResult, QueryResultOverlay } from "../query-result-overlay";
-import { Tasks } from "../tasks";
+import { TasksFilter, TasksList } from "../tasks";
+import { QueryInput, QueryOverlay } from "../query-overlay";
 import { DeleteDatabaseResult } from "@/utils/indexed-db";
+import { AppError, Result } from "@/core/result";
 
 type Props = {
   onResetDatabase: () => Promise<DeleteDatabaseResult | "uninitialized">;
-} & Pick<QueryFormProps, "onQueryExecute">;
+  onQueryExecute: (values: QueryInput) => Promise<Result<string, AppError>>;
+};
 export const Top = ({ onResetDatabase, onQueryExecute }: Props) => {
-  const [isQueryOverlayOpen, setIsQueryOverlayOpen] = useState(false);
   const [queryResult, setQueryResult] = useState<QueryResult>({
     isOpen: false,
     status: "success",
@@ -19,25 +20,42 @@ export const Top = ({ onResetDatabase, onQueryExecute }: Props) => {
   });
 
   return (
-    <div>
-      <TopHeader
-        isQueryOverlayOpen={isQueryOverlayOpen}
-        setIsQueryOverlayOpen={setIsQueryOverlayOpen}
-        onQueryExecute={onQueryExecute}
-        setQueryResult={setQueryResult}
-      />
-      <main>
-        <div className="px-3 py-2">
-          <Tasks
-            onResetDatabase={onResetDatabase}
-            setIsQueryOverlayOpen={setIsQueryOverlayOpen}
-          />
-        </div>
-      </main>
+    <QueryOverlay
+      onQueryExecute={async (values) => {
+        const result = await onQueryExecute(values);
+
+        setQueryResult(
+          result.match(
+            (description) => ({
+              isOpen: true,
+              status: "success",
+              description,
+            }),
+            (e) => ({
+              isOpen: true,
+              status: "error",
+              description: e.message,
+            }),
+          ),
+        );
+
+        return result;
+      }}
+    >
+      <div>
+        <TopHeader />
+        <main>
+          <div className="px-3 py-2">
+            <TasksFilter>
+              <TasksList onResetDatabase={onResetDatabase} />
+            </TasksFilter>
+          </div>
+        </main>
+      </div>
       <QueryResultOverlay
         queryResult={queryResult}
         setQueryResult={setQueryResult}
       />
-    </div>
+    </QueryOverlay>
   );
 };

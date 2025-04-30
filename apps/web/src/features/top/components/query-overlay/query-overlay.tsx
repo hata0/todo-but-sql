@@ -43,13 +43,13 @@ export const useQueryOverlayContext = () => {
   return context;
 };
 
-export type Props = {
+export type QueryOverlayProps = {
   onQueryExecute: (values: QueryInput) => Promise<Result<string, AppError>>;
 };
 export const QueryOverlay = ({
   onQueryExecute,
   children,
-}: PropsWithChildren<Props>) => {
+}: PropsWithChildren<QueryOverlayProps>) => {
   const [isOpen, setIsOpen] = useState(false);
 
   const open = useCallback(() => {

@@ -20,12 +20,16 @@ export const queryInputSchema = z.object({
 
 export type QueryInput = z.infer<typeof queryInputSchema>;
 
-export type Props = {
+export type QueryFormProps = {
   form: UseFormReturn<QueryInput>;
   onQueryExecute: (values: QueryInput) => Promise<Result<string, AppError>>;
   className?: string;
 };
-export const QueryForm = ({ form, onQueryExecute, className }: Props) => {
+export const QueryForm = ({
+  form,
+  onQueryExecute,
+  className,
+}: QueryFormProps) => {
   return (
     <Form {...form}>
       <form

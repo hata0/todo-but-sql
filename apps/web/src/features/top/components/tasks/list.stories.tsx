@@ -2,15 +2,28 @@ import { Meta, StoryObj } from "@storybook/react";
 import { fn } from "@storybook/test";
 import { QueryClient } from "@tanstack/react-query";
 import { faker } from "@faker-js/faker";
-import { TasksList } from "./list";
+import { QueryOverlay, QueryOverlayProps } from "../query-overlay";
+import { Props, TasksList } from "./list";
 import { getQueryKey } from "@/store/get-tasks";
 import { GetTasksQueryDto } from "@/infrastructure/queries/get-tasks";
 import { generateRandomArray } from "@/utils/array";
 import { taskMock } from "@/tests/mocks";
 import { QueryProviderMock } from "@/providers/query-provider";
 import { SystemError } from "@/core/result";
+import { infiniteDelay } from "@/utils/delay";
 
-type Story = StoryObj<typeof TasksList>;
+const Example = ({
+  onQueryExecute,
+  onResetDatabase,
+}: QueryOverlayProps & Props) => {
+  return (
+    <QueryOverlay onQueryExecute={onQueryExecute}>
+      <TasksList onResetDatabase={onResetDatabase} />
+    </QueryOverlay>
+  );
+};
+
+type Story = StoryObj<typeof Example>;
 
 export const Default: Story = {};
 
@@ -31,7 +44,23 @@ export const Empty: Story = {
   ],
 };
 
-export const Loading: Story = {};
+export const Loading: Story = {
+  decorators: [
+    (Story) => {
+      const client = new QueryClient();
+      client.fetchQuery({
+        queryKey: getQueryKey(undefined),
+        queryFn: infiniteDelay,
+      });
+
+      return (
+        <QueryProviderMock client={client}>
+          <Story />
+        </QueryProviderMock>
+      );
+    },
+  ],
+};
 
 export const Error: Story = {
   decorators: [
@@ -53,11 +82,12 @@ export const Error: Story = {
   ],
 };
 
-const meta: Meta<typeof TasksList> = {
+const meta: Meta<typeof Example> = {
   title: "Features/top/TasksList",
-  component: TasksList,
+  component: Example,
   args: {
-    setIsQueryOverlayOpen: fn(),
+    onQueryExecute: fn(),
+    onResetDatabase: fn(),
   },
   decorators: [
     (Story) => {

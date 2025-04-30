@@ -1,24 +1,14 @@
 import Image from "next/image";
 import Link from "next/link";
-import { Dispatch, SetStateAction } from "react";
-import { QueryOverlay } from "../query-overlay";
-import { Props as QueryFormProps } from "../query-overlay/query-form";
-import { QueryResult } from "../query-result-overlay";
+import { Database } from "lucide-react";
+import { useQueryOverlayContext } from "../query-overlay";
 import { ModeToggle } from "@/components/shadcn-ui/mode-toggle";
 import { text } from "@/typography/text";
 import { Button } from "@/components/shadcn-ui/button";
 
-type Props = {
-  isQueryOverlayOpen: boolean;
-  setIsQueryOverlayOpen: Dispatch<SetStateAction<boolean>>;
-  setQueryResult: Dispatch<SetStateAction<QueryResult>>;
-} & Pick<QueryFormProps, "onQueryExecute">;
-export const TopHeader = ({
-  isQueryOverlayOpen,
-  setIsQueryOverlayOpen,
-  onQueryExecute,
-  setQueryResult,
-}: Props) => {
+export const TopHeader = () => {
+  const { open } = useQueryOverlayContext();
+
   return (
     <header className="z-2 bg-background/95 supports-[backdrop-filter]:bg-background/60 sticky top-0 flex h-14 items-center justify-between gap-2 border-b border-dashed px-2 backdrop-blur transition duration-500 ease-in-out">
       <Button asChild variant="ghost" size="lg">
@@ -30,30 +20,15 @@ export const TopHeader = ({
         </Link>
       </Button>
       <div className="flex items-center gap-2">
-        <QueryOverlay
-          isOpen={isQueryOverlayOpen}
-          setIsOpen={setIsQueryOverlayOpen}
-          onQueryExecute={async (values) => {
-            const result = await onQueryExecute(values);
-
-            setQueryResult(
-              result.match(
-                (description) => ({
-                  isOpen: true,
-                  status: "success",
-                  description,
-                }),
-                (description) => ({
-                  isOpen: true,
-                  status: "error",
-                  description,
-                }),
-              ),
-            );
-
-            return result;
-          }}
-        />
+        {/* QueryOverlayを開くボタン */}
+        <Button
+          variant="ghost"
+          size="icon"
+          className="hover:animate-hover-jiggle"
+          onClick={open}
+        >
+          <Database />
+        </Button>
         <ModeToggle />
       </div>
     </header>

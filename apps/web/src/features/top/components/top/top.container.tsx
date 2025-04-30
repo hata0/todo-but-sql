@@ -24,7 +24,7 @@ export const Top = () => {
             return ok(JSON.stringify(result, null, 2));
           },
           (e) => {
-            return err(e.message);
+            return err(e);
           },
         );
       }}
