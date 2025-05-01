@@ -5,6 +5,7 @@ import { ModeToggle } from "@/components/shadcn-ui/mode-toggle";
 import { text } from "@/typography/text";
 import { Button } from "@/components/shadcn-ui/button";
 import { Link } from "@/i18n/navigation";
+import { LanguageSelect } from "@/components/ui/language-select";
 
 export const TopHeader = () => {
   const { open } = useQueryOverlayContext();
@@ -20,6 +21,7 @@ export const TopHeader = () => {
         </Link>
       </Button>
       <div className="flex items-center gap-2">
+        <LanguageSelect />
         {/* QueryOverlayを開くボタン */}
         <Button
           variant="ghost"
