@@ -1,5 +1,6 @@
 import "./globals.css";
 import type { Metadata } from "next";
+import { NuqsAdapter } from "nuqs/adapters/next/app";
 import { fontVariables } from "./font";
 import { LocalDbProvider } from "@/providers/local-db-provider";
 import { ThemeProvider } from "@/providers/theme-provider";
@@ -19,14 +20,16 @@ export default function RootLayout({
   return (
     <html lang="en" suppressHydrationWarning>
       <body className={fontVariables}>
-        <QueryProvider>
-          <ThemeProvider>
-            <LocalDbProvider>
-              {children}
-              <Toaster />
-            </LocalDbProvider>
-          </ThemeProvider>
-        </QueryProvider>
+        <NuqsAdapter>
+          <QueryProvider>
+            <ThemeProvider>
+              <LocalDbProvider>
+                {children}
+                <Toaster />
+              </LocalDbProvider>
+            </ThemeProvider>
+          </QueryProvider>
+        </NuqsAdapter>
       </body>
     </html>
   );

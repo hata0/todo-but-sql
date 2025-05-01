@@ -1,33 +1,41 @@
 import { PropsWithChildren } from "react";
+import { match } from "ts-pattern";
+import { Tab, TABS, useTabQueryState } from "../../utils/tab";
 import { AnimatedBackground } from "@/components/motion-primitives/animated-background";
 import { Tabs, TabsList, TabsTrigger } from "@/components/shadcn-ui/tabs";
 
-type TabWithLabel = {
-  value: string;
-  label: string;
-};
-const TABS = [
-  { value: "all", label: "All" },
-  { value: "uncompleted", label: "Uncompleted" },
-  { value: "completed", label: "Completed" },
-] as const satisfies TabWithLabel[];
+const LABEL = new Map<Tab, string>([
+  ["all", "All"],
+  ["completed", "Completed"],
+  ["uncompleted", "Uncompleted"],
+]);
 
 export const TasksFilter = ({ children }: PropsWithChildren) => {
+  const [currentTab, setCurrentTab] = useTabQueryState();
+
   return (
-    <Tabs defaultValue={TABS[0].value}>
+    <Tabs defaultValue={currentTab ?? TABS[0]}>
       <TabsList className="w-full">
         <AnimatedBackground
-          defaultValue={TABS[0].value}
+          defaultValue={currentTab ?? TABS[0]}
           className="bg-background rounded-md"
           transition={{
             type: "spring",
             bounce: 0.2,
             duration: 0.3,
           }}
+          onValueChange={(id) => {
+            setCurrentTab(
+              match(id)
+                .with("completed", (v) => v)
+                .with("uncompleted", (v) => v)
+                .otherwise(() => null),
+            );
+          }}
         >
           {TABS.map((tab) => (
-            <TabsTrigger value={tab.value} data-id={tab.value} key={tab.value}>
-              {tab.label}
+            <TabsTrigger value={tab} data-id={tab} key={tab}>
+              {LABEL.get(tab)}
             </TabsTrigger>
           ))}
         </AnimatedBackground>

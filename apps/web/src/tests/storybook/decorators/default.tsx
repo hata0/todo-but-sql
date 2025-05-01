@@ -1,5 +1,6 @@
 import type { Decorator } from "@storybook/react";
 import { useEffect } from "react";
+import { NuqsAdapter } from "nuqs/adapters/react";
 import { ThemeProvider } from "@/providers/theme-provider";
 import { Toaster } from "@/components/shadcn-ui/sonner";
 import { LocalDbProviderMock } from "@/providers/local-db-provider";
@@ -21,11 +22,13 @@ export const DefaultDecorator: Decorator = (Story) => {
   }, []);
 
   return (
-    <LocalDbProviderMock>
-      <ThemeProvider>
-        <Story />
-        <Toaster />
-      </ThemeProvider>
-    </LocalDbProviderMock>
+    <NuqsAdapter>
+      <LocalDbProviderMock>
+        <ThemeProvider>
+          <Story />
+          <Toaster />
+        </ThemeProvider>
+      </LocalDbProviderMock>
+    </NuqsAdapter>
   );
 };
