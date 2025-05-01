@@ -1,17 +1,13 @@
 import { PropsWithChildren } from "react";
 import { match } from "ts-pattern";
-import { Tab, TABS, useTabQueryState } from "../../utils/tab";
+import { useTranslations } from "next-intl";
+import { TABS, useTabQueryState } from "../../utils/tab";
 import { AnimatedBackground } from "@/components/motion-primitives/animated-background";
 import { Tabs, TabsList, TabsTrigger } from "@/components/shadcn-ui/tabs";
 
-const LABEL = new Map<Tab, string>([
-  ["all", "All"],
-  ["uncompleted", "Uncompleted"],
-  ["completed", "Completed"],
-]);
-
 export const TasksFilter = ({ children }: PropsWithChildren) => {
   const [currentTab, setCurrentTab] = useTabQueryState();
+  const t = useTranslations("TopPage");
 
   return (
     <Tabs defaultValue={currentTab ?? TABS[0]}>
@@ -35,7 +31,7 @@ export const TasksFilter = ({ children }: PropsWithChildren) => {
         >
           {TABS.map((tab) => (
             <TabsTrigger value={tab} data-id={tab} key={tab}>
-              {LABEL.get(tab)}
+              {t(`tab.${tab}`)}
             </TabsTrigger>
           ))}
         </AnimatedBackground>

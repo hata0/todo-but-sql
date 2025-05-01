@@ -52,7 +52,7 @@ export const QueryOverlay = ({
   children,
 }: PropsWithChildren<QueryOverlayProps>) => {
   const [isOpen, setIsOpen] = useState(false);
-  const t = useTranslations("TopPage.query");
+  const t = useTranslations("TopPage.QueryOverlay");
 
   const open = useCallback(() => {
     setIsOpen(true);

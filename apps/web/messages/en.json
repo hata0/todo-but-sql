@@ -1,9 +1,37 @@
 {
   "TopPage": {
-    "query": {
+    "QueryOverlay": {
       "title": "Write SQL",
       "description": "Write PostgreSQL query here.",
       "cancel": "Cancel"
+    },
+    "QueryForm": {
+      "label": "Query",
+      "placeholder": "Write your query here. For example, “SELECT * FROM tasks;”.",
+      "submit": "Execute Query"
+    },
+    "tab": {
+      "all": "All",
+      "uncompleted": "Uncompleted",
+      "completed": "Completed"
+    },
+    "TasksEmpty": {
+      "title": "There are no tasks",
+      "description": "Add new tasks to keep track of \n what you have to do.",
+      "button": {
+        "open": "Write SQL"
+      }
+    },
+    "TasksError": {
+      "title": "Failed to get tasks",
+      "button": {
+        "reset": "Reset Database"
+      },
+      "message": {
+        "error": "Database deletion failed",
+        "blocked": "Database deletion blocked. Database may be in use now.",
+        "uninitialized": "Database is not initialized"
+      }
     }
   }
 }

@@ -1,9 +1,37 @@
 {
   "TopPage": {
-    "query": {
+    "QueryOverlay": {
       "title": "SQLを書く",
       "description": "ここにPostgreSQL queryを書く",
       "cancel": "キャンセル"
+    },
+    "QueryForm": {
+      "label": "Query",
+      "placeholder": "ここにクエリを書く。例: “SELECT * FROM tasks;”",
+      "submit": "クエリを実行"
+    },
+    "tab": {
+      "all": "全て",
+      "uncompleted": "未完了",
+      "completed": "完了済み"
+    },
+    "TasksEmpty": {
+      "title": "タスクがありません",
+      "description": "新しいタスクを追加し、記録する",
+      "button": {
+        "open": "SQLを書く"
+      }
+    },
+    "TasksError": {
+      "title": "タスクの取得に失敗しました",
+      "button": {
+        "reset": "データベースを初期化"
+      },
+      "message": {
+        "error": "データベースの削除に失敗しました",
+        "blocked": "データベースの削除がブロックされました. データベースが使用中である可能性があります。",
+        "uninitialized": "データベースが初期化されていません"
+      }
     }
   }
 }

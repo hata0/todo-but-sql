@@ -1,6 +1,7 @@
 import { Braces, Database } from "lucide-react";
 import { toast } from "sonner";
 import { match } from "ts-pattern";
+import { useTranslations } from "next-intl";
 import { Button } from "@/components/shadcn-ui/button";
 import { cn } from "@/lib/utils";
 import { heading } from "@/typography/heading";
@@ -15,6 +16,7 @@ type Props = {
   >;
 };
 export const TasksError = ({ error, onResetDatabase }: Props) => {
+  const t = useTranslations("TopPage.TasksError");
   const errorMessage = match(error)
     .when(
       (e) => e instanceof BaseError,
@@ -28,7 +30,7 @@ export const TasksError = ({ error, onResetDatabase }: Props) => {
       <div className="bg-muted mb-4 rounded-full p-3">
         <Braces className="text-muted-foreground size-10" />
       </div>
-      <h4 className={cn(heading.h4.className, "mb-1")}>Failed to get tasks</h4>
+      <h4 className={cn(heading.h4.className, "mb-1")}>{t("title")}</h4>
       <p className={cn(text.muted.className, "mb-4 max-w-sm")}>
         {errorMessage}
       </p>
@@ -41,20 +43,18 @@ export const TasksError = ({ error, onResetDatabase }: Props) => {
               window.location.reload();
             })
             .with("error", () => {
-              toast.error("Database deletion failed");
+              toast.error(t("message.error"));
             })
             .with("blocked", () => {
-              toast.error(
-                "Database deletion blocked. Database may be in use now.",
-              );
+              toast.error(t("message.blocked"));
             })
             .otherwise(() => {
-              toast.error("Database is not initialized");
+              toast.error(t("message.uninitialized"));
             });
         }}
       >
         <Database />
-        <span>Reset Database</span>
+        <span>{t("button.reset")}</span>
       </Button>
     </div>
   );

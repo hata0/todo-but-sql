@@ -1,6 +1,7 @@
 import { UseFormReturn } from "react-hook-form";
 import { ArrowRight, Database } from "lucide-react";
 import { z } from "zod";
+import { useTranslations } from "next-intl";
 import { AppError, Result } from "@/core/result";
 import {
   Form,
@@ -30,6 +31,8 @@ export const QueryForm = ({
   onQueryExecute,
   className,
 }: QueryFormProps) => {
+  const t = useTranslations("TopPage.QueryForm");
+
   return (
     <Form {...form}>
       <form
@@ -46,12 +49,12 @@ export const QueryForm = ({
           name="query"
           render={({ field }) => (
             <FormItem>
-              <FormLabel>Query</FormLabel>
+              <FormLabel>{t("label")}</FormLabel>
               <FormControl>
                 <Textarea
                   {...field}
                   className="h-50 resize-none"
-                  placeholder="Write your query here. For example, “SELECT * FROM tasks;”."
+                  placeholder={t("placeholder")}
                 />
               </FormControl>
               <FormMessage />
@@ -64,7 +67,7 @@ export const QueryForm = ({
           rightIcon={<ArrowRight />}
         >
           <Database />
-          <span>Execute Query</span>
+          <span>{t("submit")}</span>
         </Button>
       </form>
     </Form>
