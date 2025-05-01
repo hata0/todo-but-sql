@@ -6,8 +6,8 @@ import { Tabs, TabsList, TabsTrigger } from "@/components/shadcn-ui/tabs";
 
 const LABEL = new Map<Tab, string>([
   ["all", "All"],
-  ["completed", "Completed"],
   ["uncompleted", "Uncompleted"],
+  ["completed", "Completed"],
 ]);
 
 export const TasksFilter = ({ children }: PropsWithChildren) => {
@@ -27,8 +27,8 @@ export const TasksFilter = ({ children }: PropsWithChildren) => {
           onValueChange={(id) => {
             setCurrentTab(
               match(id)
-                .with("completed", (v) => v)
                 .with("uncompleted", (v) => v)
+                .with("completed", (v) => v)
                 .otherwise(() => null),
             );
           }}

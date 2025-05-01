@@ -2,6 +2,7 @@
 
 import { Pencil, Trash2 } from "lucide-react";
 import { useQueryOverlayContext } from "../query-overlay";
+import { tabToQuery, useTabQueryState } from "../../utils/tab";
 import { TasksEmpty } from "./empty";
 import { TasksError } from "./error";
 import { TasksLoading } from "./loading";
@@ -18,7 +19,8 @@ export type Props = {
   >;
 };
 export const TasksList = ({ onResetDatabase }: Props) => {
-  const { data, error, isLoading } = useGetTasks();
+  const [tab] = useTabQueryState();
+  const { data, error, isLoading } = useGetTasks(tabToQuery(tab));
   const { open } = useQueryOverlayContext();
 
   if (error) {
