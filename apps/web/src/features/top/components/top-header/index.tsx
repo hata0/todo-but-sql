@@ -1,10 +1,10 @@
 import Image from "next/image";
-import Link from "next/link";
 import { Database } from "lucide-react";
 import { useQueryOverlayContext } from "../query-overlay";
 import { ModeToggle } from "@/components/shadcn-ui/mode-toggle";
 import { text } from "@/typography/text";
 import { Button } from "@/components/shadcn-ui/button";
+import { Link } from "@/i18n/navigation";
 
 export const TopHeader = () => {
   const { open } = useQueryOverlayContext();
