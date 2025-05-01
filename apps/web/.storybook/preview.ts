@@ -4,6 +4,23 @@ import { withThemeByClassName } from "@storybook/addon-themes";
 import { DefaultDecorator } from "../src/tests/storybook/decorators/default";
 
 const preview: Preview = {
+  initialGlobals: {
+    locale: "en",
+  },
+  globalTypes: {
+    locale: {
+      description: "Global locale for components",
+      toolbar: {
+        title: "Locale",
+        icon: "globe",
+        items: [
+          { value: "en", icon: "🇺🇸", title: "English", right: "EN" },
+          { value: "ja", icon: "🇯🇵", title: "日本語", right: "JP" },
+        ],
+        dynamicTitle: true,
+      },
+    },
+  },
   parameters: {
     controls: {
       matchers: {

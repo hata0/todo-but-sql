@@ -1,11 +1,19 @@
 import type { Decorator } from "@storybook/react";
 import { useEffect } from "react";
 import { NuqsAdapter } from "nuqs/adapters/react";
+import { NextIntlClientProvider } from "next-intl";
+import en from "../../../../messages/en.json";
+import ja from "../../../../messages/ja.json";
 import { ThemeProvider } from "@/providers/theme-provider";
 import { Toaster } from "@/components/shadcn-ui/sonner";
 import { LocalDbProviderMock } from "@/providers/local-db-provider";
 
-export const DefaultDecorator: Decorator = (Story) => {
+const messagesByLocale = new Map([
+  ["en", en],
+  ["ja", ja],
+]);
+
+export const DefaultDecorator: Decorator = (Story, c) => {
   // フォントを追加
   useEffect(() => {
     // const fontVariableArray = fontVariables.split(" ");
@@ -21,14 +29,19 @@ export const DefaultDecorator: Decorator = (Story) => {
     };
   }, []);
 
+  const currentLocale = c.globals.locale as string;
+  const currentMessages = messagesByLocale.get(currentLocale);
+
   return (
-    <NuqsAdapter>
-      <LocalDbProviderMock>
-        <ThemeProvider>
-          <Story />
-          <Toaster />
-        </ThemeProvider>
-      </LocalDbProviderMock>
-    </NuqsAdapter>
+    <NextIntlClientProvider locale={currentLocale} messages={currentMessages}>
+      <NuqsAdapter>
+        <LocalDbProviderMock>
+          <ThemeProvider>
+            <Story />
+            <Toaster />
+          </ThemeProvider>
+        </LocalDbProviderMock>
+      </NuqsAdapter>
+    </NextIntlClientProvider>
   );
 };
