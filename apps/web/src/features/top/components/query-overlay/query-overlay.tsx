@@ -10,6 +10,7 @@ import {
 } from "react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { useTranslations } from "next-intl";
 import { QueryForm, QueryInput, queryInputSchema } from "./query-form";
 import { Button } from "@/components/shadcn-ui/button";
 import { ScrollArea } from "@/components/shadcn-ui/scroll-area";
@@ -51,6 +52,7 @@ export const QueryOverlay = ({
   children,
 }: PropsWithChildren<QueryOverlayProps>) => {
   const [isOpen, setIsOpen] = useState(false);
+  const t = useTranslations("TopPage.query");
 
   const open = useCallback(() => {
     setIsOpen(true);
@@ -83,8 +85,8 @@ export const QueryOverlay = ({
         >
           <ScrollArea className="w-full overflow-auto">
             <SheetHeader className="text-left">
-              <SheetTitle>Write SQL</SheetTitle>
-              <SheetDescription>Write PostgreSQL query here.</SheetDescription>
+              <SheetTitle>{t("title")}</SheetTitle>
+              <SheetDescription>{t("description")}</SheetDescription>
             </SheetHeader>
             <QueryForm
               form={form}
@@ -97,7 +99,7 @@ export const QueryOverlay = ({
             <SheetFooter className="pt-2">
               <SheetClose asChild>
                 <Button variant="outline" rightIcon={<ArrowRight />}>
-                  Cancel
+                  {t("cancel")}
                 </Button>
               </SheetClose>
             </SheetFooter>

@@ -1,0 +1,9 @@
+{
+  "TopPage": {
+    "query": {
+      "title": "SQLを書く",
+      "description": "ここにPostgreSQL queryを書く",
+      "cancel": "キャンセル"
+    }
+  }
+}

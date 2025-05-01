@@ -1,0 +1,9 @@
+{
+  "TopPage": {
+    "query": {
+      "title": "Write SQL",
+      "description": "Write PostgreSQL query here.",
+      "cancel": "Cancel"
+    }
+  }
+}
