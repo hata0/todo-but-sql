@@ -32,6 +32,13 @@
         "blocked": "Database deletion blocked. Database may be in use now.",
         "uninitialized": "Database is not initialized"
       }
+    },
+    "QueryResultOverlay": {
+      "title": {
+        "success": "Success",
+        "error": "Error"
+      },
+      "close": "Close"
     }
   }
 }

@@ -32,6 +32,13 @@
         "blocked": "データベースの削除がブロックされました. データベースが使用中である可能性があります。",
         "uninitialized": "データベースが初期化されていません"
       }
+    },
+    "QueryResultOverlay": {
+      "title": {
+        "success": "成功",
+        "error": "エラー"
+      },
+      "close": "閉じる"
     }
   }
 }
