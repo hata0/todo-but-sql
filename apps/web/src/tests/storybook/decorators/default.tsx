@@ -1,6 +1,6 @@
 import type { Decorator } from "@storybook/react";
 import { useEffect } from "react";
-import { NuqsAdapter } from "nuqs/adapters/react";
+import { NuqsAdapter } from "nuqs/adapters/next/app";
 import { NextIntlClientProvider } from "next-intl";
 import en from "../../../../messages/en.json";
 import ja from "../../../../messages/ja.json";

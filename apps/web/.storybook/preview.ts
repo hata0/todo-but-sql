@@ -29,6 +29,9 @@ const preview: Preview = {
       },
     },
     layout: "fullscreen",
+    nextjs: {
+      appDirectory: true,
+    },
   },
   argTypes: {
     enableTheme: {
