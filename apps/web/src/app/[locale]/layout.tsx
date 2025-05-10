@@ -4,10 +4,10 @@ import { NuqsAdapter } from "nuqs/adapters/next/app";
 import { hasLocale, NextIntlClientProvider } from "next-intl";
 import { notFound } from "next/navigation";
 import { fontVariables } from "../font";
-import { LocalDbProvider } from "@/providers/local-db-provider";
-import { ThemeProvider } from "@/providers/theme-provider";
+import { LocalDbProvider } from "@/components/providers/local-db-provider";
+import { ThemeProvider } from "@/components/providers/theme-provider";
 import { Toaster } from "@/components/shadcn-ui/sonner";
-import { QueryProvider } from "@/providers/query-provider";
+import { QueryProvider } from "@/components/providers/query-provider";
 import { routing } from "@/i18n/routing";
 
 export const metadata: Metadata = {

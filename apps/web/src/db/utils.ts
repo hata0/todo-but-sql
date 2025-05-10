@@ -8,7 +8,7 @@ import {
   SystemError,
   toSystemError,
 } from "@/core/result";
-import { useLocalDbContext } from "@/providers/local-db-provider";
+import { useLocalDbContext } from "@/components/providers/local-db-provider";
 import { deleteDatabaseAsync } from "@/utils/indexed-db";
 
 export const useExecuteQuery = () => {

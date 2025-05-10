@@ -8,7 +8,7 @@ import { getQueryKey } from "@/store/get-tasks";
 import { GetTasksQueryDto } from "@/infrastructure/queries/get-tasks";
 import { generateRandomArray } from "@/utils/array";
 import { taskMock } from "@/tests/mocks";
-import { QueryProviderMock } from "@/providers/query-provider";
+import { QueryProviderMock } from "@/components/providers/query-provider";
 import { SystemError } from "@/core/result";
 import { infiniteDelay } from "@/utils/delay";
 

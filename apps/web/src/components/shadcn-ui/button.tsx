@@ -51,6 +51,7 @@ const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
       asChild = false,
       rightIcon,
       leftIcon,
+      // eslint-disable-next-line @typescript-eslint/no-unused-vars
       hideIcon,
       ...props
     },

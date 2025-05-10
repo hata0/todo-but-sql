@@ -6,7 +6,7 @@ import {
   Result,
 } from "@/core/result";
 import { ClientWithQueryInput } from "@/infrastructure/types";
-import { useLocalDbContext } from "@/providers/local-db-provider";
+import { useLocalDbContext } from "@/components/providers/local-db-provider";
 
 type QueryFn<TInput, TSuccess, TError extends AppError> = (
   props: ClientWithQueryInput<TInput>,

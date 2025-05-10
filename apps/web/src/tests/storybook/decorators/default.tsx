@@ -4,9 +4,9 @@ import { NuqsAdapter } from "nuqs/adapters/next/app";
 import { NextIntlClientProvider } from "next-intl";
 import en from "../../../../messages/en.json";
 import ja from "../../../../messages/ja.json";
-import { ThemeProvider } from "@/providers/theme-provider";
+import { ThemeProvider } from "@/components/providers/theme-provider";
 import { Toaster } from "@/components/shadcn-ui/sonner";
-import { LocalDbProviderMock } from "@/providers/local-db-provider";
+import { LocalDbProviderMock } from "@/components/providers/local-db-provider";
 
 const messagesByLocale = new Map([
   ["en", en],

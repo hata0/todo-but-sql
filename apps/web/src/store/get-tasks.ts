@@ -1,5 +1,5 @@
 import { useQuery } from "@tanstack/react-query";
-import { usePgliteQueryWithInput } from "@/hooks/use-pglite-query-with-input";
+import { usePgliteQueryWithInput } from "@/utils/hooks/use-pglite-query-with-input";
 import {
   getTasksPglite,
   GetTasksQueryInput,

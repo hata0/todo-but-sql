@@ -1,4 +1,4 @@
-import { Decorator, Meta, StoryObj } from "@storybook/react";
+import { Meta, StoryObj } from "@storybook/react";
 import { fn, Mock } from "@storybook/test";
 import { faker } from "@faker-js/faker";
 import { QueryClient } from "@tanstack/react-query";
@@ -8,7 +8,7 @@ import { err, ok, SystemError } from "@/core/result";
 import { getQueryKey } from "@/store/get-tasks";
 import { GetTasksQueryDto } from "@/infrastructure/queries/get-tasks";
 import { generateRandomArray } from "@/utils/array";
-import { QueryProviderMock } from "@/providers/query-provider";
+import { QueryProviderMock } from "@/components/providers/query-provider";
 import { infiniteDelay } from "@/utils/delay";
 
 type Story = StoryObj<typeof Top>;

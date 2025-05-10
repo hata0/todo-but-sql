@@ -1,5 +1,4 @@
 import { Err, err, fromPromise, Ok, ok, Result } from "neverthrow";
-import {} from "@electric-sql/pglite";
 import { match } from "ts-pattern";
 
 export { Err, err, Ok, ok, Result, fromPromise };

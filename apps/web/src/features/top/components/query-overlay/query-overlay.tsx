@@ -23,7 +23,7 @@ import {
   SheetHeader,
   SheetTitle,
 } from "@/components/shadcn-ui/sheet";
-import { useMediaQuery } from "@/hooks/use-media-query";
+import { useMediaQuery } from "@/utils/hooks/use-media-query";
 import { AppError, Result } from "@/core/result";
 
 type ContextProps = {
