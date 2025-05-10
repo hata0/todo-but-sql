@@ -8,7 +8,7 @@ import {
   useDeletePgliteDatabase,
   useExecutePgliteQuery,
 } from "@/infrastructure/database/pglite/utils";
-import { getQueryKey } from "@/store/get-tasks";
+import { getQueryKey } from "@/store/list-task";
 
 export const Top = () => {
   const executeQuery = useExecutePgliteQuery();

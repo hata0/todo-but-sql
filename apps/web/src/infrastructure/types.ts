@@ -1,12 +1,12 @@
 import { PGlite } from "@electric-sql/pglite";
 import { drizzle } from "drizzle-orm/pglite";
 
-export type Client<
+export type PgliteDatabase<
   T extends Record<string, unknown> = Record<string, never>,
   U extends PGlite = PGlite,
 > = ReturnType<typeof drizzle<T, U>>;
 
-export type ClientWithQueryInput<TInput> = {
+export type PgliteDatabaseWithQueryInput<TInput> = {
   input: TInput;
-  client: Client;
+  db: PgliteDatabase;
 };

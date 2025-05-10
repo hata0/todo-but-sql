@@ -5,14 +5,14 @@ import {
   err,
   Result,
 } from "@/core/result";
-import { ClientWithQueryInput } from "@/infrastructure/types";
+import { PgliteDatabaseWithQueryInput } from "@/infrastructure/types";
 import { usePgliteDatabaseContext } from "@/components/providers/pglite-database-provider";
 
 type QueryFn<TInput, TSuccess, TError extends AppError> = (
-  props: ClientWithQueryInput<TInput>,
+  props: PgliteDatabaseWithQueryInput<TInput>,
 ) => Promise<Result<TSuccess, TError>>;
-type QueryFnWithoutClient<TInput, TSuccess, TError extends AppError> = (
-  input: ClientWithQueryInput<TInput>["input"],
+type QueryFnWithoutDb<TInput, TSuccess, TError extends AppError> = (
+  input: PgliteDatabaseWithQueryInput<TInput>["input"],
 ) => Promise<Result<TSuccess, TError | DatabaseNotInitializedError>>;
 
 export const usePgliteQueryWithInput = <
@@ -21,7 +21,7 @@ export const usePgliteQueryWithInput = <
   TError extends AppError,
 >(
   queryFn: QueryFn<TInput, TSuccess, TError>,
-): QueryFnWithoutClient<TInput, TSuccess, TError> => {
+): QueryFnWithoutDb<TInput, TSuccess, TError> => {
   const { client } = usePgliteDatabaseContext();
 
   return useCallback(
@@ -30,7 +30,7 @@ export const usePgliteQueryWithInput = <
         return err(new DatabaseNotInitializedError());
       }
 
-      return await queryFn({ input, client });
+      return await queryFn({ input, db: client });
     },
     [client, queryFn],
   );

@@ -9,7 +9,7 @@ import { TasksLoading } from "./loading";
 import { cn } from "@/lib/utils";
 import { text } from "@/typography/text";
 import { Button } from "@/components/shadcn-ui/button";
-import { useGetTasks } from "@/store/get-tasks";
+import { useListTask } from "@/store/list-task";
 import { DeleteDatabaseResult } from "@/utils/indexed-db";
 import { DatabaseNotInitializedError } from "@/core/result";
 
@@ -20,7 +20,7 @@ export type Props = {
 };
 export const TasksList = ({ onResetDatabase }: Props) => {
   const [tab] = useTabQueryState();
-  const { data, error, isLoading } = useGetTasks(tabToQuery(tab));
+  const { data, error, isLoading } = useListTask(tabToQuery(tab));
   const { open } = useQueryOverlayContext();
 
   if (error) {

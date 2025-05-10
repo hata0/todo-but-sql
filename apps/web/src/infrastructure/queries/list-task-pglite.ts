@@ -1,6 +1,6 @@
 import { eq } from "drizzle-orm";
 import { match, P } from "ts-pattern";
-import { ClientWithQueryInput } from "../types";
+import { PgliteDatabaseWithQueryInput } from "../types";
 import { mapToTask } from "../utils";
 import {
   err,
@@ -15,30 +15,30 @@ import {
 import { Task } from "@/domain/entities/task";
 import { tasks as tasksTable } from "@/infrastructure/database/pglite/schema";
 
-export type GetTasksQueryInput =
+export type ListTaskInput =
   | {
       isCompleted?: boolean;
     }
   | undefined;
 
-export type GetTasksQueryDto = {
+export type ListTaskDto = {
   tasks: Task[];
 };
 
-export const getTasksPglite = async ({
+export const listTaskPglite = async ({
   input,
-  client,
-}: ClientWithQueryInput<GetTasksQueryInput>): Promise<
-  Result<GetTasksQueryDto, ValidationError | SystemError>
+  db,
+}: PgliteDatabaseWithQueryInput<ListTaskInput>): Promise<
+  Result<ListTaskDto, ValidationError | SystemError>
 > => {
   const selectQuery = match(input)
     .with({ isCompleted: P.boolean }, ({ isCompleted }) => {
-      return client
+      return db
         .select()
         .from(tasksTable)
         .where(eq(tasksTable.isCompleted, isCompleted));
     })
-    .otherwise(() => client.select().from(tasksTable));
+    .otherwise(() => db.select().from(tasksTable));
 
   const result = await fromPromise(selectQuery, toSystemError);
   if (result.isErr()) {

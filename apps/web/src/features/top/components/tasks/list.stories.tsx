@@ -4,8 +4,8 @@ import { QueryClient } from "@tanstack/react-query";
 import { faker } from "@faker-js/faker";
 import { QueryOverlay, QueryOverlayProps } from "../query-overlay";
 import { Props, TasksList } from "./list";
-import { getQueryKey } from "@/store/get-tasks";
-import { GetTasksQueryDto } from "@/infrastructure/queries/get-tasks";
+import { getQueryKey } from "@/store/list-task";
+import { ListTaskDto } from "@/infrastructure/queries/list-task-pglite";
 import { generateRandomArray } from "@/utils/array";
 import { taskMock } from "@/tests/mocks";
 import { QueryProviderMock } from "@/components/providers/query-provider";
@@ -33,7 +33,7 @@ export const Empty: Story = {
       const client = new QueryClient();
       client.setQueryData(getQueryKey(undefined), {
         tasks: [],
-      } satisfies GetTasksQueryDto);
+      } satisfies ListTaskDto);
 
       return (
         <QueryProviderMock client={client}>
@@ -94,7 +94,7 @@ const meta: Meta<typeof Example> = {
       const client = new QueryClient();
       client.setQueryData(getQueryKey(undefined), {
         tasks: generateRandomArray(() => taskMock()),
-      } satisfies GetTasksQueryDto);
+      } satisfies ListTaskDto);
 
       return (
         <QueryProviderMock client={client}>

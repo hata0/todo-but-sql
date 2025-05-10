@@ -5,8 +5,8 @@ import { QueryClient } from "@tanstack/react-query";
 import { Top } from "./top";
 import { taskMock } from "@/tests/mocks";
 import { err, ok, SystemError } from "@/core/result";
-import { getQueryKey } from "@/store/get-tasks";
-import { GetTasksQueryDto } from "@/infrastructure/queries/get-tasks";
+import { getQueryKey } from "@/store/list-task";
+import { ListTaskDto } from "@/infrastructure/queries/list-task-pglite";
 import { generateRandomArray } from "@/utils/array";
 import { QueryProviderMock } from "@/components/providers/query-provider";
 import { infiniteDelay } from "@/utils/delay";
@@ -21,7 +21,7 @@ export const Empty: Story = {
       const client = new QueryClient();
       client.setQueryData(getQueryKey(undefined), {
         tasks: [],
-      } satisfies GetTasksQueryDto);
+      } satisfies ListTaskDto);
 
       return (
         <QueryProviderMock client={client}>
@@ -90,7 +90,7 @@ const meta: Meta<typeof Top> = {
       const client = new QueryClient();
       client.setQueryData(getQueryKey(undefined), {
         tasks: generateRandomArray(() => taskMock(), { max: 20 }),
-      } satisfies GetTasksQueryDto);
+      } satisfies ListTaskDto);
 
       return (
         <QueryProviderMock client={client}>
