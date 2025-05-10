@@ -6,7 +6,7 @@ import en from "../../../../messages/en.json";
 import ja from "../../../../messages/ja.json";
 import { ThemeProvider } from "@/components/providers/theme-provider";
 import { Toaster } from "@/components/shadcn-ui/sonner";
-import { LocalDbProviderMock } from "@/components/providers/local-db-provider";
+import { PgliteDatabaseProviderMock } from "@/components/providers/pglite-database-provider";
 
 const messagesByLocale = new Map([
   ["en", en],
@@ -35,12 +35,12 @@ export const DefaultDecorator: Decorator = (Story, c) => {
   return (
     <NextIntlClientProvider locale={currentLocale} messages={currentMessages}>
       <NuqsAdapter>
-        <LocalDbProviderMock>
+        <PgliteDatabaseProviderMock>
           <ThemeProvider>
             <Story />
             <Toaster />
           </ThemeProvider>
-        </LocalDbProviderMock>
+        </PgliteDatabaseProviderMock>
       </NuqsAdapter>
     </NextIntlClientProvider>
   );

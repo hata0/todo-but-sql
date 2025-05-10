@@ -8,11 +8,11 @@ import {
   SystemError,
   toSystemError,
 } from "@/core/result";
-import { useLocalDbContext } from "@/components/providers/local-db-provider";
+import { usePgliteDatabaseContext } from "@/components/providers/pglite-database-provider";
 import { deleteDatabaseAsync } from "@/utils/indexed-db";
 
-export const useExecuteQuery = () => {
-  const { pg } = useLocalDbContext();
+export const useExecutePgliteQuery = () => {
+  const { pg } = usePgliteDatabaseContext();
 
   return useCallback(
     async (
@@ -28,8 +28,8 @@ export const useExecuteQuery = () => {
   );
 };
 
-export const useDeleteDatabase = () => {
-  const { pg } = useLocalDbContext();
+export const useDeletePgliteDatabase = () => {
+  const { pg } = usePgliteDatabaseContext();
 
   return useCallback(async () => {
     if (!pg) {

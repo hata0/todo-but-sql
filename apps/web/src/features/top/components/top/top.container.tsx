@@ -5,14 +5,14 @@ import { tabToQuery, useTabQueryState } from "../../utils/tab";
 import { Top as Presenter } from "./top";
 import { err, ok } from "@/core/result";
 import {
-  useDeleteDatabase,
-  useExecuteQuery,
+  useDeletePgliteDatabase,
+  useExecutePgliteQuery,
 } from "@/infrastructure/database/pglite/utils";
 import { getQueryKey } from "@/store/get-tasks";
 
 export const Top = () => {
-  const executeQuery = useExecuteQuery();
-  const deleteDatabase = useDeleteDatabase();
+  const executeQuery = useExecutePgliteQuery();
+  const deleteDatabase = useDeletePgliteDatabase();
   const client = useQueryClient();
   const [tab] = useTabQueryState();
 

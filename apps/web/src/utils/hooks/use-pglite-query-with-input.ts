@@ -6,7 +6,7 @@ import {
   Result,
 } from "@/core/result";
 import { ClientWithQueryInput } from "@/infrastructure/types";
-import { useLocalDbContext } from "@/components/providers/local-db-provider";
+import { usePgliteDatabaseContext } from "@/components/providers/pglite-database-provider";
 
 type QueryFn<TInput, TSuccess, TError extends AppError> = (
   props: ClientWithQueryInput<TInput>,
@@ -22,7 +22,7 @@ export const usePgliteQueryWithInput = <
 >(
   queryFn: QueryFn<TInput, TSuccess, TError>,
 ): QueryFnWithoutClient<TInput, TSuccess, TError> => {
-  const { client } = useLocalDbContext();
+  const { client } = usePgliteDatabaseContext();
 
   return useCallback(
     async (input) => {

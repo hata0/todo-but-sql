@@ -4,7 +4,7 @@ import { NuqsAdapter } from "nuqs/adapters/next/app";
 import { hasLocale, NextIntlClientProvider } from "next-intl";
 import { notFound } from "next/navigation";
 import { fontVariables } from "../font";
-import { LocalDbProvider } from "@/components/providers/local-db-provider";
+import { PgliteDatabaseProvider } from "@/components/providers/pglite-database-provider";
 import { ThemeProvider } from "@/components/providers/theme-provider";
 import { Toaster } from "@/components/shadcn-ui/sonner";
 import { QueryProvider } from "@/components/providers/query-provider";
@@ -34,10 +34,10 @@ export default async function RootLayout({
           <NuqsAdapter>
             <QueryProvider>
               <ThemeProvider>
-                <LocalDbProvider>
+                <PgliteDatabaseProvider>
                   {children}
                   <Toaster />
-                </LocalDbProvider>
+                </PgliteDatabaseProvider>
               </ThemeProvider>
             </QueryProvider>
           </NuqsAdapter>

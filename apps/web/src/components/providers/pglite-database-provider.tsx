@@ -20,9 +20,9 @@ const { PGliteProvider: PGliteProviderPrimitive, usePGlite } =
 export { usePGlite };
 
 type ContextProps = { client?: Client; pg?: PG };
-const LocalDbContext = createContext<ContextProps | null>(null);
-export const useLocalDbContext = () => {
-  const context = useContext(LocalDbContext);
+const PgliteDatabaseContext = createContext<ContextProps | null>(null);
+export const usePgliteDatabaseContext = () => {
+  const context = useContext(PgliteDatabaseContext);
 
   if (context === null) {
     throw new Error(
@@ -33,7 +33,7 @@ export const useLocalDbContext = () => {
   return context;
 };
 
-export const LocalDbProvider = ({ children }: PropsWithChildren) => {
+export const PgliteDatabaseProvider = ({ children }: PropsWithChildren) => {
   const [state, setState] = useState<ContextProps>({});
 
   useEffect(() => {
@@ -46,22 +46,22 @@ export const LocalDbProvider = ({ children }: PropsWithChildren) => {
   }, []);
 
   return (
-    <LocalDbContext.Provider value={state}>
+    <PgliteDatabaseContext.Provider value={state}>
       <PGliteProviderPrimitive
         db={state?.pg as unknown as PGliteWithLive | undefined}
       >
         {children}
       </PGliteProviderPrimitive>
-    </LocalDbContext.Provider>
+    </PgliteDatabaseContext.Provider>
   );
 };
 
-export const LocalDbProviderMock = ({ children }: PropsWithChildren) => {
+export const PgliteDatabaseProviderMock = ({ children }: PropsWithChildren) => {
   return (
-    <LocalDbContext.Provider value={{}}>
+    <PgliteDatabaseContext.Provider value={{}}>
       <PGliteProviderPrimitive db={undefined}>
         {children}
       </PGliteProviderPrimitive>
-    </LocalDbContext.Provider>
+    </PgliteDatabaseContext.Provider>
   );
 };
