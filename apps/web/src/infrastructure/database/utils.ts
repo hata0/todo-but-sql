@@ -39,6 +39,6 @@ export const useDeleteDatabase = () => {
     // pg?.close()しておかないと、onblockedで弾かれる
     await pg?.close();
 
-    return await deleteDatabaseAsync("/pglite/test");
+    return await deleteDatabaseAsync("/pglite/todo-but-sql");
   }, [pg]);
 };
