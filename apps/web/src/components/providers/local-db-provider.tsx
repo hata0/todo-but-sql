@@ -8,7 +8,12 @@ import {
   useEffect,
   useState,
 } from "react";
-import { Client, initializeClient, PG, PGliteWithLive } from "@/db/db";
+import {
+  Client,
+  initializeClient,
+  PG,
+  PGliteWithLive,
+} from "@/infrastructure/database/db";
 
 const { PGliteProvider: PGliteProviderPrimitive, usePGlite } =
   makePGliteProvider<PGliteWithLive>();

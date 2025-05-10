@@ -4,7 +4,10 @@ import { useQueryClient } from "@tanstack/react-query";
 import { tabToQuery, useTabQueryState } from "../../utils/tab";
 import { Top as Presenter } from "./top";
 import { err, ok } from "@/core/result";
-import { useDeleteDatabase, useExecuteQuery } from "@/db/utils";
+import {
+  useDeleteDatabase,
+  useExecuteQuery,
+} from "@/infrastructure/database/utils";
 import { getQueryKey } from "@/store/get-tasks";
 
 export const Top = () => {
