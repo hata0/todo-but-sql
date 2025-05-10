@@ -16,15 +16,19 @@ import { readMigrationFiles } from "drizzle-orm/migrator";
   // 0: インデントなし（出力を圧縮）
   const content = JSON.stringify(
     readMigrationFiles({
-      migrationsFolder: "./src/infrastructure/database/migrations",
+      migrationsFolder: "./src/infrastructure/database/pglite/migrations",
     }),
     null,
     0,
   );
 
-  await fs.writeFile("src/infrastructure/database/migrations.json", content, {
-    flag: "w",
-  });
+  await fs.writeFile(
+    "src/infrastructure/database/pglite/migrations.json",
+    content,
+    {
+      flag: "w",
+    },
+  );
 
   console.log("Migrations compiled!");
 })();

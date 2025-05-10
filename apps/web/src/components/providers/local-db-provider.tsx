@@ -13,7 +13,7 @@ import {
   initializeClient,
   PG,
   PGliteWithLive,
-} from "@/infrastructure/database";
+} from "@/infrastructure/database/pglite";
 
 const { PGliteProvider: PGliteProviderPrimitive, usePGlite } =
   makePGliteProvider<PGliteWithLive>();

@@ -13,7 +13,7 @@ import {
   ValidationError,
 } from "@/core/result";
 import { Task } from "@/domain/entities/task";
-import { tasks as tasksTable } from "@/infrastructure/database/schema";
+import { tasks as tasksTable } from "@/infrastructure/database/pglite/schema";
 
 export type GetTasksQueryInput =
   | {

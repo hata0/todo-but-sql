@@ -1,6 +1,6 @@
 import { InferSelectModel } from "drizzle-orm";
 import { Result, ValidationError } from "@/core/result";
-import { tasks } from "@/infrastructure/database/schema";
+import { tasks } from "@/infrastructure/database/pglite/schema";
 import { Task } from "@/domain/entities/task";
 import { validateTaskId } from "@/domain/value-objects/ids";
 

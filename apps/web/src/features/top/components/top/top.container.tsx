@@ -7,7 +7,7 @@ import { err, ok } from "@/core/result";
 import {
   useDeleteDatabase,
   useExecuteQuery,
-} from "@/infrastructure/database/utils";
+} from "@/infrastructure/database/pglite/utils";
 import { getQueryKey } from "@/store/get-tasks";
 
 export const Top = () => {

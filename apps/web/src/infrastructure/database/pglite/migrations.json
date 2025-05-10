@@ -1,0 +1,1 @@
+[{"sql":["CREATE TABLE \"tasks\" (\n\t\"id\" serial PRIMARY KEY NOT NULL,\n\t\"title\" varchar(255) NOT NULL,\n\t\"is_completed\" boolean NOT NULL\n);\n"],"bps":true,"folderMillis":1746853922324,"hash":"91e3df5db8b6edb92010be6feae9f590e2a5f7acbef9bbd3064e091311744f20"}]

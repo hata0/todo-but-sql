@@ -10,7 +10,7 @@
     "lint:eslint": "eslint . --ext js,jsx,mjs,ts,tsx,mts,mdx",
     "fix:eslint": "pnpm lint:eslint --fix",
     "check-types": "tsc --noEmit",
-    "db:generate": "drizzle-kit generate && tsx ./src/infrastructure/database/migrate.ts",
+    "db:generate": "drizzle-kit generate && tsx ./src/infrastructure/database/pglite/migrate.ts",
     "storybook": "storybook dev -p 6006",
     "build-storybook": "storybook build",
     "pages:build": "npx @cloudflare/next-on-pages",
