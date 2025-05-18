@@ -1,43 +1,45 @@
-"use client";
-
 import { Pencil, Trash2 } from "lucide-react";
-import { useQueryOverlayContext } from "../query-overlay";
-import { tabToQuery, useTabQueryState } from "../../utils/tab";
 import { TasksEmpty } from "./empty";
 import { TasksError } from "./error";
 import { TasksLoading } from "./loading";
 import { cn } from "@/lib/utils";
 import { text } from "@/typography/text";
 import { Button } from "@/components/shadcn-ui/button";
-import { useListTask } from "@/store/list-task";
 import { DeleteDatabaseResult } from "@/utils/indexed-db";
 import { DatabaseNotInitializedError } from "@/core/result";
+import { Task } from "@/domain/entities/task";
 
 export type Props = {
+  tasks?: Task[];
+  error: Error | null;
+  isLoading: boolean;
   onResetDatabase: () => Promise<
     DeleteDatabaseResult | DatabaseNotInitializedError
   >;
+  onOpenQueryOverlay: () => void;
 };
-export const TasksList = ({ onResetDatabase }: Props) => {
-  const [tab] = useTabQueryState();
-  const { data, error, isLoading } = useListTask(tabToQuery(tab));
-  const { open } = useQueryOverlayContext();
-
+export const TasksList = ({
+  tasks,
+  error,
+  isLoading,
+  onResetDatabase,
+  onOpenQueryOverlay,
+}: Props) => {
   if (error) {
     return <TasksError error={error} onResetDatabase={onResetDatabase} />;
   }
 
-  if (isLoading || !data) {
+  if (isLoading || tasks === undefined) {
     return <TasksLoading />;
   }
 
-  if (!data.tasks.length) {
-    return <TasksEmpty />;
+  if (tasks.length === 0) {
+    return <TasksEmpty onOpenQueryOverlay={onOpenQueryOverlay} />;
   }
 
   return (
     <ul className="grid gap-3 lg:grid-cols-2">
-      {data.tasks.map(({ id, title, isCompleted }) => {
+      {tasks.map(({ id, title, isCompleted }) => {
         return (
           <li
             key={id}
@@ -56,10 +58,10 @@ export const TasksList = ({ onResetDatabase }: Props) => {
               {title}
             </div>
             <div className="flex items-center">
-              <Button variant="ghost" size="icon" onClick={open}>
+              <Button variant="ghost" size="icon" onClick={onOpenQueryOverlay}>
                 <Pencil />
               </Button>
-              <Button variant="ghost" size="icon" onClick={open}>
+              <Button variant="ghost" size="icon" onClick={onOpenQueryOverlay}>
                 <Trash2 />
               </Button>
             </div>
