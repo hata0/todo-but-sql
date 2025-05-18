@@ -1,6 +1,7 @@
 import { useCallback } from "react";
 import { Results } from "@electric-sql/pglite";
 import {
+  AppError,
   DatabaseNotInitializedError,
   err,
   fromPromise,
@@ -10,6 +11,24 @@ import {
 } from "@/core/result";
 import { usePgliteDatabaseContext } from "@/components/providers/pglite-database-provider";
 import { deleteDatabaseAsync } from "@/utils/indexed-db";
+import { PgliteQueryWithInput } from "@/infrastructure/types";
+
+export const usePgliteQueryWithInput = <T, U>(
+  queryFn: PgliteQueryWithInput<(input: T) => Promise<Result<U, AppError>>>,
+): ((input: T) => Promise<Result<U, AppError>>) => {
+  const { client } = usePgliteDatabaseContext();
+
+  return useCallback(
+    async (input) => {
+      if (!client) {
+        return err(new DatabaseNotInitializedError());
+      }
+
+      return await queryFn(client)(input);
+    },
+    [client, queryFn],
+  );
+};
 
 export const useExecutePgliteQuery = () => {
   const { pg } = usePgliteDatabaseContext();

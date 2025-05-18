@@ -1,10 +1,8 @@
 import { useQuery } from "@tanstack/react-query";
-import { usePgliteQueryWithInput } from "@/utils/hooks/use-pglite-query-with-input";
-import {
-  listTaskPglite,
-  ListTaskInput,
-} from "@/infrastructure/queries/list-task-pglite";
+import { listTaskPglite } from "@/infrastructure/queries/list-task-pglite";
 import { DatabaseNotInitializedError, unwrap } from "@/core/result";
+import { ListTaskInput } from "@/application/queries/list-task";
+import { usePgliteQueryWithInput } from "@/utils/hooks/pglite";
 
 export const getQueryKey = (query: ListTaskInput) => ["list-task", query];
 

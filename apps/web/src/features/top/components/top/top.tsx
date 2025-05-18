@@ -8,7 +8,7 @@ import { QueryInput, QueryOverlay } from "../query-overlay";
 import { Tab } from "../../utils/tab";
 import { DeleteDatabaseResult } from "@/utils/indexed-db";
 import { AppError, DatabaseNotInitializedError, Result } from "@/core/result";
-import { ListTaskDto } from "@/infrastructure/queries/list-task-pglite";
+import { ListTaskDto } from "@/application/queries/list-task";
 
 type Props = {
   currentTab: Tab | null;

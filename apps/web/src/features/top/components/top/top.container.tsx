@@ -9,9 +9,9 @@ import { err, ok } from "@/core/result";
 import {
   useDeletePgliteDatabase,
   useExecutePgliteQuery,
-} from "@/infrastructure/database/pglite/utils";
+} from "@/utils/hooks/pglite";
 import { getQueryKey, useListTask } from "@/store/list-task";
-import { ListTaskInput } from "@/infrastructure/queries/list-task-pglite";
+import { ListTaskInput } from "@/application/queries/list-task";
 
 const tabToQuery = (tab: Tab | null): ListTaskInput => {
   return match(tab)

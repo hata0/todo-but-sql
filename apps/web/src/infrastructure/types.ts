@@ -6,7 +6,4 @@ export type PgliteDatabase<
   U extends PGlite = PGlite,
 > = ReturnType<typeof drizzle<T, U>>;
 
-export type PgliteDatabaseWithQueryInput<TInput> = {
-  input: TInput;
-  db: PgliteDatabase;
-};
+export type PgliteQueryWithInput<T> = (db: PgliteDatabase) => T;
