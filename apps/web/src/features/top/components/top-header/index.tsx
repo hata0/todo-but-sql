@@ -1,15 +1,15 @@
 import Image from "next/image";
 import { Database } from "lucide-react";
-import { useQueryOverlayContext } from "../query-overlay";
 import { ModeToggle } from "@/components/shadcn-ui/mode-toggle";
 import { text } from "@/typography/text";
 import { Button } from "@/components/shadcn-ui/button";
 import { Link } from "@/i18n/navigation";
 import { LanguageSelect } from "@/components/ui/language-select";
 
-export const TopHeader = () => {
-  const { open } = useQueryOverlayContext();
-
+type Props = {
+  onOpenQueryOverlay: () => void;
+};
+export const TopHeader = ({ onOpenQueryOverlay }: Props) => {
   return (
     <header className="z-2 bg-background/95 supports-[backdrop-filter]:bg-background/60 sticky top-0 flex h-14 items-center justify-between gap-2 border-b border-dashed px-2 backdrop-blur transition duration-500 ease-in-out">
       <Button asChild variant="ghost" size="icon" className="sm:w-fit sm:px-5">
@@ -27,7 +27,7 @@ export const TopHeader = () => {
           variant="ghost"
           size="icon"
           className="hover:animate-hover-jiggle"
-          onClick={open}
+          onClick={onOpenQueryOverlay}
         >
           <Database />
         </Button>
