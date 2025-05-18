@@ -1,13 +1,14 @@
 import { ClipboardList, Database } from "lucide-react";
 import { useTranslations } from "next-intl";
-import { useQueryOverlayContext } from "../query-overlay";
 import { Button } from "@/components/shadcn-ui/button";
 import { cn } from "@/lib/utils";
 import { heading } from "@/typography/heading";
 import { text } from "@/typography/text";
 
-export const TasksEmpty = () => {
-  const { open } = useQueryOverlayContext();
+type Props = {
+  onOpenQueryOverlay: () => void;
+};
+export const TasksEmpty = ({ onOpenQueryOverlay }: Props) => {
   const t = useTranslations("TopPage.TasksEmpty");
 
   return (
@@ -25,7 +26,7 @@ export const TasksEmpty = () => {
       >
         {t("description")}
       </p>
-      <Button className="animate-bounce" onClick={open}>
+      <Button className="animate-bounce" onClick={onOpenQueryOverlay}>
         <Database />
         <span>{t("button.open")}</span>
       </Button>
