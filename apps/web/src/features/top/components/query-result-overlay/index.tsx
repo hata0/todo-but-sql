@@ -1,4 +1,5 @@
-import { Dispatch, SetStateAction } from "react";
+"use client";
+
 import { useTranslations } from "next-intl";
 import {
   AlertDialog,
@@ -18,18 +19,13 @@ export type QueryResult = {
 
 type Props = {
   queryResult: QueryResult;
-  setQueryResult: Dispatch<SetStateAction<QueryResult>>;
+  onOpenChange: (isOpen: boolean) => void;
 };
-export const QueryResultOverlay = ({ queryResult, setQueryResult }: Props) => {
+export const QueryResultOverlay = ({ queryResult, onOpenChange }: Props) => {
   const t = useTranslations("TopPage.QueryResultOverlay");
 
   return (
-    <AlertDialog
-      open={queryResult.isOpen}
-      onOpenChange={(isOpen) => {
-        setQueryResult((prev) => ({ ...prev, isOpen }));
-      }}
-    >
+    <AlertDialog open={queryResult.isOpen} onOpenChange={onOpenChange}>
       <AlertDialogContent>
         <AlertDialogHeader>
           <AlertDialogTitle
