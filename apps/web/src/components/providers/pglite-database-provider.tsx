@@ -55,13 +55,3 @@ export const PgliteDatabaseProvider = ({ children }: PropsWithChildren) => {
     </PgliteDatabaseContext.Provider>
   );
 };
-
-export const PgliteDatabaseProviderMock = ({ children }: PropsWithChildren) => {
-  return (
-    <PgliteDatabaseContext.Provider value={{}}>
-      <PGliteProviderPrimitive db={undefined}>
-        {children}
-      </PGliteProviderPrimitive>
-    </PgliteDatabaseContext.Provider>
-  );
-};

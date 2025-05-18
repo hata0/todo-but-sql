@@ -1,12 +1,10 @@
 import type { Decorator } from "@storybook/react";
 import { useEffect } from "react";
-import { NuqsAdapter } from "nuqs/adapters/next/app";
 import { NextIntlClientProvider } from "next-intl";
 import en from "../../../../messages/en.json";
 import ja from "../../../../messages/ja.json";
 import { ThemeProvider } from "@/components/providers/theme-provider";
 import { Toaster } from "@/components/shadcn-ui/sonner";
-import { PgliteDatabaseProviderMock } from "@/components/providers/pglite-database-provider";
 
 const messagesByLocale = new Map([
   ["en", en],
@@ -34,14 +32,10 @@ export const DefaultDecorator: Decorator = (Story, c) => {
 
   return (
     <NextIntlClientProvider locale={currentLocale} messages={currentMessages}>
-      <NuqsAdapter>
-        <PgliteDatabaseProviderMock>
-          <ThemeProvider>
-            <Story />
-            <Toaster />
-          </ThemeProvider>
-        </PgliteDatabaseProviderMock>
-      </NuqsAdapter>
+      <ThemeProvider>
+        <Story />
+        <Toaster />
+      </ThemeProvider>
     </NextIntlClientProvider>
   );
 };
