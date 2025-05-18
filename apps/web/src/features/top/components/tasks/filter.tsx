@@ -1,35 +1,53 @@
-import { PropsWithChildren } from "react";
+"use client";
+
+import { PropsWithChildren, useState } from "react";
 import { match } from "ts-pattern";
 import { useTranslations } from "next-intl";
-import { TABS, useTabQueryState } from "../../utils/tab";
+import { Tab, TABS, TABS_ARRAY } from "../../utils/tab";
 import { AnimatedBackground } from "@/components/motion-primitives/animated-background";
 import { Tabs, TabsList, TabsTrigger } from "@/components/shadcn-ui/tabs";
 
-export const TasksFilter = ({ children }: PropsWithChildren) => {
-  const [currentTab, setCurrentTab] = useTabQueryState();
+type Props = {
+  currentTab: Tab | null;
+  onTabChange: (nextTab: string | null) => void;
+};
+export const TasksFilter = ({
+  currentTab: defaultTab,
+  onTabChange,
+  children,
+}: PropsWithChildren<Props>) => {
+  const [currentTab, setCurrentTab] = useState<Tab>(defaultTab ?? TABS.All);
   const t = useTranslations("TopPage");
 
   return (
-    <Tabs defaultValue={currentTab ?? TABS[0]}>
+    <Tabs
+      value={currentTab}
+      onValueChange={(t) => {
+        setCurrentTab(
+          match(t)
+            .with(TABS.Uncompleted, (v) => v)
+            .with(TABS.Completed, (v) => v)
+            .otherwise(() => "all"),
+        );
+        onTabChange(
+          match(t)
+            .with(TABS.Uncompleted, (v) => v)
+            .with(TABS.Completed, (v) => v)
+            .otherwise(() => null),
+        );
+      }}
+    >
       <TabsList className="w-full">
         <AnimatedBackground
-          defaultValue={currentTab ?? TABS[0]}
+          defaultValue={currentTab ?? TABS.All}
           className="bg-background rounded-md"
           transition={{
             type: "spring",
             bounce: 0.2,
             duration: 0.3,
           }}
-          onValueChange={(id) => {
-            setCurrentTab(
-              match(id)
-                .with("uncompleted", (v) => v)
-                .with("completed", (v) => v)
-                .otherwise(() => null),
-            );
-          }}
         >
-          {TABS.map((tab) => (
+          {TABS_ARRAY.map((tab) => (
             <TabsTrigger value={tab} data-id={tab} key={tab}>
               {t(`tab.${tab}`)}
             </TabsTrigger>
