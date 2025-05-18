@@ -9,7 +9,7 @@ import { Tabs, TabsList, TabsTrigger } from "@/components/shadcn-ui/tabs";
 
 type Props = {
   currentTab: Tab | null;
-  onTabChange: (nextTab: string | null) => void;
+  onTabChange: (nextTab: Tab | null) => void;
 };
 export const TasksFilter = ({
   currentTab: defaultTab,
