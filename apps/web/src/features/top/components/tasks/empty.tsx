@@ -6,7 +6,7 @@ import { heading } from "@/typography/heading";
 import { text } from "@/typography/text";
 
 type Props = {
-  onOpenQueryOverlay: () => void;
+  onOpenQueryOverlay: (isOpen: true) => void;
 };
 export const TasksEmpty = ({ onOpenQueryOverlay }: Props) => {
   const t = useTranslations("TopPage.TasksEmpty");
@@ -26,7 +26,10 @@ export const TasksEmpty = ({ onOpenQueryOverlay }: Props) => {
       >
         {t("description")}
       </p>
-      <Button className="animate-bounce" onClick={onOpenQueryOverlay}>
+      <Button
+        className="animate-bounce"
+        onClick={() => onOpenQueryOverlay(true)}
+      >
         <Database />
         <span>{t("button.open")}</span>
       </Button>

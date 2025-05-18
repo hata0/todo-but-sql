@@ -7,7 +7,7 @@ import { Link } from "@/i18n/navigation";
 import { LanguageSelect } from "@/components/ui/language-select";
 
 type Props = {
-  onOpenQueryOverlay: () => void;
+  onOpenQueryOverlay: (isOpen: true) => void;
 };
 export const TopHeader = ({ onOpenQueryOverlay }: Props) => {
   return (
@@ -27,7 +27,7 @@ export const TopHeader = ({ onOpenQueryOverlay }: Props) => {
           variant="ghost"
           size="icon"
           className="hover:animate-hover-jiggle"
-          onClick={onOpenQueryOverlay}
+          onClick={() => onOpenQueryOverlay(true)}
         >
           <Database />
         </Button>

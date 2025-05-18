@@ -16,7 +16,7 @@ export type Props = {
   onResetDatabase: () => Promise<
     DeleteDatabaseResult | DatabaseNotInitializedError
   >;
-  onOpenQueryOverlay: () => void;
+  onOpenQueryOverlay: (isOpen: true) => void;
 };
 export const TasksList = ({
   tasks,
@@ -58,10 +58,18 @@ export const TasksList = ({
               {title}
             </div>
             <div className="flex items-center">
-              <Button variant="ghost" size="icon" onClick={onOpenQueryOverlay}>
+              <Button
+                variant="ghost"
+                size="icon"
+                onClick={() => onOpenQueryOverlay(true)}
+              >
                 <Pencil />
               </Button>
-              <Button variant="ghost" size="icon" onClick={onOpenQueryOverlay}>
+              <Button
+                variant="ghost"
+                size="icon"
+                onClick={() => onOpenQueryOverlay(true)}
+              >
                 <Trash2 />
               </Button>
             </div>
